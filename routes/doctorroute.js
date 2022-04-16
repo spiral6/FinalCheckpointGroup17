@@ -12,7 +12,7 @@ router.get('/db/findPatient', async (req, res) => {
     try {
         let searchName = "%" + req.query.doctor + "%";
         const result = await db.pool.query("SELECT pat_name, pat_email, pat_phone FROM PatientTable WHERE pat_name LIKE ? ORDER BY staff_name ASC;",[searchName]);
-        // console.log('Getting doctor_table data: ');
+        
         console.log(result);
         res.send(result);
     } catch (err) {
@@ -24,7 +24,7 @@ router.get('/db/findPatient', async (req, res) => {
 router.get('/db/patientInfo', async (req, res) => {
     try {
         const result = await db.pool.query("SELECT pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_allergy,pat_insurance,pat_address FROM PatientTable WHERE pat_id=?;",[req.body.pat_id]);
-        // console.log('Getting doctor_table data: ');
+        
         console.log(result);
         res.send(result);
     } catch (err) {
@@ -41,7 +41,7 @@ router.put('/db/patientRecord', async (req, res) => {
             req.body.rec_leave,
             req.body.pat_id
         ]);
-        // console.log('Getting doctor_table data: ');
+        
         console.log(result);
         res.send(result);
     } catch (err) {
@@ -55,7 +55,7 @@ router.get('/db/patientRecord', async (req, res) => {
         const result = await db.pool.query("SELECT rec_treatment,rec_admit,rec_leave FROM RecordsTable WHERE pat_id=?;",[
             req.body.pat_id
         ]);
-        // console.log('Getting doctor_table data: ');
+        
         console.log(result);
         res.send(result);
     } catch (err) {
@@ -74,7 +74,7 @@ router.put('/db/prescription', async (req, res) => {
             req.body.pat_id,
             req.cookies['doc_id']
         ]);
-        // console.log('Getting doctor_table data: ');
+        
         console.log(result);
         res.send(result);
     } catch (err) {
@@ -93,7 +93,7 @@ router.get('/db/appointment', async (req, res) => {
         const result = await db.pool.query("SELECT app_id,app_time,LocationTable.loc_name,PatientTable.pat_name FROM (((AppointmentTable INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) WHERE doc_id=?;",[
             req.cookies['doc_id']
         ]);
-        // console.log('Getting doctor_table data: ');
+        
         console.log(result);
         res.send(result);
     } catch (err) {
@@ -108,7 +108,9 @@ router.put('/db/appointment', async (req, res) => {
             req.cookies['doc_id'],
             req.body.app_id
         ]);
-        // console.log('Getting doctor_table data: ');
+        
+        // Send email to patient after success.
+
         console.log(result);
         res.send(result);
     } catch (err) {
