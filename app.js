@@ -2,7 +2,7 @@ const express = require('express')
 const db = require('./db')
 const app = express()
 const fs = require('fs')
-const port = 3000
+// const port = 80
 const bodyParser = require("body-parser");
 const cors = require("cors")
 
@@ -86,4 +86,8 @@ app.get('/test', async (req, res) => {
 //     } 
 // });
  
-app.listen(port, () => console.log(`Listening on port ${port}`));
+// app.listen(port, () => console.log(`Listening on port ${port}`));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});

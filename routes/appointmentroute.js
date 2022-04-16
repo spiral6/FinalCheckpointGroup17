@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 
 router.get('/db/desc', async (req, res) => {
     try {
-        const result = await db.pool.query("DESCRIBE appointmenttable");
+        const result = await db.pool.query("DESCRIBE AppointmentTable");
         // console.log('Describing doctor_table: ');
         console.log(result);
         res.send(result);
@@ -25,7 +25,7 @@ router.get('/db/desc', async (req, res) => {
 
 router.get('/db/select', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT * from appointmenttable");
+        const result = await db.pool.query("SELECT * from AppointmentTable");
         // console.log('Getting doctor_table data: ');
         console.log(result);
         res.send(result);
@@ -41,7 +41,7 @@ router.put('/db/insert', async (req, res) => {
     console.log(req.body);
     console.log("end req obj");
     try {
-        const result = await db.pool.query("REPLACE INTO appointmenttable(app_source, app_cancelled, app_time, loc_id, doc_id, pat_id) VALUES(?, ?, ?, ?, ?, ?)", [req.body.app_source, req.body.app_cancelled, req.body.app_time, req.body.loc_id, req.body.doc_id, req.body.pat_id]);
+        const result = await db.pool.query("REPLACE INTO AppointmentTable(app_source, app_cancelled, app_time, loc_id, doc_id, pat_id) VALUES(?, ?, ?, ?, ?, ?)", [req.body.app_source, req.body.app_cancelled, req.body.app_time, req.body.loc_id, req.body.doc_id, req.body.pat_id]);
         // console.log('Putting record into doctor_table: ');
         // console.log(req);
         console.log(result);

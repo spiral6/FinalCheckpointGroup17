@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 
 router.get('/db/desc', async (req, res) => {
     try {
-        const result = await db.pool.query("DESCRIBE patienttable");
+        const result = await db.pool.query("DESCRIBE PatientTable");
         // console.log('Describing doctor_table: ');
         console.log(result);
         res.send(result);
@@ -26,7 +26,7 @@ router.get('/db/desc', async (req, res) => {
 
 router.get('/db/select', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT * from patienttable");
+        const result = await db.pool.query("SELECT * from PatientTable");
         // console.log('Getting doctor_table data: ');
         console.log(result);
         res.send(result);
@@ -42,7 +42,7 @@ router.put('/db/insert', async (req, res) => {
     console.log(req.body);
     console.log("end req obj");
     try {
-        const result = await db.pool.query("REPLACE INTO patienttable(pat_name, pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_insurance,pat_address) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.pat_name,req.body.pat_sex,req.body.pat_email,req.body.pat_phone,req.body.pat_DoB,req.body.pat_height,req.body.pat_weight, req.body.pat_insurance, req.body.pat_address]);
+        const result = await db.pool.query("REPLACE INTO PatientTable(pat_name, pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_insurance,pat_address) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", [req.body.pat_name,req.body.pat_sex,req.body.pat_email,req.body.pat_phone,req.body.pat_DoB,req.body.pat_height,req.body.pat_weight, req.body.pat_insurance, req.body.pat_address]);
         // console.log('Putting record into doctor_table: ');
         // console.log(req);
         console.log(result);
