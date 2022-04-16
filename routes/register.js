@@ -13,17 +13,19 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use('/js', express.static('js'))
 router.use(cookieParser())
 
-router.post('/patient', async (req, res) => {
+router.get('/patient', async (req, res) => {
     try {
         res.sendFile(path.join(__dirname + "/../html/registerpatient.html"));
     } catch (err) {
         console.log(err);
     }
 });
-router.post('/staff', async (req, res) => {
+router.get('/staff', async (req, res) => {
     try {
         res.sendFile(path.join(__dirname + "/../html/registerstaff.html"));
     } catch (err) {
         console.log(err);
     }
 });
+
+module.exports = router
