@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 router.get('/desc', async (req, res) => {
     try {
         const result = await db.pool.query("DESCRIBE PatientTable");
-        // console.log('Describing doctor_table: ');
+        
         console.log(result);
         res.send(result);
     } catch (err) {
@@ -27,7 +27,7 @@ router.get('/desc', async (req, res) => {
 router.get('/select', async (req, res) => {
     try {
         const result = await db.pool.query("SELECT * from PatientTable");
-        // console.log('Getting doctor_table data: ');
+        
         console.log(result);
         res.send(result);
     } catch (err) {
@@ -53,8 +53,8 @@ router.put('/insert', async (req, res) => {
             req.body.pat_insurance, 
             req.body.pat_address]
         );
-        // console.log('Putting record into doctor_table: ');
-        // console.log(req);
+
+
         console.log(result);
         const json = JSON.stringify(result, (key, value) =>
             typeof value === "bigint" ? value.toString() + "n" : value

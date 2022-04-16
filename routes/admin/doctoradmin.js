@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 router.get('/select', async (req, res) => {
     try {
         const result = await db.pool.query("SELECT * from StaffTable WHERE staff_occupation='DOCTOR'");
-        // console.log('Getting doctor_table data: ');
+        
         console.log(result);
         res.send(result);
     } catch (err) {
