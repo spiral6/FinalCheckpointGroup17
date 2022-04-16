@@ -58,6 +58,18 @@ async function getSelect() {
     })
 }
 
+async function findDoctor() {
+    const response = await fetch(window.location.origin + '/db/findDoctor', {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.text()
+    ).then(body => {
+
+    })
+}
+
 async function putInsert(JSONObj) {
     // PatientForm = document.querySelector("form[name=PatientForm]")
     // PatientForm.querySelector("button").addEventListener('click', function() {
