@@ -6,6 +6,8 @@ const fs = require('fs')
 const bodyParser = require("body-parser");
 const cors = require("cors")
 const cookieParser = require('cookie-parser')
+const session = require('express-session')
+const path = require('path')
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -34,17 +36,22 @@ app.use('/portal', portal)
 app.use('/login', login)
 app.use('/register', register)
 
-router.get('/', async (req, res) => {
+app.get('/', async (req, res) => {
     try {
         // some sort of session creation here
         // set cookies here
     
+        // DEBUG
+        console.log("testing get request to root page");
+        console.log(req.cookies);
+
         if(req.cookies['pat_id'] || req.cookies['doc_id'] || req.cookies['staff_id']){
             res.redirect('/portal');
         } else if(req.cookies['admin']){
             res.redirect('/admin');
         } else {
-            res.sendFile(path.join(__dirname + "/../html/index.html"));
+            console.log(__dirname + "/html/")
+            res.sendFile(path.join(__dirname + "/html/index.html"));
         }
     
     } catch (err) {
@@ -52,7 +59,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/logout', async (req, res) => {
+app.post('/logout', async (req, res) => {
     try {
         // some sort of session creation here
         // set cookies here
