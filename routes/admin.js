@@ -4,6 +4,8 @@ const db = require('../db')
 const app = express()
 const fs = require('fs')
 const path = require('path')
+const cookieParser = require('cookie-parser')
+router.use(cookieParser())
 
 const doctoradmin = require('./admin/doctoradmin')
 const recordadmin = require('./admin/recordadmin')
@@ -21,5 +23,12 @@ router.use('/medicine', medicineadmin)
 router.use('/patient', patientadmin)
 router.use('/record', recordadmin)
 router.use('/staff', staffadmin)
+router.get('/', async (req, res) => {
+    try {
+        res.sendFile(path.join(__dirname + "/../html/admin/index.html"));
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 module.exports = router

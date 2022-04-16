@@ -4,6 +4,8 @@ const db = require('../db')
 const app = express()
 const fs = require('fs')
 const path = require('path')
+const cookieParser = require('cookie-parser')
+router.use(cookieParser())
 
 // Search for patient
 router.get('/db/findPatient', async (req, res) => {
@@ -70,7 +72,7 @@ router.put('/db/prescription', async (req, res) => {
             req.body.rx_end,
             req.body.rx_desc,
             req.body.pat_id,
-            req.body.doc_id
+            req.cookies['doc_id']
         ]);
         // console.log('Getting doctor_table data: ');
         console.log(result);
@@ -89,7 +91,7 @@ router.put('/db/prescription', async (req, res) => {
 router.get('/db/appointment', async (req, res) => {
     try {
         const result = await db.pool.query("SELECT app_id,app_time,LocationTable.loc_name,PatientTable.pat_name FROM (((AppointmentTable INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) WHERE doc_id=?;",[
-            req.body.doc_id
+            req.cookies['doc_id']
         ]);
         // console.log('Getting doctor_table data: ');
         console.log(result);
@@ -103,7 +105,7 @@ router.get('/db/appointment', async (req, res) => {
 router.put('/db/appointment', async (req, res) => {
     try {
         const result = await db.pool.query("UPDATE AppointmentTable SET app_cancelled=1 WHERE doc_id=? AND app_id=?;",[
-            req.body.staff_id,
+            req.cookies['doc_id'],
             req.body.app_id
         ]);
         // console.log('Getting doctor_table data: ');

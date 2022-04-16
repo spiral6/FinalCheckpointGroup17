@@ -4,5 +4,7 @@ const db = require('../db')
 const app = express()
 const fs = require('fs')
 const path = require('path')
+const cookieParser = require('cookie-parser')
+router.use(cookieParser())
 
 module.exports = router

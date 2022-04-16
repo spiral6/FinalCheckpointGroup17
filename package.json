@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Kambo2320/Checkpoint-4-Group-17#readme",
   "dependencies": {
     "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "mariadb": "^3.0.0"
