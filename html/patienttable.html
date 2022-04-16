@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <script src="/js/patienttable.js"></script>
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="patienttable_desc"></p>
+        <span id="patienttable_select"></span> 
+        <button id=patienttable_getdescbutton onclick=null >Show table description</button>
+        <button id=patienttable_getselect onclick=null >Get Table Data</button>
+
+        <form name=PatientForm>
+            <!-- <label for="pat_id">Patient id:</label><br>
+            <input type="text" id="pat_id" name="pat_id" value=""><br> -->
+            <label for="pat_name">Patient name:</label><br>
+            <input type="text" id="pat_name" name="pat_name" value=""><br>
+            <label for="pat_sex">Gender:</label><br>
+            <select type="text" id="pat_sex" name="pat_sex">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select><br>
+            <label for="pat_email">Patient email:</label><br>
+            <input type="email" id="pat_email" name="pat_email" value=""><br>
+            <label for="pat_phone">Patient phone:</label><br>
+            <input type="text" id="pat_phone" name="pat_phone" value=""><br>
+            <label for="pat_DoB">Patient date of birth:</label><br>
+            <input type="datetime-local" id="pat_DoB" name="pat_DoB" value=""><br>
+            <label for="pat_height">Patient height:</label><br>
+            <input type="text" id="pat_height" name="pat_height" value=""><br>
+            <label for="pat_weight">Patient weight:</label><br>
+            <input type="text" id="pat_weight" name="pat_weight" value=""><br>
+            <label for="pat_insurance">Patient insurance:</label><br>
+            <input type="text" id="pat_insurance" name="pat_insurance" value=""><br>
+            <label for="pat_address">Patient address:</label><br>
+            <input type="text" id="pat_address" name="pat_address" value=""><br>
+            <input type="submit" id="patientformsubmit" value="Submit">
+        </form> 
+    </body>
+</html>

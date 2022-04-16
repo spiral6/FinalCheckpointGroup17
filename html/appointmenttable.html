@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <script src="/js/appointmenttable.js"></script>
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="appointmenttable_desc"></p>
+        <span id="appointmenttable_select"></span> 
+        <button id=appointmenttable_getdescbutton onclick=null >Show table description</button>
+        <button id=appointmenttable_getselect onclick=null >Get Table Data</button>
+
+        <form name=AppointmentForm>
+            <!-- <label for="app_id">Appointment id:</label><br>
+            <input type="text" id="app_id" name="app_id" value=""><br> -->
+            <label for="app_source">Appointment source (this would be implied if it's a phone or web appointment, in the future):</label><br>
+            <input type="text" id="app_source" name="app_source" value=""><br>
+            <label for="app_time">Appointment time:</label><br>
+            <input type="datetime-local" id="app_time" name="app_time" value=""><br>
+            <label for="loc_id">Location id:</label><br>
+            <input type="text" id="loc_id" name="loc_id" value=""><br>
+            <label for="doc_id">Doctor id (will be replaced by Doctor name in the future with SQL lookup):</label><br>
+            <input type="text" id="doc_id" name="doc_id" value=""><br>
+            <label for="pat_id">Patient id (will be replaced by Patient name in the future with SQL lookup):</label><br>
+            <input type="text" id="pat_id" name="pat_id" value=""><br>
+            <input type="submit" id="appointmentformsubmit" value="Submit">
+        </form> 
+    </body>
+</html>

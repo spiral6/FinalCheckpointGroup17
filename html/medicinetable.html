@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <script src="/js/medicinetable.js"></script>
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="medicinetable_desc"></p>
+        <span id="medicinetable_select"></span> 
+        <button id=medicinetable_getdescbutton onclick=null >Show table description</button>
+        <button id=medicinetable_getselect onclick=null >Get Table Data</button>
+
+        <form name=MedicineForm>
+            <!-- <label for="med_id">Medicine ID:</label><br>
+            <input type="text" id="med_id" name="med_id" value=""><br> -->
+            <label for="med_name">Medicine name:</label><br>
+            <input type="text" id="med_name" name="med_name" value=""><br>
+            <label for="med_price">Medicine price:</label><br>
+            <input type="text" id="med_price" name="med_price" value=""><br>
+            <input type="submit" id="medicineformsubmit" value="Submit">
+        </form> 
+    </body>
+</html>

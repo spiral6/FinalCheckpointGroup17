@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script src="/js/locationtable.js"></script>
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="locationtable_desc"></p>
+        <span id="locationtable_select"></span> 
+        <button id=locationtable_getdescbutton onclick=null >Show table description</button>
+        <button id=locationtable_getselect onclick=null >Get Table Data</button>
+
+        <form name=LocationForm>
+            <label for="loc_id">Location id:</label><br>
+            <input type="text" id="loc_id" name="loc_id" value=""><br>
+            <label for="loc_city">Location city:</label><br>
+            <input type="text" id="loc_city" name="loc_city" value=""><br>
+            <label for="loc_clinic">Location clinic:</label><br>
+            <input type="text" id="loc_clinic" name="loc_clinic" value=""><br>
+            <label for="loc_dep">Location department:</label><br>
+            <input type="text" id="loc_dep" name="loc_dep" value=""><br>
+            <input type="submit" id="locationformsubmit" value="Submit">
+        </form> 
+    </body>
+</html>

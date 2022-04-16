@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <script src="/js/stafftable.js"></script>
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="stafftable_desc"></p>
+        <span id="stafftable_select"></span> 
+        <button id=stafftable_getdescbutton onclick=null >Show table description</button>
+        <button id=stafftable_getselect onclick=null >Get Table Data</button>
+
+        <form name=StaffForm>
+            <!-- <label for="staff_id">Staff id:</label><br>
+            <input type="text" id="staff_id" name="staff_id" value=""><br> -->
+            <label for="staff_name">Staff name:</label><br>
+            <input type="text" id="staff_name" name="staff_name" value=""><br>
+            <label for="staff_sex">Staff gender:</label><br>
+            <select type="text" id="staff_sex" name="staff_sex">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select><br>
+            <label for="staff_email">Staff email:</label><br>
+            <input type="email" id="staff_email" name="staff_email" value=""><br>
+            <label for="staff_phone">Staff phone:</label><br>
+            <input type="email" id="staff_phone" name="staff_phone" value=""><br>
+            <label for="staff_salary">Staff salary:</label><br>
+            <input type="text" id="staff_salary" name="staff_salary" value=""><br>
+            <input type="submit" id="staffformsubmit" value="Submit">
+        </form> 
+    </body>
+</html>

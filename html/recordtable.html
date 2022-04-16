@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <script src="/js/recordtable.js"></script>
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+        </style>
+    </head>
+    <body>
+        <p id="recordtable_desc"></p>
+        <span id="recordtable_select"></span> 
+        <button id=recordtable_getdescbutton onclick=null >Show table description</button>
+        <button id=recordtable_getselect onclick=null >Get Table Data</button>
+
+        <form name=RecordForm>
+            <!-- <label for="rec_id">Record id:</label><br>
+            <input type="text" id="rec_id" name="rec_id" value=""><br> -->
+            <label for="rec_treatment">Record treatment notes:</label><br>
+            <textarea id="rec_treatment" name="rec_treatment" rows="4" cols="50">><br>
+            <label for="rec_admit">Record admission time:</label><br>
+            <input type="datetime-local" id="rec_admit" name="rec_admit" value=""><br>
+            <label for="rec_leave">Record leave time:</label><br>
+            <input type="datetime-local" id="rec_leave" name="rec_leave" value=""><br>
+            <input type="submit" id="recordformsubmit" value="Submit">
+        </form> 
+    </body>
+</html>
