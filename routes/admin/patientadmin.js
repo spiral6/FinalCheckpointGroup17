@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
     try {
         res.sendFile(path.join(__dirname + "/../html/patienttable.html"));
     } catch (err) {
-        throw err;
+        console.log(err);
     }
 });
 
@@ -20,7 +20,7 @@ router.get('/desc', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        throw err;
+        console.log(err);
     }
 })
 
@@ -31,7 +31,7 @@ router.get('/select', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        throw err;
+        console.log(err);
     }
 })
 
@@ -61,7 +61,7 @@ router.put('/insert', async (req, res) => {
         );
         res.send(json);
     } catch (err) {
-        throw err;
+        console.log(err);
     }
 })
 
