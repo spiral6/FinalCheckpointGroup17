@@ -3,19 +3,19 @@ const router = express.Router()
 const db = require('../db')
 const app = express()
 const fs = require('fs')
-const path = require('path');
+const path = require('path')
 
 router.get('/', async (req, res) => {
     try {
-        res.sendFile(path.join(__dirname + "/../html/locationtable.html"));
+        res.sendFile(path.join(__dirname + "/../html/patienttable.html"));
     } catch (err) {
         throw err;
     }
 });
 
-router.get('/db/desc', async (req, res) => {
+router.get('/desc', async (req, res) => {
     try {
-        const result = await db.pool.query("DESCRIBE LocationTable");
+        const result = await db.pool.query("DESCRIBE PatientTable");
         // console.log('Describing doctor_table: ');
         console.log(result);
         res.send(result);
@@ -24,9 +24,9 @@ router.get('/db/desc', async (req, res) => {
     }
 })
 
-router.get('/db/select', async (req, res) => {
+router.get('/select', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT * from LocationTable");
+        const result = await db.pool.query("SELECT * from PatientTable");
         // console.log('Getting doctor_table data: ');
         console.log(result);
         res.send(result);
@@ -37,12 +37,22 @@ router.get('/db/select', async (req, res) => {
 
 // Also not implementing input sanitation of any sort. - Shamee
 // 
-router.put('/db/insert', async (req, res) => {
+router.put('/insert', async (req, res) => {
     console.log("req obj");
     console.log(req.body);
     console.log("end req obj");
     try {
-        const result = await db.pool.query("REPLACE INTO LocationTable(loc_id, loc_city, loc_clinic, loc_dep) VALUES(?, ?, ?, ?)", [req.body.loc_id, req.body.loc_city, req.body.loc_clinic, req.body.loc_dep]);
+        const result = await db.pool.query("REPLACE INTO PatientTable(pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_insurance,pat_address) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+        [req.body.pat_name,
+            req.body.pat_sex,
+            req.body.pat_email,
+            req.body.pat_phone,
+            req.body.pat_DoB,
+            req.body.pat_height,
+            req.body.pat_weight, 
+            req.body.pat_insurance, 
+            req.body.pat_address]
+        );
         // console.log('Putting record into doctor_table: ');
         // console.log(req);
         console.log(result);
@@ -54,16 +64,5 @@ router.put('/db/insert', async (req, res) => {
         throw err;
     }
 })
-
-// For the sake of this checkpoint, we're not doing POST. - Shamee
-//
-// router.post('/db/insert', async (req, res) => {
-//     try {
-//         const result = await db.pool.query("DESCRIBE locationtable");
-//         res.send(result);
-//     } catch (err) {
-//         throw err;
-//     }
-// })
 
 module.exports = router

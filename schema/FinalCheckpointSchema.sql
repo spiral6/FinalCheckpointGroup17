@@ -75,6 +75,7 @@ PRIMARY KEY (med_id)
 
 CREATE TABLE IF NOT EXISTS PrescriptionTable(
 rx_id INT AUTO_INCREMENT,
+doc_id INT NOT NULL,
 med_name VARCHAR(200) NOT NULL,
 rx_start DATETIME NOT NULL, -- timestamp for when this was admitted?
 rx_end DATETIME, -- timestamp for when it was left?
@@ -102,7 +103,8 @@ ADD FOREIGN KEY (staff_id) REFERENCES StaffTable(staff_id),
 ADD FOREIGN KEY (pat_id) REFERENCES PatientTable(pat_id);
 
 ALTER TABLE PrescriptionTable
-ADD FOREIGN KEY (pat_id) REFERENCES PatientTable(pat_id);
+ADD FOREIGN KEY (pat_id) REFERENCES PatientTable(pat_id),
+ADD FOREIGN KEY (doc_id) REFERENCES StaffTable(staff_id);
 
 ALTER TABLE PatientTable
 ADD FOREIGN KEY (pat_pcp) REFERENCES StaffTable(staff_id);

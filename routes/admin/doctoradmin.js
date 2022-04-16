@@ -5,11 +5,17 @@ const app = express()
 const fs = require('fs')
 const path = require('path')
 
-// Find doctor
-router.get('/db/findDoctor', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        let searchName = "%" + req.query.doctor + "%";
-        const result = await db.pool.query("SELECT staff_name, staff_email, staff_phone FROM StaffTable WHERE staff_occupation=\"DOCTOR\" AND staff_name LIKE ? ORDER BY staff_name ASC;",[searchName]);
+        res.sendFile(path.join(__dirname + "/../html/admin/doctoradmin.html"));
+    } catch (err) {
+        throw err;
+    }
+});
+
+router.get('/select', async (req, res) => {
+    try {
+        const result = await db.pool.query("SELECT * from StaffTable WHERE staff_occupation='DOCTOR'");
         // console.log('Getting doctor_table data: ');
         console.log(result);
         res.send(result);
