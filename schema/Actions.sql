@@ -1,3 +1,11 @@
+-- User actions
+-- Login
+SELECT * FROM UserTable WHERE user_email=?; 
+
+-- Logout
+
+-------------------------------------------------------------------------------------------------------------
+
 -- Doctor custom actions
 -- Find Patient
 SELECT pat_id,pat_name,pat_phone,pat_email FROM PatientTable WHERE pat_name LIKE ? ORDER BY pat_name ASC;

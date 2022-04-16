@@ -12,6 +12,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/js', express.static('js'))
 app.use(cookieParser())
+app.use(session({
+	secret: 'testsecret',
+	resave: true,
+	saveUninitialized: true
+}));
 
 const doctorroute = require('./routes/doctorroute')
 const patientroute = require('./routes/patientroute')
@@ -19,7 +24,8 @@ const staffroute = require('./routes/staffroute')
 const adminroute = require('./routes/admin.js')
 const portal = require('./routes/portal')
 const login = require('./routes/login')
-const register = require('./routes/register')
+const register = require('./routes/register');
+const router = require('./routes/login');
 app.use('/doctor', doctorroute)
 app.use('/patient', patientroute)
 app.use('/staff', staffroute)
@@ -44,6 +50,34 @@ router.get('/', async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+});
+
+router.post('/logout', async (req, res) => {
+    try {
+        // some sort of session creation here
+        // set cookies here
+        req.session.destroy((err) => {
+            if(req.cookies['user_id']){
+                res.clearCookie('user_id');
+            }
+            if(req.cookies['pat_id']){
+                res.clearCookie('pat_id');
+            }
+            if(req.cookies['doc_id']){
+                res.clearCookie('doc_id');
+            }
+            if(req.cookies['staff_id']){
+                res.clearCookie('staff_id');
+            }
+            req.end();
+            // TODO: improve with an actual sign out page. -- Shamee
+            res.send("You have been signed out.");
+            // res.redirect('/') // will always fire after session is destroyed
+        })
+    } catch (err) {
+        console.log(err);
+    }
+
 });
 
 const PORT = process.env.PORT || 3000;
