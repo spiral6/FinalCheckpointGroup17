@@ -1,5 +1,5 @@
 const express = require('express')
-const db = require('./db')
+const db = require('../db')
 const router = express.Router()
 const fs = require('fs')
 // const port = 80
