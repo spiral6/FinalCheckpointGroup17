@@ -35,6 +35,7 @@ router.get('/signup', async (req, res) => {
     }
 })
 
+
 router.post('/signup', async (req, res) => {
     try {
         const connection = await db.pool.getConnection();
@@ -83,6 +84,48 @@ router.post('/signup', async (req, res) => {
         }
         catch (err) {
             console.err(err);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/myappointments', async (req, res) => {
+    try{
+        if(req.cookies['doc_id'] || req.cookies['staff_id']){
+            res.redirect('/portal');
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.sendFile(path.join(__dirname + "/../html/patient/myappointments.html"));
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/findclinic', async (req, res) => {
+    try{
+        if(req.cookies['doc_id'] || req.cookies['staff_id']){
+            res.redirect('/portal');
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.sendFile(path.join(__dirname + "/../html/patient/findclinic.html"));
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/finddoctor', async (req, res) => {
+    try{
+        if(req.cookies['doc_id'] || req.cookies['staff_id']){
+            res.redirect('/portal');
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.sendFile(path.join(__dirname + "/../html/patient/finddoctor.html"));
         }
     } catch (err) {
         console.log(err);
