@@ -35,6 +35,104 @@ router.get('/signup', async (req, res) => {
     }
 })
 
+router.get('/editpatientinfo', async (req, res) => {
+    try{
+        if(req.cookies['staff_id']){
+            res.sendFile(path.join(__dirname + "/../html/staff/staffeditpatientinfo.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/editdoctorinfo', async (req, res) => {
+    try{
+        if(req.cookies['staff_id']){
+            res.sendFile(path.join(__dirname + "/../html/staff/staffeditdoctorinfo.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/viewdoctorinfo', async (req, res) => {
+    try{
+        if(req.cookies['staff_id']){
+            res.sendFile(path.join(__dirname + "/../html/staff/staffviewdoctorinfo.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/viewschedule', async (req, res) => {
+    try{
+        if(req.cookies['staff_id']){
+            res.sendFile(path.join(__dirname + "/../html/staff/staffviewschedule.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/viewpayroll', async (req, res) => {
+    try{
+        if(req.cookies['staff_id']){
+            res.sendFile(path.join(__dirname + "/../html/staff/staffviewpayroll.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/viewprofile', async (req, res) => {
+    try{
+        if(req.cookies['staff_id']){
+            res.sendFile(path.join(__dirname + "/../html/staff/staffviewprofile.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/editprofile', async (req, res) => {
+    try{
+        if(req.cookies['staff_id']){
+            res.sendFile(path.join(__dirname + "/../html/staff/staffeditprofile.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
 // Edit Doctor
 router.put('/db/appointment', async (req, res) => {
     try {
