@@ -10,11 +10,14 @@ router.use(cookieParser())
 router.get('/', async (req, res) => {
     try{
         if(req.cookies['pat_id']){
-            res.sendFile(path.join(__dirname + "/../html/patientportal.html"));
+            res.sendFile(path.join(__dirname + "/../html/patient/patientportal.html"));
         } else if(req.cookies['doc_id']) {
-            res.sendFile(path.join(__dirname + "/../html/doctorportal.html"));
+            res.sendFile(path.join(__dirname + "/../html/doctor/doctorportal.html"));
         } else if(req.cookies['staff_id']) {
-            res.sendFile(path.join(__dirname + "/../html/staffportal.html"));
+            res.sendFile(path.join(__dirname + "/../html/staff/staffportal.html"));
+        } else {
+            console.log(__dirname + "/html/")
+            res.sendFile(path.join(__dirname + "/../html/index.html"));
         }
     } catch (err) {
         console.log(err);

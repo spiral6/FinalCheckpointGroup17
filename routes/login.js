@@ -36,33 +36,47 @@ router.post('/', async (req, res) => {
     try {
         // some sort of session creation here
         // set cookies here
-        const email= req.body.email;
-        const password = req.body.password;
+        const email= req.body.user_email;
+        const password = req.body.user_password;
 
-        const result = await db.pool.query("SELECT * FROM UserTable WHERE user_email=?;",[
-            email
+        console.log(req.body);
+        console.log(email);
+        console.log(password);
+
+        const result = await db.pool.query("SELECT * FROM UserTable WHERE user_email=? AND user_password=?;",[
+            email,
+            password
         ]);
 
-        const password_check = await bcrypt.compare(password, result[0].password)
-        if(password_check){
-            res.cookie('user_id',result[0].pat_id)
-
+        console.log(result[0])
+        if(result[0]) {
+            res.cookie('user_id',result[0].user_id)
+    
             if(result[0].staff_id){
-                const doctor_check = await db.pool.query("SELECT * FROM StaffTable WHERE staff_id=? AND staff_occupation='DOCTOR';",[
+                const doctor_check = await db.pool.query("SELECT * FROM StaffTable WHERE staff_id=?;",[
                     result[0].staff_id
                 ]);
-                if(doctor_check){
+                if(doctor_check[0].staff_occupation === "DOCTOR"){
+                    console.log("Logged in as a Doctor.")
                     res.cookie('doc_id',result[0].staff_id)
                 } else {
+                    console.log("Logged in as a Staff.")
                     res.cookie('staff_id',result[0].staff_id)
+                    res.cookie('staff_occupation', doctor_check[0].staff_occupation)
                 }
-            } else if(result[0].pat_id){
-                res.cookie('pat_id',result[0].user_id)
+            } 
+            else if(result[0].pat_id){
+                console.log("Logged in as a Patient.")
+                res.cookie('pat_id',result[0].pat_id)
             }
+            
+            req.session.loggedin = true;
+            res.sendStatus(200)
+        } else {
+            console.log("Login unsuccessful.")
+            req.session.loggedin = false;
+            res.sendStatus(403)
         }
-
-        request.session.loggedin = true;
-        res.redirect('/');
     
     } catch (err) {
         console.log(err);
