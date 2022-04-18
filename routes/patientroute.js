@@ -92,12 +92,12 @@ router.post('/signup', async (req, res) => {
 
 router.get('/myappointments', async (req, res) => {
     try{
-        if(req.cookies['doc_id'] || req.cookies['staff_id']){
-            res.redirect('/portal');
+        if(req.cookies['pat_id']){
+            res.sendFile(path.join(__dirname + "/../html/patient/patientmyappointments.html"));
         } else if(req.cookies['admin']){
             res.redirect('/admin');
         } else {
-            res.sendFile(path.join(__dirname + "/../html/patient/myappointments.html"));
+            res.redirect('/');
         }
     } catch (err) {
         console.log(err);
@@ -106,12 +106,12 @@ router.get('/myappointments', async (req, res) => {
 
 router.get('/findclinic', async (req, res) => {
     try{
-        if(req.cookies['doc_id'] || req.cookies['staff_id']){
-            res.redirect('/portal');
+        if(req.cookies['pat_id']){
+            res.sendFile(path.join(__dirname + "/../html/patient/patientfindclinic.html"));
         } else if(req.cookies['admin']){
             res.redirect('/admin');
         } else {
-            res.sendFile(path.join(__dirname + "/../html/patient/findclinic.html"));
+            res.redirect('/');
         }
     } catch (err) {
         console.log(err);
@@ -120,12 +120,40 @@ router.get('/findclinic', async (req, res) => {
 
 router.get('/finddoctor', async (req, res) => {
     try{
-        if(req.cookies['doc_id'] || req.cookies['staff_id']){
-            res.redirect('/portal');
+        if(req.cookies['pat_id']){
+            res.sendFile(path.join(__dirname + "/../html/patient/patientfinddoctor.html"));
         } else if(req.cookies['admin']){
             res.redirect('/admin');
         } else {
-            res.sendFile(path.join(__dirname + "/../html/patient/finddoctor.html"));
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/viewprofile', async (req, res) => {
+    try{
+        if(req.cookies['pat_id']){
+            res.sendFile(path.join(__dirname + "/../html/patient/patientviewprofile.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/editprofile', async (req, res) => {
+    try{
+        if(req.cookies['pat_id']){
+            res.sendFile(path.join(__dirname + "/../html/patient/patienteditprofile.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
         }
     } catch (err) {
         console.log(err);
