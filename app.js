@@ -85,6 +85,9 @@ app.post('/logout', async (req, res) => {
             if(req.cookies['staff_id']){
                 res.clearCookie('staff_id');
             }
+            if(req.cookies['staff_occupation']){
+                res.clearCookie('staff_occupation');
+            }
             res.sendStatus(200);
         })
     } catch (err) {
