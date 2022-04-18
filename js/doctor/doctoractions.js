@@ -46,6 +46,11 @@ function createTable(table_data) {
                 td = document.createElement('td');
                 tr.appendChild(td);
                 td.innerHTML = " ";
+            } else if (key == "app_time" || key == "rec_admit" || key == "rec_leave") {
+                td = document.createElement('td');
+                tr.appendChild(td);
+                const datetime = new Date(row_data[key]);
+                td.innerHTML = datetime.toLocaleString();
             } else {
                 td = document.createElement('td');
                 tr.appendChild(td);
@@ -81,7 +86,10 @@ const alias = {
     loc_city: "Clinic Location",
     loc_name: "Clinic Name",
     loc_dep: "Clinic Department",
-    schedule_workday: "Schedule Workday"
+    schedule_workday: "Schedule Workday",
+    rec_treatment: "Treatment",
+    rec_admit: "Patient Enter Date",
+    rec_leave: "Patient Leave Date"
 }
 
 async function findPatient() {
@@ -149,6 +157,20 @@ async function viewSchedule() {
     })
 }
 
+async function viewPatientRecord(id) {
+    const response = await fetch(window.location.origin + '/doctor/db/patientrecord?pat_id=' + id,  {
+        method: 'get',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => response.text()
+    ).then(body => {
+        console.log(createTable(JSON.parse(body)))
+        document.getElementById("viewpatientrecord_results").innerHTML = createTable(JSON.parse(body)).innerHTML;
+        document.getElementById("viewpatientrecord_results").className = "table";
+    })
+}
+
 window.onload = function() { 
 
     const searchButton = document.getElementById('patient_search_button')
@@ -174,13 +196,20 @@ window.onload = function() {
         });
     }
 
-    button = document.getElementById('patient_info_button');
-    // button.className = "btn btn-primary btn-block";
-    // button.setAttribute('id', 7777);
-    // button.innerHTML = "PatientInfo";
-    button.addEventListener('click', () => {
-        viewPatientInfo(7777);
-    });
+    const patientInfoButton = document.getElementById('patient_info_button');
+    if(patientInfoButton){
+        patientInfoButton.addEventListener('click', () => {
+            viewPatientInfo(7777);
+        });
+    }
+
+    const patientRecordButton = document.getElementById('viewpatientrecord_button');
+    if(patientRecordButton){
+        patientRecordButton.addEventListener('click', () => {
+            viewPatientRecord(1111);
+        });
+    }
+
     // tr.appendChild(button);
 
     // const viewPayrollButton = document.getElementById('viewpayroll_button')

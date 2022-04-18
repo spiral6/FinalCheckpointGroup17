@@ -46,7 +46,7 @@ function createTable(table_data) {
                 td = document.createElement('td');
                 tr.appendChild(td);
                 td.innerHTML = " ";
-            } else if (key == "app_time") {
+            } else if (key == "app_time" || key == "rec_admit" || key == "rec_leave") {
                 td = document.createElement('td');
                 tr.appendChild(td);
                 const datetime = new Date(row_data[key]);
