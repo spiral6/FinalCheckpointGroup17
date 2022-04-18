@@ -1,4 +1,6 @@
 async function signOut(){
+
+    console.log("hit signout");
     
     const response = await fetch('/logout', {
         method: 'post',
