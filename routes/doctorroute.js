@@ -49,6 +49,20 @@ router.get('/viewpayroll', async (req, res) => {
     }
 })
 
+router.get('/patientrecord', async (req, res) => {
+    try{
+        if(req.cookies['doc_id']){
+            res.sendFile(path.join(__dirname + "/../html/doctor/doctorpatientrecord.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
 router.get('/viewschedule', async (req, res) => {
     try{
         if(req.cookies['doc_id']){
@@ -77,19 +91,19 @@ router.get('/createprescription', async (req, res) => {
     }
 })
 
-router.get('/createprescription', async (req, res) => {
-    try{
-        if(req.cookies['doc_id']){
-            res.sendFile(path.join(__dirname + "/../html/doctor/doctorcreateprescription.html"));
-        } else if(req.cookies['admin']){
-            res.redirect('/admin');
-        } else {
-            res.redirect('/');
-        }
-    } catch (err) {
-        console.log(err);
-    }
-})
+// router.get('/createprescription', async (req, res) => {
+//     try{
+//         if(req.cookies['doc_id']){
+//             res.sendFile(path.join(__dirname + "/../html/doctor/doctorcreateprescription.html"));
+//         } else if(req.cookies['admin']){
+//             res.redirect('/admin');
+//         } else {
+//             res.redirect('/');
+//         }
+//     } catch (err) {
+//         console.log(err);
+//     }
+// })
 
 router.get('/viewprofile', async (req, res) => {
     try{
@@ -166,8 +180,8 @@ router.put('/db/patientRecord', async (req, res) => {
 // View patient records
 router.get('/db/patientRecord', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT rec_treatment,rec_admit,rec_leave FROM RecordsTable WHERE pat_id=?;",[
-            req.body.pat_id
+        const result = await db.pool.query("SELECT rec_treatment,rec_admit,rec_leave FROM RecordTable WHERE pat_id=?;",[
+            req.query.pat_id
         ]);
         
         console.log(result);
