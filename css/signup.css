@@ -73,13 +73,6 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
-.space {
-  width: 4px;
-  height: auto;
-  display: inline-block;
-}
-
 .centered-button{
   display: flex;
   justify-content: center;
