@@ -7,6 +7,20 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 router.use(cookieParser())
 
+router.get('/', async (req, res) => {
+    try{
+        if(req.cookies['pat_id'] || req.cookies['doc_id'] || req.cookies['staff_id']){
+            res.redirect('/portal');
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.sendFile(path.join(__dirname + "/../html/staff/stafflogin.html"));
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
 // Search for patient
 router.get('/db/findPatient', async (req, res) => {
     try {

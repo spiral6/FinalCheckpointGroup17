@@ -13,6 +13,8 @@ app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/js', express.static('js'))
+app.use('/img', express.static('img'))
+app.use('/css', express.static('css'))
 app.use(cookieParser())
 app.use(session({
 	secret: 'testsecret',
@@ -26,15 +28,12 @@ const staffroute = require('./routes/staffroute')
 const adminroute = require('./routes/admin.js')
 const portal = require('./routes/portal')
 const login = require('./routes/login')
-const register = require('./routes/register');
-const router = require('./routes/login');
 app.use('/doctor', doctorroute)
 app.use('/patient', patientroute)
 app.use('/staff', staffroute)
 app.use('/admin', adminroute)
 app.use('/portal', portal)
 app.use('/login', login)
-app.use('/register', register)
 
 app.get('/', async (req, res) => {
     try {
@@ -42,8 +41,8 @@ app.get('/', async (req, res) => {
         // set cookies here
     
         // DEBUG
-        console.log("testing get request to root page");
-        console.log(req.cookies);
+        // console.log("testing get request to root page");
+        // console.log(req.cookies);
 
         if(req.cookies['pat_id'] || req.cookies['doc_id'] || req.cookies['staff_id']){
             res.redirect('/portal');
@@ -53,6 +52,16 @@ app.get('/', async (req, res) => {
             console.log(__dirname + "/html/")
             res.sendFile(path.join(__dirname + "/html/index.html"));
         }
+    
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+app.get('/resetpass', async (req, res) => {
+    try {
+
+        res.sendFile(path.join(__dirname + "/html/resetpass.html"));
     
     } catch (err) {
         console.log(err);
@@ -76,13 +85,11 @@ app.post('/logout', async (req, res) => {
             if(req.cookies['staff_id']){
                 res.clearCookie('staff_id');
             }
-            req.end();
-            // TODO: improve with an actual sign out page. -- Shamee
-            res.send("You have been signed out.");
-            // res.redirect('/') // will always fire after session is destroyed
+            res.sendStatus(200);
         })
     } catch (err) {
         console.log(err);
+        res.sendStatus(403);
     }
 
 });

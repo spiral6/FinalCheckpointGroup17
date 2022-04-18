@@ -7,6 +7,88 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 router.use(cookieParser())
 
+router.get('/', async (req, res) => {
+    try{
+        if(req.cookies['pat_id'] || req.cookies['doc_id'] || req.cookies['staff_id']){
+            res.redirect('/portal');
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.sendFile(path.join(__dirname + "/../html/patient/patientlogin.html"));
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/signup', async (req, res) => {
+    try{
+        if(req.cookies['pat_id'] || req.cookies['doc_id'] || req.cookies['staff_id']){
+            res.redirect('/portal');
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.sendFile(path.join(__dirname + "/../html/patient/registerpatient.html"));
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.post('/signup', async (req, res) => {
+    try {
+        const connection = await db.pool.getConnection();
+        try {
+            await connection.beginTransaction();
+
+            try {
+                console.log(req.body);
+                await connection.batch("INSERT INTO UserTable(user_email, user_password) VALUES(?,?)",[
+                    req.body.user_email,
+                    req.body.user_password
+                ]);
+                await connection.batch("INSERT INTO PatientTable(pat_name,pat_email,pat_sex,pat_phone,pat_DoB) VALUES(?,?,?,?,?)",[
+                    req.body.pat_name,
+                    req.body.user_email,
+                    req.body.pat_sex,
+                    req.body.pat_phone,
+                    req.body.pat_DoB
+                ]);
+                const pat_id_check = await connection.query("SELECT pat_id FROM PatientTable WHERE pat_email=?",[req.body.user_email]);
+
+                if(pat_id_check) {
+                    console.log(pat_id_check[0]);
+                    pat_id = pat_id_check[0]['pat_id'];
+                    await connection.batch("UPDATE UserTable SET pat_id=? WHERE user_email=?",[
+                        pat_id,
+                        req.body.user_email
+                    ]);
+                    await connection.commit();
+                } else {
+                    throw 'Cannot find patient ID for insertion!';
+                }
+                // await connection.batch("INSERT INTO UserTable(pat_id) VALUES(?) WHERE pat_email=?",[
+                //     pat_id,
+                //     req.body.user_email
+                // ]);
+
+                // await connection.commit();
+
+                res.sendStatus(200);
+            } catch (err){
+                console.error("Error loading data, reverting changes: ", err);
+                await connection.rollback();
+                res.status(400).send(err);
+            }
+        }
+        catch (err) {
+            console.err(err);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
 // Find doctor
 router.get('/db/findDoctor', async (req, res) => {
     try {

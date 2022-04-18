@@ -7,13 +7,43 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 router.use(cookieParser())
 
+router.get('/', async (req, res) => {
+    try{
+        if(req.cookies['pat_id'] || req.cookies['doc_id'] || req.cookies['staff_id']){
+            res.redirect('/portal');
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.sendFile(path.join(__dirname + "/../html/staff/stafflogin.html"));
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+router.get('/signup', async (req, res) => {
+    try{
+        if(req.cookies['pat_id'] || req.cookies['doc_id'] || req.cookies['staff_id']){
+            res.redirect('/portal');
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.sendFile(path.join(__dirname + "/../html/staff/registerstaff.html"));
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
 // Edit Doctor
 router.put('/db/appointment', async (req, res) => {
     try {
+        
         // TODO: Needs major check to see if this implementation even works.
         const secretary_check = await db.pool.query("SELECT staff_name FROM StaffTable WHERE staff_id=? AND staff_occupation='SECRETARY'",[
             req.cookies['staff_id']
         ]);
+
         if(secretary_check.result > 0){    
             const result = await db.pool.query("INSERT INTO AppointmentTable(app_source,app_time,loc_id,doc_id,pat_id) VALUES(?,?,(SELECT loc_id FROM LocationTable WHERE loc_name=?),(SELECT staff_id FROM StaffTable WHERE staff_name=? AND staff_occupation='DOCTOR'),?);",[
                 req.body.app_source,

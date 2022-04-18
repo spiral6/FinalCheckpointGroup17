@@ -1,3 +1,38 @@
-Test root page. Hello world!
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Home Page</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
-Will put links to patient login and staff login here.
+    <!-- Custom styles for this template -->
+    <link href="../css/sidebars.css" rel="stylesheet">
+    <link href="../css/settings.css" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+    <div class="container">
+      <h1 class="form-signup-title">Home Page</h1>
+	  <img src="../img/logo.png" alt="Logo" class="logo">
+	  <div class="centered-button">
+        <button onclick="location.href='./staff'" class="btn btn-lg btn-primary btn-block" type="submit">Staff Portal</button>
+      </div>
+	  <div class="centered-button">
+        <button onclick="location.href='./patient'" class="btn btn-lg btn-primary btn-block" type="submit">Patient Portal</button>
+      </div>
+    </div> <!-- /container -->
+  </main>
+  <div class="fixed-bottom"></div>
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="../js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+
+      <script src="../js/sidebars.js"></script>
+  </body>
+</html>
