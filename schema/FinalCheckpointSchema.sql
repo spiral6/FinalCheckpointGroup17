@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS UserTable(
 user_id INT AUTO_INCREMENT,
-user_email VARCHAR(200) UNIQUE,
+user_email VARCHAR(200) NOT NULL UNIQUE,
 user_password VARCHAR(300) NOT NULL,
 staff_id INT,
 pat_id INT,
@@ -12,9 +12,8 @@ staff_id INT AUTO_INCREMENT,
 staff_name VARCHAR(200) NOT NULL, 
 staff_sex SET("MALE", "FEMALE", "OTHER") NOT NULL,
 staff_email VARCHAR(100) NOT NULL,
-staff_phone INT(13) NOT NULL,
+staff_phone VARCHAR(15) NOT NULL, -- Not recommended to use phone number as int.
 loc_id INT NOT NULL, -- Foreign Key with loc_id in LocationTable 
-staff_workdays SET("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"),
 staff_salary FLOAT,
 staff_occupation VARCHAR(100) NOT NULL,
 doc_specialty VARCHAR(100), -- Their specialty field
@@ -22,12 +21,19 @@ doc_perms VARCHAR(100), -- Chief surgeon or similar
 PRIMARY KEY (staff_id)
 );
 
+CREATE TABLE IF NOT EXISTS ScheduleTable(
+staff_id INT,
+schedule_workday SET("MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"),
+loc_id INT,
+PRIMARY KEY(staff_id, schedule_workday, loc_id)
+);
+
 CREATE TABLE IF NOT EXISTS PatientTable(
 pat_id INT AUTO_INCREMENT,
 pat_name VARCHAR(200) NOT NULL,
 pat_sex SET("MALE", "FEMALE", "OTHER") NOT NULL,
 pat_email VARCHAR(100),
-pat_phone INT(13) NOT NULL,
+pat_phone VARCHAR(15) NOT NULL, -- Not recommended to use phone number as int.
 pat_DoB DATE NOT NULL,
 pat_height FLOAT,
 pat_weight FLOAT,
@@ -87,9 +93,6 @@ PRIMARY KEY (rx_id)
 ALTER TABLE StaffTable
 ADD FOREIGN KEY(loc_id) REFERENCES LocationTable(loc_id);
 
-ALTER TABLE DoctorTable
-ADD FOREIGN KEY (staff_id) REFERENCES StaffTable(staff_id);
-
 ALTER TABLE AppointmentTable
 ADD FOREIGN KEY (loc_id) REFERENCES LocationTable(loc_id),
 ADD FOREIGN KEY (doc_id) REFERENCES StaffTable(staff_id),
@@ -108,3 +111,11 @@ ADD FOREIGN KEY (doc_id) REFERENCES StaffTable(staff_id);
 
 ALTER TABLE PatientTable
 ADD FOREIGN KEY (pat_pcp) REFERENCES StaffTable(staff_id);
+
+ALTER TABLE UserTable
+ADD FOREIGN KEY (pat_id) REFERENCES PatientTable(pat_id),
+ADD FOREIGN KEY (staff_id) REFERENCES StaffTable(staff_id);
+
+ALTER TABLE ScheduleTable
+ADD FOREIGN KEY (staff_id) REFERENCES StaffTable(staff_id),
+ADD FOREIGN KEY (loc_id) REFERENCES LocationTable(loc_id);

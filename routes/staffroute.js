@@ -50,4 +50,58 @@ router.put('/db/appointment', async (req, res) => {
     }
 })
 
+// View self schedule
+router.get('/db/schedule', async (req, res) => {
+    try{
+        const result = await db.pool.query("SELECT StaffTable.staff_name,schedule_workday,LocationTable.loc_name FROM ((ScheduleTable INNER JOIN LocationTable ON ScheduleTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON ScheduleTable.staff_id=StaffTable.staff_id) WHERE ScheduleTable.staff_id=?;",[
+            req.cookies['staff_id']
+        ]);
+
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+// View all schedules (only for hospital admin)
+router.get('/db/schedule', async (req, res) => {
+    try{
+        const result = await db.pool.query("SELECT StaffTable.staff_name,schedule_workday,LocationTable.loc_name FROM ((ScheduleTable INNER JOIN LocationTable ON ScheduleTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON ScheduleTable.staff_id=StaffTable.staff_id);",[
+        ]);
+
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+// View all doctor schedules (only for secretary/hospital admin)
+router.get('/db/schedule', async (req, res) => {
+    try{
+        const result = await db.pool.query("SELECT StaffTable.staff_name,schedule_workday,LocationTable.loc_name FROM ((ScheduleTable INNER JOIN LocationTable ON ScheduleTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON ScheduleTable.staff_id=StaffTable.staff_id) WHERE StaffTable.staff_occupation='DOCTOR';",[
+        ]);
+
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.log(err);
+    }
+})
+
+// View specific person schedule (only for hospital admin)
+router.get('/db/schedule', async (req, res) => {
+    try{
+        const result = await db.pool.query("SELECT StaffTable.staff_name,schedule_workday,LocationTable.loc_name FROM ((ScheduleTable INNER JOIN LocationTable ON ScheduleTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON ScheduleTable.staff_id=StaffTable.staff_id) WHERE StaffTable.staff_id=?';",[
+            req.body.staff_id
+        ]);
+
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.log(err);
+    }
+})
+
 module.exports = router
