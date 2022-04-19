@@ -13,7 +13,7 @@ staff_name VARCHAR(200) NOT NULL,
 staff_sex SET("MALE", "FEMALE", "OTHER") NOT NULL,
 staff_email VARCHAR(100) NOT NULL,
 staff_phone VARCHAR(15) NOT NULL, -- Not recommended to use phone number as int.
-loc_id INT NOT NULL, -- Foreign Key with loc_id in LocationTable 
+-- loc_id INT NOT NULL, -- Foreign Key with loc_id in LocationTable 
 staff_salary FLOAT,
 staff_occupation VARCHAR(100) NOT NULL,
 doc_specialty VARCHAR(100), -- Their specialty field
@@ -40,13 +40,13 @@ pat_weight FLOAT,
 pat_allergy VARCHAR(1000),
 pat_insurance VARCHAR(200),
 pat_address VARCHAR(200),
-pat_pcp INT,
+pat_pcp INT, -- Primary Care Physician (aka staff_id for docs)
 PRIMARY KEY (pat_id)
 );
 
 CREATE TABLE IF NOT EXISTS AppointmentTable(
 app_id INT AUTO_INCREMENT,
-app_source VARCHAR(100) NOT NULL, -- How did they book the appointment? Might be a set type later.
+app_source VARCHAR(100) NOT NULL, -- How did they book the appointment? Might be a set type later. "web", or "phone"
 app_cancelled BOOLEAN NOT NULL, -- Cancelled or not cancelled
 app_time DATETIME NOT NULL, -- Timestamp for appointment
 loc_id INT NOT NULL, -- Foreign Key with loc_id in LocationTable
@@ -61,6 +61,7 @@ rec_treatment VARCHAR(10000) NOT NULL, -- description of treatment
 rec_admit DATETIME NOT NULL, -- timestamp for when this was admitted?
 rec_leave DATETIME NOT NULL, -- timestamp for when it was left?
 pat_id INT NOT NULL,
+doc_id INT NOT NULL,
 PRIMARY KEY (rec_id)
 );
 
