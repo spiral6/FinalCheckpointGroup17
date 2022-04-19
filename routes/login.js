@@ -97,5 +97,12 @@ router.get('/staff', async (req, res) => {
         console.log(err);
     }
 });
+router.get('/doctor', async (req, res) => {
+    try {
+        res.sendFile(path.join(__dirname + "/../html/doctorlogin.html"));
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 module.exports = router
