@@ -1,5 +1,5 @@
 -- StaffTable
-INSERT INTO StaffTable(staff_id,staff_name,staff_sex,staff_email,staff_phone,loc_id,staff_salary,staff_occupation,doc_specialty,doc_perms) VALUES (1212,'Benjamin Bayer','male','bbayer@email.com','713-111-2222',1,30000,'DOCTOR','Oncology','Chief');
+INSERT INTO StaffTable(staff_id,staff_name,staff_sex,staff_email,staff_phone,loc_id,staff_salary,staff_occupation,doc_specialty,doc_perms) VALUES (1212,'Dummy Doctor','male','dummydoctor@email.com','713-111-2222',1,30000,'DOCTOR','Oncology','Chief');
 INSERT INTO StaffTable(staff_id,staff_name,staff_sex,staff_email,staff_phone,loc_id,staff_salary,staff_occupation,doc_specialty,doc_perms) VALUES (2323,'Chung Kim','female','ckim@email.com','713-222-3333',2,40000,'DOCTOR','Cardiology',NULL);
 INSERT INTO StaffTable(staff_id,staff_name,staff_sex,staff_email,staff_phone,loc_id,staff_salary,staff_occupation,doc_specialty,doc_perms) VALUES (3434,'Dick Davidson','male','ddavidson@email.com','713-333-4444',2,25000,'JANITOR',NULL,NULL);
 INSERT INTO StaffTable(staff_id,staff_name,staff_sex,staff_email,staff_phone,loc_id,staff_salary,staff_occupation,doc_specialty,doc_perms) VALUES (4545,'Rohan Panchal','male','rpanchal@email.com','713-444-5555',3,43000,'HOSPITAL ADMINISTRATOR',NULL,NULL);
@@ -14,7 +14,7 @@ INSERT INTO LocationTable(loc_id,loc_city,loc_name,loc_dep) VALUES (2,'Cypress',
 INSERT INTO LocationTable(loc_id,loc_city,loc_name,loc_dep) VALUES (3,'Spring','Clinic C','Surgery');
 
 -- PatientTable
-INSERT INTO PatientTable(pat_id,pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_insurance,pat_address,pat_allergy,pat_pcp) VALUES (1111,'John Smith','male','jsmith@email.com','713-111-1111','1965-01-09',175.3,220,'United Healthcare Insurance Company','731 Fondren, Houston, TX','ibuprofen',1212);
+INSERT INTO PatientTable(pat_id,pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_insurance,pat_address,pat_allergy,pat_pcp) VALUES (1111,'Dummy Patient','male','dummypatient@email.com','713-111-1111','1965-01-09',175.3,220,'United Healthcare Insurance Company','731 Fondren, Houston, TX','ibuprofen',1212);
 INSERT INTO PatientTable(pat_id,pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_insurance,pat_address,pat_allergy,pat_pcp) VALUES (2222,'Franklin Wong','other','fwong@email.com','713-222-2222','1955-12-08',180.6,185,'Humana Insurance Company','638 Voss, Houston, TX',NULL,1212);
 INSERT INTO PatientTable(pat_id,pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_insurance,pat_address,pat_allergy,pat_pcp) VALUES (3333,'Alicia Zelaya','female','azelaya@email.com','713-333-3333','1968-01-19',156.7,135,'United Healthcare Insurance Company','3321 Castle, Spring, TX','aspirin',2323);
 INSERT INTO PatientTable(pat_id,pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_insurance,pat_address,pat_allergy,pat_pcp) VALUES (4444,'Jennifer Wallace','female','jwallace@email.com','713-444-4444','1941-06-20',145.8,140,'United Healthcare Insurance Company','291 Berry, Bellaire, TX',NULL,6767);
@@ -24,13 +24,13 @@ INSERT INTO PatientTable(pat_id,pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat
 INSERT INTO PatientTable(pat_id,pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_insurance,pat_address,pat_allergy,pat_pcp) VALUES (8888,'James Borg','male','jborg@email.com','713-888-8888','1937-11-10',172,180,'United Healthcare Insurance Company','450 Stone, Houston, TX',NULL,2323);
 
 -- UserTable
-INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (1,'bbayer@email.com','',1212,NULL);
+INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (1,'dummydoctor@email.com','',1212,NULL);
 INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (2,'ddavidson@email.com','',3434,NULL);
 INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (3,'rpanchal@email.com','',4545,NULL);
 INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (4,'bbenson@email.com','',5656,NULL);
 INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (5,'mmiller@email.com','',7878,NULL);
 INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (6,'jtaylor@email.com','',8989,NULL);
-INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (7,'jsmith@email.com','',NULL,1111);
+INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (7,'dummypatient@email.com','',NULL,1111);
 INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (8,'fwong@email.com','',NULL,2222);
 INSERT INTO UserTable(user_id,user_email,user_password,staff_id,pat_id) VALUES (9,'azelaya@email.com','',NULL,3333);
 
