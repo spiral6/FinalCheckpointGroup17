@@ -82,12 +82,13 @@ PRIMARY KEY (med_id)
 
 CREATE TABLE IF NOT EXISTS PrescriptionTable(
 rx_id INT AUTO_INCREMENT,
-doc_id INT NOT NULL,
-med_name VARCHAR(200) NOT NULL,
-rx_start DATETIME NOT NULL, -- timestamp for when this was admitted?
-rx_end DATETIME, -- timestamp for when it was left?
+rx_name VARCHAR(30) NOT NULL,
+rx_strength VARCHAR(10) NOT NULL, --units
+rx_starttime DATETIME NOT NULL, -- startdate of meds
+rx_endtime DATETIME, -- timestamp for when it was left?
 rx_desc VARCHAR(1000),
 pat_id INT NOT NULL,
+doc_id INT NOT NULL,
 PRIMARY KEY (rx_id)
 );
 
