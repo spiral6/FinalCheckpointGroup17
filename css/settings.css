@@ -80,6 +80,37 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
+  .form-signup input[type="medication"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .form-signup input[type="strength"] {
+    width:98%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .form-signup input[type="amount"] {
+    float:right;
+    width:97%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .form-signup input[type="dispence"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .form-signup input[type="refills"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .form-signup input[type="directions"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .form-signup input[type="frequency"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
   .logo{
 	  display: block;
 	  margin-left: auto;
