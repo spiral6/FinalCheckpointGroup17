@@ -55,6 +55,11 @@ function createTable(table_data) {
                 tr.appendChild(td);
                 const datetime = new Date(row_data[key]);
                 td.innerHTML = datetime.toLocaleString();
+            } else if (key == "pat_DoB"){
+                td = document.createElement('td');
+                tr.appendChild(td);
+                const datetime = new Date(row_data[key]);
+                td.innerHTML = datetime.toLocaleDateString();
             } else {
                 td = document.createElement('td');
                 tr.appendChild(td);
@@ -98,7 +103,7 @@ const alias = {
 
 async function findPatient() {
 
-    const searchInput = document.getElementById('patient_search')
+    const searchInput = document.getElementById('patient_select')
     const inputValue = searchInput.value;
     const searchQuery = inputValue;
     const response = await fetch(window.location.origin + '/doctor/db/findPatient?q=' + searchQuery,  {
@@ -114,12 +119,12 @@ async function findPatient() {
     })
 }
 
-async function viewPatientInfo(id) {
+async function viewPatientInfo(pat_name) {
 
     // console.log("view patient info")
     // console.log(id)
 
-    const response = await fetch(window.location.origin + '/doctor/db/patientInfo?pat_id=' + id,  {
+    const response = await fetch(window.location.origin + '/doctor/db/patientInfo?pat_name=' + pat_name,  {
         method: 'get',
         headers: {
             'Content-Type': 'application/json'
@@ -203,17 +208,48 @@ window.onload = function() {
     const patientInfoButton = document.getElementById('patient_info_button');
     if(patientInfoButton){
         patientInfoButton.addEventListener('click', () => {
-            viewPatientInfo(7777);
+            viewPatientInfo($("#patient_select option:selected" ).text());
         });
     }
 
-
-
-    // tr.appendChild(button);
-
-    // const viewPayrollButton = document.getElementById('viewpayroll_button')
-    // viewPayrollButton.addEventListener('click', () => {
-    //     viewPayroll()
-    // });
-
+    const patientSelect = document.getElementById('patient_select');
+    if(patientSelect){
+        console.log("pat select exists")
+        getPatient();
+    }
 };
+
+async function getPatient(){
+    const response = await fetch(window.location.origin + '/doctor/db/findPatient',  {
+      method: 'get',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      // body: JSON.stringify({pat_name: pat_name})
+    }).then(response => {
+      if (!response.ok) {
+        response.text().then(err => {
+          alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+        })  
+      }
+      return response.text();
+    }).then(body => {
+      // alert("Successfully retrieved Appointment!")
+      console.log("successfully retrieved patient list");
+      console.log(body);
+      body = JSON.parse(body);
+      updatePatientSelect(body);
+      // refreshAppointmentTable();
+    });
+  }
+
+function updatePatientSelect(body){
+
+    $("#patient_select").empty();
+  
+    for (const row of body){
+      console.log(row);
+      $("#patient_select").append("<option>" + row.pat_name + "</option>");
+    }
+  
+  };

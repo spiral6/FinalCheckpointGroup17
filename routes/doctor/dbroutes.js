@@ -26,7 +26,21 @@ router.get('/findPatient', async (req, res) => {
 router.get('/patientInfo', async (req, res) => {
     try {
         // console.log(req.query)
-        const result = await db.pool.query("SELECT * FROM PatientTable WHERE pat_id=?;",[req.query.pat_id]);
+        const result = await db.pool.query(`SELECT 
+        pat_name,
+        pat_sex,
+        pat_email,
+        pat_phone,
+        pat_DoB,
+        pat_height,
+        pat_weight,
+        pat_allergy,
+        pat_insurance,
+        pat_address,
+        staff_name 
+        FROM PatientTable 
+        INNER JOIN StaffTable ON PatientTable.pat_pcp=StaffTable.staff_id
+        WHERE pat_name=?;`,[req.query.pat_name]);
         
         // console.log(result);
         res.send(result);
