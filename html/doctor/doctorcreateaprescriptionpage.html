@@ -53,21 +53,18 @@
                 </div>
 
                 <label for="medication" class="sr-only">Medication</label>
-                <input type="med" id="inputMedication" class="form-control" placeholder="Medication" name="pat_med" required autofocus>
+                <input type="med" id="inputMedication" class="form-control" placeholder="Medication" name="rx_med" required autofocus>
                 <label for="strength" class="sr-only">Strength</label>
-                <input type="tel" id="inputMedication" class="form-control" placeholder="Strength (mg)" name="pat_med_strength" required autofocus>
+                <input type="tel" id="inputMedication" class="form-control" placeholder="Strength (mg)" name="rx_strength" required autofocus>
                 <label for="amount" class="sr-only">Amount</label>
-                <input type="tel" id="inputMedication" class="form-control" placeholder="Number of tablets" name="pat_amount" required autofocus>
-                <label for="frequency" class="sr-only">Frequency</label>
-                <input type="freq" id="inputFrequency" class="form-control" placeholder="Frequency" name="pat_freq" required autofocus>
+                <input type="tel" id="inputMedication" class="form-control" placeholder="Number of tablets" name="rx_amount" required autofocus>
                 <label for="directions" class="sr-only">Directions</label>
-                <input type="dir" id="inputDirections" class="form-control" placeholder="Directions" name="pat_directions" required autofocus>
+                <input type="dir" id="inputDirections" class="form-control" placeholder="Directions" name="rx_directions" required autofocus>
+                <label for="starttime" class="sr-only">Start time</label>
+                <input type="str" id="inputEndtime" class="form-control" placeholder="Enter Startime" name="rx_startime" required autofocus>
+                <label for="endtime" class="sr-only">End time</label>
+                <input type="end" id="inputMedication" class="form-control" placeholder="Enter Endtime" name="rx_endtime" required autofocus>
 
-                <label for="inputDispence" class="sr-only">Dispence</label>
-                <input type="dispence" id="inputDispence" class="form-control" placeholder="Number of Tablets" name="pat_dispence" required autofocus>
-                <label for="inputRefills" class="sr-only">Refills</label>
-                <input type="refills" id="inputRefills" class="form-control" placeholder="Number of Refills" name="pat_refills" required autofocus>
-                
                 <div class="centered-button">
                   <button class="btn btn-lg btn-primary btn-block" type="submit">Submit Prescription</button>
                 </div>
@@ -80,6 +77,33 @@
         
             <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
             <script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+            <div class="container">
+              <div class="row">
+                  <div class="col-sm-6">
+                      <h2>List Products</h2>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-6">
+                      <table id="productTable" class="table table-bordered table-condensed table-striped">
+                          <thead>
+                              <tr>
+                                  <th>Patient First Name</th>
+                                  <th>Patient Last Name</th>
+                                  <th>Medication</th>
+                                  <th>Strength</th>
+                                  <th>Amount</th>
+                                  <th>Start time</th>
+                                  <th>End time</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                      </table>
+                  </div>
+              </div>
+          </div>
+
           </body>
     </main>
 
