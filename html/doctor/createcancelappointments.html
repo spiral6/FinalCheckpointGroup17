@@ -1,0 +1,77 @@
+<!DOCTYPE html>>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Patient Portal</title>
+
+       <!-- <script src="/js/patient/patientactions.js"></script>
+        <script src="/js/signout.js"></script>
+        <script src="/js/sidebars.js"></script>
+        <script src="/js/bootstrap.bundle.min.js"></script> -->
+    
+    
+        <!-- Bootstrap core CSS -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet">
+    
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <link href="/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    
+        <!-- Custom styles for this template -->
+        <link href="/css/signin.css" rel="stylesheet">
+
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="fixed-top">
+
+        <table>
+            <tr>
+                <th></th>
+            </tr>
+        </table>
+
+        <form action="SEND ADDRESS" id="ft-form" method="POST" accept-charset="UTF-8">
+            <fieldset>
+              <legend>Appointment time and date request</legend>
+              <div class="two-cols">
+                <label>
+                  Date
+                  <input type="date" name="Appointment request" required>
+                </label>
+                <div class="inline">
+                  <label>
+                    Time
+                    <input type="time" name="Appointment request" required>
+                  </label>
+                </div>
+              </div>
+              <p>Confirmation requested by</p>
+              <div class="inline">
+                <label>
+                  <input type="radio" name="Confirmation requested by" value="email" checked>
+                  Email
+                </label>
+                <label>
+                  <input type="radio" name="Confirmation requested by" value="phone">
+                  Phone Call
+                </label>
+              </div>
+            </fieldset>
+            <div class="btns">
+              <input type="text" name="_gotcha" value="" style="display:none;">
+              <input type="submit" value="Submit request">
+            </div>
+          </form>

@@ -7,372 +7,140 @@
     <meta name="generator" content="Hugo 0.88.1">
     <title>Create Prescription</title>
     
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/js/doctor/doctoractions.js"></script>
+    <script src="/js/doctor/doctorprescription.js"></script>
     <!-- <script type="module" src="/js/createTable.js"></script> -->
     <script src="/js/signout.js"></script>
-
+      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/sidebars.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="/css/sidebars.css" rel="stylesheet">
     <link href="/css/settings.css" rel="stylesheet">
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    
   </head>
   <body>
     <div class="fixed-top"></div>
-
     <main>
-        <body>
-            <div class="fixed-top">
-              <br>
-            </div>
-
-            <div class="container">
-              <h1 class="form-signup-title">Create a Prescription</h1>
-              <form name="patient_register_form" onsubmit="return false" class="form-signup">
-                <div class="column">
-                  <label for="firstName" class="sr-only">Patient First Name</label>
-                  <input type="firstName" id="firstName" class="form-control" placeholder="F. Name" name="fname" required autofocus>
-                </div>
-                <div class="column">
-                  <label for="lastName" class="sr-only" style="margin-left: 2%;">Patient Last Name</label>
-                  <input type="lastName" id="lastName" class="form-control" name="lname" placeholder="L. Name" required autofocus>
-                </div>
-                <!-- <div class="column" style="width:25%;">
-                  <label for="gender" class="sr-only">Patient Gender</label>
-                  <select type="gender" id="gender" class="form-control" placeholder="Gender" name="pat_sex" required autofocus>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>  
-                </div>
-
-                <div class="column" style="width:75%;">
-                  <label for="birthdate" class="sr-only" style="margin-left: 3%;">Patient Birthdate</label>
-                  <input type="date" name="pat_DoB" id="birthDate" class="form-control" required autofocus>
-                </div> -->
-
-                <label for="medication" class="sr-only">Medication</label>
-                <input type="med" id="inputMedication" class="form-control" placeholder="Medication" name="rx_med" required autofocus>
-                <label for="strength" class="sr-only">Strength</label>
-                <input type="tel" id="inputStrength" class="form-control" placeholder="Strength (mg)" name="rx_strength" required autofocus>
-                <label for="amount" class="sr-only">Amount</label>
-                <input type="tel" id="inputAmount" class="form-control" placeholder="Number of tablets" name="rx_amount" required autofocus>
-                <label for="directions" class="sr-only">Directions</label>
-                <input type="dir" id="inputDirections" class="form-control" placeholder="Directions" name="rx_directions" required autofocus>
-
-                <div class="column" style="width:50;">
-                  <label for="startime" class="sr-only" style="margin-left: 3%;">Start Time</label>
-                  <input type="date" name="rx_starttime" id="inputStarttime" class="form-control" required autofocus>
-                </div>
-                <div class="column" style="width:50%;">
-                  <label for="endtime" class="sr-only" style="margin-left: 3%;">End Time</label>
-                  <input type="date" name="rx_endtime" id="inputEndtime" class="form-control" required autofocus>
-                </div>
-                <!-- <label for="starttime" class="sr-only">Start time</label>
-                <input type="date" id="inputStarttime" class="form-control" name="rx_startime" required autofocus>
-                <label for="endtime" class="sr-only">End time</label>
-                <input type="date" id="inputEndtime" class="form-control" name="rx_endtime" required autofocus> -->
-                
-                <br/><br/><br/><br/>
-
-                <div class="centered-button">
-                  <button id="updateButton" class="btn btn-lg btn-primary btn-block" onclick="prescriptionUpdate();">Submit Prescription</button>
-                </div>
-                <div class="centered-button">
-                  <button id="cancelButton" class="btn btn-lg btn-primary btn-block" style="display:none;" onclick="cancelEdit();">Cancel</button>
-                </div>
-              </form>
-        
-            </div> <!-- /container -->
-            <div class="fixed-bottom">
-                  <br>
-            </div>
-        
-            <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-            <script src="../js/ie10-viewport-bug-workaround.js"></script>
-
-            <div class="container">
-              <div class="row">
-                  <div class="col-sm-6">
-                      <h2>Prescriptions</h2>
-                  </div>
-              </div>
-              <div class="row">
-                  <div class="col-sm-6">
-                      <table id="prescriptionTable" class="table table-bordered table-condensed table-striped">
-                          <thead>
-                              <tr>
-                                  <th>Patient First Name</th>
-                                  <th>Patient Last Name</th>
-                                  <th>Medication</th>
-                                  <th>Strength</th>
-                                  <th>Amount</th>
-                                  <th>Directions</th>
-                                  <th>Start time</th>
-                                  <th>End time</th>
-                                  <th>Edit</th>
-                                  <th>Remove</th>
-                              </tr>
-                          </thead>
-                      </table>
-                  </div>
-              </div>
-          </div>
-          
-          <script>
-            // Current product being edited
-            var _row = null;
-          </script>
-
-<<<<<<< HEAD
-          </body>
-
-          <script>
-              function productsAdd() {
-                $("#productTable tbody").append("<tr>" + 
-                    "<td>My First Video</td>" +
-                    "<td>6/11/2015</td>" +
-                    "<td>www.pluralsight.com</td>" +
-                    "</tr>");
-            }
-          </script>
-=======
-          <script>
-            // Add hardcode prescription to <table>
-            function prescriptionAdd() {
-              // First check if a <tbody> tag exists, add one if not
-              if ($("#prescriptionTable tbody").length == 0) {
-                $("#prescriptionTable").append("<tbody></tbody>");
-              }
-
-              // Append prescription to the table
-              // $("#prescriptionTable tbody").append("<tr>" +
-              //   "<td>Build your own Bootstrap Business Application Template in MVC</td>" +
-              //   "<td>1/29/2015</td>" +
-              //   "<td>http://bit.ly/1I8ZqZg</td>" +
-              //   "</tr>");
-            }
-            $(document).ready(function () {
-              prescriptionAdd();
-            });
-                </script>
-
-
-          <script> function prescriptionUpdate() {
-              if ($("#updateButton").text() == "Update") {
-                prescriptionUpdateInTable();
-                // Change Update Button Text
-              }
-              else {
-                prescriptionAddToTable();
-              }
-
-              // Clear form fields
-              formClear();
-
-              // Focus to product name field
-              $("#firstName").focus();
-            }
-          
-          </script>
-          
-          <script>
-            function prescriptionAddToTable() {
-              // // First check if a <tbody> tag exists, add one if not
-              // if ($("#prescriptionTable tbody").length == 0) {
-              //   $("#prescriptionTable").append("<tbody></tbody>");
-              // }
-              $("#patient_register_form").submit(function (e) {
-                e.preventDefault();
-              });
-              // Append prescription to the table
-              $("#prescriptionTable tbody").append("<tr>" +
-                "<td>" + $("#firstName").val() + "</td>" +
-                "<td>" + $("#lastName").val() + "</td>" +
-                "<td>" + $("#inputMedication").val() + "</td>" +
-                "<td>" + $("#inputStrength").val() + "</td>" +
-                "<td>" + $("#inputAmount").val() + "</td>" +
-                "<td>" + $("#inputDirections").val() + "</td>" +
-                "<td>" + $("#inputStarttime").val() + "</td>" +
-                "<td>" + $("#inputEndtime").val() + "</td>" +
-                "<td>" + "<button class='btn btn-lg btn-primary btn-block' onclick='displayPrescription(this);''><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'><path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.7                 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/></svg></button>" + "</td>" +
-                "<td>" + "<button class='btn btn-lg btn-primary btn-block' onclick='removePrescription(this);''><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'><path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/><path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/></svg></button>" + "</td>" +
-                "</tr>");
-            }
-          </script>
-          
-          <script>
-            function cancelEdit() {
-
-              formClear();
-              
-              $("#cancelButton").toggle();
-              $("#updateButton").text("Submit Prescription");
-            }
-          </script>
-
-          <script>
-            function prescriptionUpdateInTable() {
-              // Add changed prescription to table
-              $(_row).after(prescriptionBuildTableRow());
-
-              // Remove old prescription row
-              $(_row).remove();
-
-              // Clear form fields
-              formClear();
-
-              // Change Update Button Text
-              $("#cancelButton").toggle();
-              $("#updateButton").text("Submit Prescription");
-            }
-
-              </script>
-
-          <script>
-            function prescriptionBuildTableRow() {
-              var ret = "<tr>" +
-              //   $("#patient_register_form").submit(function (e) {
-              //   e.preventDefault();
-              // });
-              // // Append prescription to the table
-              // $("#prescriptionTable tbody").append("<tr>" +
-                "<td>" + $("#firstName").val() + "</td>" +
-                "<td>" + $("#lastName").val() + "</td>" +
-                "<td>" + $("#inputMedication").val() + "</td>" +
-                "<td>" + $("#inputStrength").val() + "</td>" +
-                "<td>" + $("#inputAmount").val() + "</td>" +
-                "<td>" + $("#inputDirections").val() + "</td>" +
-                "<td>" + $("#inputStarttime").val() + "</td>" +
-                "<td>" + $("#inputEndtime").val() + "</td>" +
-                "<td>" + "<button class='btn btn-lg btn-primary btn-block' onclick='displayPrescription(this);''><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'><path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.7                 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/></svg></button>" + "</td>" +
-                "<td>" + "<button class='btn btn-lg btn-primary btn-block' onclick='removePrescription(this);''><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'><path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/><path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/></svg></button>" + "</td>" +
-                "</tr>"
-
-              return ret;
-            }
-          </script>
-          
-          <script>
-            function formClear() {
-              $("#firstName").val("");
-              $("#lastName").val("");
-              $("#inputMedication").val("");
-              $("#inputStrength").val("");
-              $("#inputAmount").val("");
-              $("#inputDirections").val("");
-              $("#inputStarttime").val("");
-              $("#inputEndtime").val("");
-            }
-          </script>
-
-          <script>
-            function removePrescription(ctl) {
-              $(ctl).parents("tr").remove();
-            }
-          </script>
-
-          <script>
-            function displayPrescription(ctl) {
-              _row = $(ctl).parents("tr");
-              var cols = _row.children("td");
-              $("#firstName").val($(cols[0]).text());
-              $("#lastName").val($(cols[1]).text());
-              $("#inputMedication").val($(cols[2]).text());
-              $("#inputStrength").val($(cols[3]).text());
-              $("#inputAmount").val($(cols[4]).text());
-              $("#inputDirections").val($(cols[5]).text());
-              $("#inputStarttime").val($(cols[6]).text());
-              $("#inputEndtime").val($(cols[7]).text());
-
-              // Change Update Button Text\
-              $("#cancelButton").toggle();
-              $("#updateButton").text("Update");
-
-            }
-          </script>
-
-        </body>
-        
-
-        
-
-          
->>>>>>> 8e583b870a8d0d8ca7bd1ea4b4d9e63059d054fd
-    </main>
-
-
-
-<!-- here
-    <main>
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-              <span class="fs-4"><strong>&ensp;Menu</strong></span>
+      <div class="container" style="width: 25%;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <span class="fs-4"><strong>&ensp;Menu</strong></span>
+          </a>
+          <hr>
+          <ul class="nav nav-pills flex-column mb-auto">
+            <!-- <li>
+                <strong> DOCTORS ONLY: </strong>
+            </li> -->
+            <li class="nav-item">
+              <a href="/doctor/findpatient" class="nav-link link-dark"> Find Patient </a>
+            </li>
+            <li class="nav-item">
+              <a href="/doctor/patientrecord" class="nav-link link-dark"> Patient Record </a>
+            </li>
+            <li>
+              <a href="/doctor/patientprescriptions" class="nav-link link-dark"> Patient Prescriptions </a>
+            </li>
+            <li>
+              <a href="/doctor/viewschedule" class="nav-link link-dark"> View Schedule </a>
+            </li>
+            <li>
+              <a href="/doctor/viewpayroll" class="nav-link link-dark"> View Payroll </a>
+            </li>
+          </ul>
+          <hr>
+          <div class="dropdown">
+            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                &ensp;
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                <strong>&emsp;Username</strong>
             </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-            -->
-              <!-- <li>
-                  <strong> DOCTORS ONLY: </strong>
-              </li> -->
-              <!-- here
-              <li class="nav-item">
-                <a href="/doctor/findpatient" class="nav-link link-dark"> Find Patient </a>
-              </li>
-              <li class="nav-item">
-                <a href="/doctor/patientrecord" class="nav-link link-dark"> Patient Record </a>
-              </li>
-              <li>
-                <a href="/doctor/createprescription" class="nav-link link-dark"> Create Prescription </a>
-              </li>
-              <li>
-                <a href="/doctor/viewschedule" class="nav-link link-dark"> View Schedule </a>
-              </li>
-              <li>
-                <a href="/doctor/viewpayroll" class="nav-link link-dark"> View Payroll </a>
-              </li>
+            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+              <li><a class="dropdown-item" href="/doctor/viewprofile">View Profile</a></li>
+              <li><a class="dropdown-item" href="/doctor/editprofile">Edit Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" id="signout">Sign out</a></li>
             </ul>
-            <hr>
-            <div class="dropdown">
-              <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                  &ensp;
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                  </svg>
-                  <strong>&emsp;Username</strong>
-              </a>
-              <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                <li><a class="dropdown-item" href="/doctor/viewprofile">View Profile</a></li>
-                <li><a class="dropdown-item" href="/doctor/editprofile">Edit Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#" id="signout">Sign out</a></li>
-              </ul>
-            </div>
           </div>
-      </div>
-    <div class="container"> -->
-      <!-- <h1 class="form-signup-title">Find Patient</h1> -->
-      <!-- here
-        <div class="centered-button">
-            <button class="btn btn-lg btn-primary btn-block" id="viewschedule_button" type="submit">View Schedule</button>
         </div>
-        <table id="viewschedule_results">
-        </table> 
-    </div> --> <!-- /container -->
-  <!--</main>  here
--->
+      </div>
+      <div class="container">
+        <h1 class="form-signup-title">Create a Prescription</h1>
+        <!-- <form name="create_prescription_form" onsubmit="return false" class="form-signup"> -->
+        <form name="create_prescription_form" class="form-signup">
+          
+          <div class="column">
+            <label for="firstName" class="sr-only">Patient First Name</label>
+            <input type="firstName" id="firstName" class="form-control" placeholder="F. Name" name="fname" required autofocus>
+          </div>
+          <div class="column">
+            <label for="lastName" class="sr-only" style="margin-left: 2%;">Patient Last Name</label>
+            <input type="lastName" id="lastName" class="form-control" name="lname" placeholder="L. Name" required autofocus>
+          </div>
+          <label for="medication" class="sr-only">Medication</label>
+          <input type="med" id="inputMedication" class="form-control" placeholder="Medication" name="med_name" required autofocus>
+          <label for="strength" class="sr-only">Strength</label>
+          <input type="text" id="inputStrength" class="form-control" placeholder="Strength (mg)" name="rx_strength" required autofocus>
+          <label for="amount" class="sr-only">Amount</label>
+          <input type="number" id="inputAmount" class="form-control" placeholder="Number of tablets" name="rx_amount" required autofocus>
+          <label for="directions" class="sr-only">Directions</label>
+          <textarea id="inputDirections" class="form-control" placeholder="Directions" name="rx_desc" required autofocus></textarea>
+          <div class="column">
+            <label for="startime">Start Time</label>
+            <input type="date" name="rx_start" id="inputStarttime" class="form-control" required autofocus>
+          </div>
+          <div class="column">
+            <label for="endtime">End Time</label>
+            <input type="date" name="rx_end" id="inputEndtime" class="form-control" autofocus>
+          </div>
+          <div class>
+            <button id="CreateUpdatePrescriptionButton" class="btn btn-lg btn-primary btn-block" style="width:100%">Submit Prescription</button>
+          </div>
+          <div style="padding-top:5%;">
+            <button id="CancelEditPrescriptionButton" class="btn btn-lg btn-primary btn-block" style="display:none;width:100%;" onclick="cancelEdit();">Cancel</button>
+          </div>
+
+        </form>
+  
+      </div>
+      <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Prescriptions</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <table id="prescriptionTable" class="table table-bordered table-condensed table-striped">
+                    <thead>
+                        <tr>
+                            <th>Patient First Name</th>
+                            <th>Patient Last Name</th>
+                            <th>Medication</th>
+                            <th>Strength</th>
+                            <th>Amount</th>
+                            <th>Directions</th>
+                            <th>Start time</th>
+                            <th>End time</th>
+                            <th>Edit</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+  </main>
   <div class="fixed-bottom"></div>
-
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="/js/ie10-viewport-bug-workaround.js"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-
-      <script src="/js/sidebars.js"></script>
   </body>
 </html>
