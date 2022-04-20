@@ -20,7 +20,8 @@ router.get('/', async (req, res) => {
             res.sendFile(path.join(__dirname + "/../../html/patient/patientlogin.html"));
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -34,7 +35,8 @@ router.get('/signup', async (req, res) => {
             res.sendFile(path.join(__dirname + "/../../html/patient/registerpatient.html"));
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -51,7 +53,8 @@ router.get('/myappointments', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -65,7 +68,8 @@ router.get('/findclinic', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -79,7 +83,8 @@ router.get('/finddoctor', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -93,7 +98,8 @@ router.get('/viewprofile', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -107,7 +113,8 @@ router.get('/editprofile', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 

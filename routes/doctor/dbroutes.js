@@ -18,6 +18,7 @@ router.get('/findPatient', async (req, res) => {
         res.send(result);
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -31,6 +32,7 @@ router.get('/patientInfo', async (req, res) => {
         res.send(result);
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -48,6 +50,7 @@ router.put('/patientRecord', async (req, res) => {
         res.send(result);
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -62,6 +65,7 @@ router.get('/patientRecord', async (req, res) => {
         res.send(result);
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -163,7 +167,12 @@ router.delete('/prescription', async (req, res) => {
 // View appointments
 router.get('/appointment', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT app_id,app_time,LocationTable.loc_name,PatientTable.pat_name FROM (((AppointmentTable INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) WHERE doc_id=?;",[
+        const result = await db.pool.query(`SELECT app_id,app_time,LocationTable.loc_name,PatientTable.pat_name,app_source
+        FROM (((AppointmentTable 
+                INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) 
+               INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) 
+              INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) 
+        WHERE doc_id=?`,[
             req.cookies['doc_id']
         ]);
         
@@ -171,6 +180,52 @@ router.get('/appointment', async (req, res) => {
         res.send(result);
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// Cancel appointment
+router.delete('/appointment', async (req, res) => {
+    try {
+        const result = await db.pool.query("DELETE FROM AppointmentTable WHERE doc_id=? AND app_id=?;",[
+            req.cookies['doc_id'],
+            req.body.app_id
+        ]);
+        
+        // Send email to patient after success.
+
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// Create appointment
+router.put('/appointment', async (req, res) => {
+    try {
+        console.log(req.body);
+        const result = await db.pool.query(`INSERT INTO AppointmentTable(pat_id,app_source,app_time,loc_id,doc_id)
+        VALUES(
+            (SELECT pat_id FROM PatientTable WHERE pat_name=?),
+            ?,
+            ?,
+            (SELECT loc_id FROM LocationTable WHERE loc_name=?),
+            ?
+        )`,[
+            req.body.pat_name,
+            req.body.app_source,
+            req.body.app_time,
+            req.body.loc_name,
+            req.cookies['doc_id']
+        ]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -185,6 +240,7 @@ router.get('/payroll', async (req, res) => {
         res.send(result);
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -206,23 +262,7 @@ router.get('/schedule', async (req, res) => {
         res.send(result);
     } catch (err) {
         console.error(err);
-    }
-})
-
-// Cancel appointment
-router.put('/appointment', async (req, res) => {
-    try {
-        const result = await db.pool.query("UPDATE AppointmentTable SET app_cancelled=1 WHERE doc_id=? AND app_id=?;",[
-            req.cookies['doc_id'],
-            req.body.app_id
-        ]);
-        
-        // Send email to patient after success.
-
-        console.log(result);
-        res.send(result);
-    } catch (err) {
-        console.error(err);
+        res.status(500).send(err);
     }
 })
 

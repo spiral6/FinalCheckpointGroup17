@@ -28,7 +28,8 @@ router.get('/', async (req, res) => {
         }
     
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -79,7 +80,8 @@ router.post('/', async (req, res) => {
         }
     
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -87,21 +89,24 @@ router.get('/patient', async (req, res) => {
     try {
         res.sendFile(path.join(__dirname + "/../html/patientlogin.html"));
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 router.get('/staff', async (req, res) => {
     try {
         res.sendFile(path.join(__dirname + "/../html/stafflogin.html"));
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 router.get('/doctor', async (req, res) => {
     try {
         res.sendFile(path.join(__dirname + "/../html/doctorlogin.html"));
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 

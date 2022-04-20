@@ -17,7 +17,8 @@ router.get('/', async (req, res) => {
             res.sendFile(path.join(__dirname + "/../html/staff/stafflogin.html"));
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -31,7 +32,8 @@ router.get('/signup', async (req, res) => {
             res.sendFile(path.join(__dirname + "/../html/staff/registerstaff.html"));
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -45,7 +47,8 @@ router.get('/editpatientinfo', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -59,7 +62,8 @@ router.get('/editdoctorinfo', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -73,7 +77,8 @@ router.get('/viewdoctorinfo', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -87,7 +92,8 @@ router.get('/viewschedule', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -101,7 +107,8 @@ router.get('/viewpayroll', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -115,7 +122,8 @@ router.get('/viewprofile', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -129,7 +137,8 @@ router.get('/editprofile', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -156,7 +165,8 @@ router.put('/db/appointment', async (req, res) => {
             res.send(secretary_check);
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -174,7 +184,8 @@ router.put('/db/appointment', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -188,7 +199,8 @@ router.get('/db/schedule', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -201,7 +213,8 @@ router.get('/db/schedule', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -214,7 +227,8 @@ router.get('/db/schedule', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -228,7 +242,8 @@ router.get('/db/schedule', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 

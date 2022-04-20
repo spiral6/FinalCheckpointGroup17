@@ -9,7 +9,8 @@ router.get('/', async (req, res) => {
     try {
         res.sendFile(path.join(__dirname + "/../html/appointmenttable.html"));
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -20,7 +21,8 @@ router.get('/db/desc', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -31,7 +33,8 @@ router.get('/db/select', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -51,7 +54,8 @@ router.put('/db/insert', async (req, res) => {
         );
         res.send(json);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 

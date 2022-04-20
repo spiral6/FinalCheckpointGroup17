@@ -54,15 +54,17 @@ router.post('/signup', async (req, res) => {
             }
         }
         catch (err) {
-            console.err(err);
+                    console.error(err);
+        res.status(500).send(err);
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
 // Find doctor
-router.get('/db/findDoctor', async (req, res) => {
+router.get('/findDoctor', async (req, res) => {
     try {
         console.log(req.query.doctor);
         let searchName = "%" + req.query.doctor + "%";
@@ -71,24 +73,26 @@ router.get('/db/findDoctor', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
 // List clinics
-router.get('/db/clinic', async (req, res) => {
+router.get('/clinic', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT loc_city, loc_name, loc_dep FROM LocationTable;",[]);
+        const result = await db.pool.query("SELECT loc_city, loc_name, loc_dep FROM LocationTable;");
         
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+        console.error(err);
+        res.status(500).send(err);
     }
 })
 
 // Edit profile info
-router.put('/db/profile', async (req, res) => {
+router.put('/profile', async (req, res) => {
     try {
         const result = await db.pool.query("UPDATE PatientTable SET pat_name=?, pat_sex=?, pat_phone=?, pat_insurance=?, pat_address=? WHERE pat_id=?;",[
             req.body.pat_name,
@@ -102,12 +106,13 @@ router.put('/db/profile', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
 // View appointments
-router.get('/db/appointment', async (req, res) => {
+router.get('/appointment', async (req, res) => {
     try {
         const result = await db.pool.query("SELECT app_id,app_time,LocationTable.loc_name,StaffTable.staff_name FROM (((AppointmentTable INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) WHERE PatientTable.pat_id=?;",[
             req.cookies['pat_id']
@@ -117,11 +122,12 @@ router.get('/db/appointment', async (req, res) => {
         res.send(result);
     } catch (err) {
         console.error(err);
+        res.status(500).send(err);
     }
 })
 
 // Create appointment
-router.put('/db/appointment', async (req, res) => {
+router.put('/appointment', async (req, res) => {
     try {
         const result = await db.pool.query("INSERT INTO AppointmentTable(app_source,app_time,loc_id,doc_id,pat_id) VALUES('Web',?,(SELECT loc_id FROM LocationTable WHERE loc_name=?),(SELECT staff_id FROM StaffTable WHERE staff_name=? AND staff_occupation='DOCTOR'),?);",[
             req.body.app_time,
@@ -133,12 +139,13 @@ router.put('/db/appointment', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
 // Cancel appointment
-router.put('/db/appointment', async (req, res) => {
+router.put('/appointment', async (req, res) => {
     try {
         const result = await db.pool.query("UPDATE PatientTable SET pat_name=?, pat_sex=?, pat_phone=?, pat_insurance=?, pat_address=? WHERE pat_id=?;",[
             req.body.pat_name,
@@ -154,7 +161,8 @@ router.put('/db/appointment', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
