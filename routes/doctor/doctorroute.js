@@ -52,6 +52,20 @@ router.get('/viewpayroll', async (req, res) => {
     }
 })
 
+router.get('/assigntreatment', async (req, res) => {
+    try{
+        if(req.cookies['doc_id']){
+            res.sendFile(path.join(__dirname + "/../../html/doctor/assigntreatment.html"));
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
 router.get('/patientrecord', async (req, res) => {
     try{
         if(req.cookies['doc_id']){
