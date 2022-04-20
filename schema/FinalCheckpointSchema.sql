@@ -13,6 +13,8 @@ staff_name VARCHAR(200) NOT NULL,
 staff_sex SET("MALE", "FEMALE", "OTHER") NOT NULL,
 staff_email VARCHAR(100) NOT NULL,
 staff_phone VARCHAR(15) NOT NULL, -- Not recommended to use phone number as int.
+staff_DoB DATE NOT NULL,
+staff_address VARCHAR(200),
 -- loc_id INT NOT NULL, -- Foreign Key with loc_id in LocationTable 
 staff_salary FLOAT,
 staff_occupation VARCHAR(100) NOT NULL,
@@ -93,8 +95,8 @@ doc_id INT NOT NULL,
 PRIMARY KEY (rx_id)
 );
 
-ALTER TABLE StaffTable
-ADD FOREIGN KEY(loc_id) REFERENCES LocationTable(loc_id);
+-- ALTER TABLE StaffTable
+-- ADD FOREIGN KEY(loc_id) REFERENCES LocationTable(loc_id);
 
 ALTER TABLE AppointmentTable
 ADD FOREIGN KEY (loc_id) REFERENCES LocationTable(loc_id),

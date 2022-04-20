@@ -7,6 +7,39 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 router.use(cookieParser())
 
+// Get Profile Information
+router.get('/profile', async (req, res) => {
+    try {
+        const result = await db.pool.query("SELECT * FROM StaffTable WHERE staff_id=?;",[req.cookies['doc_id']]);
+        
+        // console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// Get Profile Information
+router.put('/profile', async (req, res) => {
+    try {
+        const result = await db.pool.query(`UPDATE StaffTable
+        SET staff_address=?,
+        staff_phone=? 
+        WHERE staff_id=?;`,[
+            req.body.staff_address,
+            req.body.staff_phone,
+            req.cookies['doc_id']
+        ]);
+        
+        // console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
 // Search for patient
 router.get('/findPatient', async (req, res) => {
     try {
