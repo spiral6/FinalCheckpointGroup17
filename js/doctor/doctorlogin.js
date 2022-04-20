@@ -24,7 +24,7 @@ async function DoctorSignInFormInit(){
     DoctorSignInForm = document.querySelector("form[name=doctor_signin_form]")
     DoctorSignInForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        console.log("Submitting staff login form...");
+        console.log("Submitting doctor login form...");
         DoctorSignInFormData = new FormData(document.querySelector("form[name=doctor_signin_form]"));
 
         var DoctorSignInFormDataObject = {}
