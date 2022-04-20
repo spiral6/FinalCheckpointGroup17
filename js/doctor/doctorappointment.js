@@ -179,7 +179,7 @@ function updateLocationTable(body){
 
   for (const row of body){
     console.log(row);
-    $("#loc_name").append("<option>" + row.loc_name + "</loc_name>");
+    $("#loc_name").append("<option>" + row.loc_name + "</option>");
   }
 
 }
