@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- <script src="/js/doctor/doctoractions.js"></script>
     <script src="/js/doctor/doctorprescription.js"></script> -->
+    <script src="/js/doctor/doctoreditprofile.js"></script>
     <!-- <script type="module" src="/js/createTable.js"></script> -->
     <script src="/js/signout.js"></script>
       <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -73,53 +74,57 @@
           </div>
         </div>
       </div>
-    
-  <form> 
+     
     <div class="container">
     <h1 style="margin-right: 12%;"class="form-signup-title">Profile Info</h1>
-    <form name="patient_register_form" onsubmit="return false" class="form-signup">
+    <form name="doctor_edit_form" class="form-signup">
       <div class="column" style="width:38%;">
         <label style="margin-left: 10%;" for="firstName" class="sr-only">First Name</label>
-        <input style="margin-left: 10%;" type="firstName" id="firstName" class="form-control" placeholder="F. Name" name="fname" required autofocus>
+        <input style="margin-left: 10%;" type="firstName" id="firstName" class="form-control" placeholder="F. Name" name="fname" readonly autofocus>
       </div>
       <div class="column" style="width:38%;">
         <label style="margin-left: 15%;" for="lastName" class="sr-only" style="margin-left: 2%;">Last Name</label>
-        <input style="margin-left: 15%;" type="lastName" id="lastName" class="form-control" name="lname" placeholder="L. Name" required autofocus>
+        <input style="margin-left: 15%;" type="lastName" id="lastName" class="form-control" name="lname" placeholder="L. Name" readonly autofocus>
       </div>
 
       <div class="column" style="width:25%;">
-        <label style="margin-left: 15%;" for="doctor" class="sr-only" style="margin-left: 3%;":>Gender</label>
-        <select style="margin-left: 15%;" type="doctor" id="doctor" class="form-control" placeholder="Gender" name="doc_gender" required autofocus>
-          <option value=" "></option>
+        <label style="margin-left: 15%;" for="staff_sex" class="sr-only" style="margin-left: 3%;":>Gender</label>
+        <input style="margin-left: 15%;" type="doctor" id="staff_sex" class="form-control" placeholder="Gender" name="staff_sex" readonly autofocus>
+          <!-- <option value=" "></option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-          <option value="other">Other</option>
-        </select>  
+          <option value="other">Other</option> -->
+          </input>  
       </div>
 
       <div class = "column" style="Width:25%">
-        <label style="margin-left: 20%;" for="appttime" class="sr-only" style="margin-left: 3%;":>Date of Birth</label>
-        <input style="margin-left: 20%;" type="datetime" name="appt_apptdate" id="inputapptdate" class="form-control" placeholder="mm/dd/yyyy" required autofocus readonly>
+        <label style="margin-left: 20%;" for="staff_DoB" class="sr-only" style="margin-left: 3%;":>Date of Birth</label>
+        <input style="margin-left: 20%;" type="date" name="staff_DoB" id="staff_DoB" class="form-control" placeholder="mm/dd/yyyy" autofocus readonly>
       </div>
 
       <div class = "column" style="Width:25%">
-        <label style="margin-left: 25%;" for="phone_num" class="sr-only" style="margin-left: 3%;":>Phone Number</label>
-        <input style="margin-left: 25%;" type="phone_num" name="phone_num" id="phone_num" class="form-control" placeholder="Phone Number" required autofocus>
+        <label style="margin-left: 25%;" for="staff_phone" class="sr-only" style="margin-left: 3%;":>Phone Number</label>
+        <input style="margin-left: 25%;" type="tel" name="staff_phone" id="staff_phone" class="form-control" placeholder="Phone Number" required autofocus>
       </div>
 
       <div class = "column" style="Width:75%">
-        <label style="margin-left: 5%;" for="email" class="sr-only" style="margin-left: 3%;":>Email</label>
-        <input style="margin-left: 5%;" type="email" name="email" id="email" class="form-control" placeholder="Email" required autofocus>
+        <label style="margin-left: 5%;" for="staff_email" class="sr-only" style="margin-left: 3%;":>Email</label>
+        <input style="margin-left: 5%;" type="email" name="staff_email" id="staff_email" class="form-control" placeholder="Email" required autofocus>
       </div>
 
       <div class = "column" style="Width:75%">
-        <label style="margin-left: 5%;" for="deptartment" class="sr-only" style="margin-left: 3%;":>Department</label>
-        <input style="margin-left: 5%;" type="deptartment" name="deptartment" id="deptartment" class="form-control" placeholder="Department Name" required autofocus>
+        <label style="margin-left: 5%;" for="doc_specialty" class="sr-only" style="margin-left: 3%;":>Department</label>
+        <input style="margin-left: 5%;" type="deptartment" name="doc_specialty" id="doc_specialty" class="form-control" placeholder="Department Name" readonly autofocus>
+      </div>
+
+      <div class = "column" style="Width:75%">
+        <label style="margin-left: 5%;" for="staff_occupation" class="sr-only" style="margin-left: 3%;":>Occupation</label>
+        <input style="margin-left: 5%;" type="deptartment" name="staff_occupation" id="staff_occupation" class="form-control" placeholder="Occupation" readonly autofocus>
       </div>
 
       <div class="column" style="Width:75%">
-        <label style="margin-left: 5%;" for="home_address" class="sr-only" style="margin-left: 3%;">Home Address</label>
-        <input style="margin-left: 5%;" type="home_address" id="home_address" class="form-control" name="home_address" placeholder="Address" required autofocus>
+        <label style="margin-left: 5%;" for="staff_address" class="sr-only" style="margin-left: 3%;">Home Address</label>
+        <input style="margin-left: 5%;" type="home_address" id="staff_address" class="form-control" name="staff_address" placeholder="Address" required autofocus>
       </div>
 
       <div class="column">

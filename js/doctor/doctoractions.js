@@ -217,6 +217,7 @@ window.onload = function() {
         console.log("pat select exists")
         getPatient();
     }
+
 };
 
 async function getPatient(){
