@@ -9,7 +9,8 @@ BEFORE INSERT
 -- Logout
 
 -------------------------------------------------------------------------------------------------------------
-
+-- View past appointment history 
+SELECT* FROM AppointmentTable WHERE app_time > "2022-1-17 00:00:00" AND app_time < "2022-2-25 00:00:00";
 -- Doctor custom actions
 -- Find Patient
 SELECT pat_id,pat_name,pat_phone,pat_email FROM PatientTable WHERE pat_name LIKE %?% ORDER BY pat_name ASC;

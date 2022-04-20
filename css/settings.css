@@ -89,28 +89,22 @@
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
-  .form-signup input[type="amount"] {
+  .form-signup input[type="starttime"] {
     float:right;
     width:97%;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
-  .form-signup input[type="dispence"] {
+  .form-signup input[type="endtime"] {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
-  .form-signup input[type="refills"] {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
+  
   .form-signup input[type="directions"] {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
-  .form-signup input[type="frequency"] {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
+
   .logo{
 	  display: block;
 	  margin-left: auto;
