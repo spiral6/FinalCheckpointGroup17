@@ -14,6 +14,14 @@
     <script src="/js/signout.js"></script>
     <script src="/js/sidebars.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="/js/sidebars.js"></script> -->
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/sidebars.css" rel="stylesheet">
+    <link href="/css/settings.css" rel="stylesheet">
 
 
     <!-- Bootstrap core CSS -->
@@ -28,66 +36,117 @@
   </head>
 
   <body>
-    <div class="fixed-top">
-    </div>
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info" style="width: 280px;">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <span class="fs-4"><strong>Menu</strong></span>
-      </a>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <!-- <li>
-            <strong> DOCTORS ONLY: </strong>
-        </li> -->
-        <li class="nav-item">
-          <a href="../patient/patientmyappointments" class="nav-link link-dark"> My Appointments </a>
-        </li>
-        <li class="nav-item">
-          <a href="../patient/patientscheduleappointments" class="nav-link link-dark"> Schedule Appointments </a>
-        </li>
-        <li>
-          <a href="../patient/patientfinddoctor" class="nav-link link-dark"> Find Doctor </a>
-        </li>
-        <li>
-          <a href="../patient/patientfindclinic" class="nav-link link-dark"> Find Clinic </a>
-        </li>
-        <!-- <li>
-          <a href="/patient/viewpayroll" class="nav-link link-dark"> View Payroll </a>
-        </li> -->
-      </ul>
-      <hr>
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-            
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-            </svg>
-            <strong>&emsp;Username</strong>
+    <div class="fixed-top"></div>
+    <main>
+    <div class="container" style="width: 25%;">
+      <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+          <span class="fs-4"><strong>Menu</strong></span>
         </a>
-        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-          <li><a class="dropdown-item" href="/patient/viewprofile">View Profile</a></li>
-          <li><a class="dropdown-item" href="/patient/editprofile">Edit Profile</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#" id="signout">Sign out</a></li>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <!-- <li>
+              <strong> DOCTORS ONLY: </strong>
+          </li> -->
+          <li class="nav-item">
+            <a href="../patient/myappointments" class="nav-link link-dark"> My Appointments </a>
+          </li>
+          <li class="nav-item">
+            <a href="../patient/scheduleappointments" class="nav-link link-dark"> Schedule Appointments </a>
+          </li>
+          <li>
+            <a href="../patient/finddoctor" class="nav-link link-dark"> Find Doctor </a>
+          </li>
+          <li>
+            <a href="../patient/findclinic" class="nav-link link-dark"> Find Clinic </a>
+          </li>
+          <!-- <li>
+            <a href="/patient/viewpayroll" class="nav-link link-dark"> View Payroll </a>
+          </li> -->
         </ul>
+        <hr>
+        <div class="dropdown">
+          <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+              </svg>
+              <strong>&emsp;Username</strong>
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+            <li><a class="dropdown-item" href="/patient/editprofile">Edit Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" id="signout">Sign out</a></li>
+          </ul>
+        </div>
       </div>
-    </div>
     </div>
     <div class="container">
+      <h1 class="form-signup-title">Schedule an Appointment</h1>
+      <!-- <form name="create_prescription_form" onsubmit="return false" class="form-signup"> -->
+      <form name="create_appointment_form" class="form-signup">
+        
+        <div class="column">
+          <label for="firstName" class="sr-only">Patient First Name</label>
+          <input type="firstName" id="firstName" class="form-control" placeholder="F. Name" name="fname" required autofocus>
+        </div>
+        <div class="column">
+          <label for="lastName" class="sr-only" style="margin-left: 2%;">Patient Last Name</label>
+          <input type="lastName" id="lastName" class="form-control" name="lname" placeholder="L. Name" required autofocus>
+        </div>
+        <label for="medication" class="sr-only">Appointment Time</label>
+        <input type="datetime-local" id="app_time" class="form-control" name="app_time" required autofocus>
+        <label for="loc_name" class="sr-only">Location</label>
+        <!-- <input type="text" id="loc_name" class="form-control" placeholder="Clinic name" name="loc_name" required autofocus> -->
+        <select class="form-control" id="loc_name" name="loc_name" style="-webkit-appearance: menulist;" required autofocus>
+        </select>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="app_source" id="app_source_web">
+          <label class="form-check-label" for="app_source_web">
+            Web
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="app_source" id="app_source_phone" checked>
+          <label class="form-check-label" for="app_source_phone">
+            Phone
+          </label>
+        </div>
+        <div class>
+          <button id="CreateUpdateAppointmentButton" class="btn btn-lg btn-primary btn-block" style="width:100%">Schedule Appointment</button>
+        </div>
 
-      <div class="centered-button">
-        <button class="btn btn-lg btn-primary btn-block" id="viewappointments_button" type="submit">View Appointments</button>
+      </form>
+
+    </div>
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-6">
+              <h2>Appointments</h2>
+          </div>
       </div>
-      <table id="viewappointments_table">
-      </table>
-
-    </div> <!-- /container -->
+      <div class="row">
+          <div class="col-sm-6">
+              <table id="appointmentTable" class="table table-bordered table-condensed table-striped">
+                  <thead>
+                      <tr>
+                          <th>Appointment Time</th>
+                          <th>Patient Name</th>
+                          <th>Location Name</th>
+                          <th>Appontment Source</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+    </main>
     <div class="fixed-bottom">
           <br>
     </div>
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
