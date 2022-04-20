@@ -27,15 +27,13 @@
     <div class="fixed-top"></div>
 
     <main>
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info" style="width: 280px;">
+      <div class="container" style="width: 25%;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info">
           <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-            <span class="fs-4"><strong>Doctors Menu</strong></span>
+            <span class="fs-4"><strong>Doctor Menu</strong></span>
           </a>
           <hr>
           <ul class="nav nav-pills flex-column mb-auto">
-            <!-- <li>
-                <strong> DOCTORS ONLY: </strong>
-            </li> -->
             <li class="nav-item">
               <a href="/doctor/findpatient" class="nav-link link-dark"> Find Patient </a>
             </li>
@@ -74,9 +72,10 @@
             </ul>
           </div>
         </div>
-    </div>
+      </div>
     
   <form> 
+    <div class="container">
     <h1 style="margin-right: 12%;"class="form-signup-title">Profile Info</h1>
     <form name="patient_register_form" onsubmit="return false" class="form-signup">
       <div class="column" style="width:38%;">
@@ -123,10 +122,13 @@
         <input style="margin-left: 5%;" type="home_address" id="home_address" class="form-control" name="home_address" placeholder="Address" required autofocus>
       </div>
 
+      <div class="column">
       <div class="centered-button">
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="doctor_save_changes_button">Save Changes</button>
       </div>
+      </div>
     </form>
+    </div>
   </main>
   <div class="fixed-bottom"></div>
 
