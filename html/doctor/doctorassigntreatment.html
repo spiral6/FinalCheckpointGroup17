@@ -69,15 +69,41 @@
             </div>
           </div>
       </div>
-    <div class="container">
-      <h1 class="form-signup-title"></h1>
-        <div class="centered-button">
-            <button class="btn btn-lg btn-primary btn-block" id="viewpatientrecord_button" type="submit">View Patient Record</button>
+
+      <form>
+        <h1 style="margin-left: 42%;" class="form-signup-title">Treatment Info</h1>
+        <div class="column" style="width:150%;">
+          <label for="pat_id" class="sr-only" style="margin-left: 10%;">Patient ID</label>
+          <input style="margin-left: 10%;" type="pat_id" name="pat_id" id="inputEndpat_idtime" class="form-control" placeholder="Patient ID" required autofocus>
         </div>
-        <table id="viewpatientrecord_results">
-        </table>
-    </div> <!-- /container -->
+      
+          <div class="mb-3" style="Width:150%">
+              <label for="treatmentdescription" class="form-label" style="margin-left: 10%;">Visit Description/Treatment</label>
+              <textarea style="margin-left: 10%;" class="form-control" id="treatmentdescription" placeholder="Description of treatment or reason for visit" rows="3"></textarea>
+            </div> 
+      
+        <div class = "column" style="Width:150%">
+          <label for="startime" class="sr-only" style="margin-left: 10%;":>Start Time</label>
+          <input style="margin-left: 10%;" type="datetime-local" name="startime" id="startime" class="form-control" placeholder="Start time" required autofocus>
+        </div>
+        <div class = "column" style="Width:150%">
+          <label for="endtime" class="sr-only" style="margin-left: 10%;":>End Time</label>
+          <input style="margin-left: 10%;" type="datetime-local" name="endtime" id="endtime" class="form-control" placeholder="End time" required autofocus>
+        </div>
+      </form>
+
+      
+  <div class="container">
+    <!-- <h1 class="form-signup-title">Find Patient</h1> -->
+      <div class="centered-button">
+          <button style="margin-right: 25%;" class="btn btn-lg btn-primary btn-block" id="viewschedule_button" type="submit">Create Treatment</button>
+      </div>
+      <table id="viewschedule_results">
+      </table>
+  </div> <!-- /container -->
+
   </main>
+
   <div class="fixed-bottom"></div>
 
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
