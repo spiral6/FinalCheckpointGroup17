@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+  
   <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,8 +27,72 @@
 
     <!-- Custom styles for this template -->
     <link href="/css/signin.css" rel="stylesheet">
+    <script>
+      // Add products to <table>
+      function prescriptionAdd() {
+        // First check if a <tbody> tag exists, add one if not
+        if ($("#prescriptinTable tbody").length == 0) {
+          $("#prescriptionTable").append("<tbody></tbody>");
+        }
 
+        // Append product to the table
+
+        $("#prescriptionTable tbody").append("<tr>" +
+          "<td>Build your own Bootstrap Business Application Template in MVC</td>" +
+          "<td>1/29/2015</td>" +
+          "<td>http://bit.ly/1I8ZqZg</td>" +
+          "</tr>");
+      }
+      $(document).ready(function () {
+        prescriptionAdd();
+      });
+          </script>
+    
+    <script> function prescriptionUpdate() {
+        if ($("#prescriptionname").val() != null && $("#prescriptionname").val() != '') {
+          // Add product to Table
+          prescriptionAddToTable();
+
+          // Clear form fields
+          formClear();
+
+          // Focus to product name field
+          $("#productname").focus();
+        }
+      }
+    </script>
+    
+    <script>
+      function prescriptionAddToTable() {
+        // // First check if a <tbody> tag exists, add one if not
+        // if ($("#productTable tbody").length == 0) {
+        //   $("#productTable").append("<tbody></tbody>");
+        // }
+        $("#patient_register_form").submit(function (e) {
+        e.preventDefault();
+      });
+        // Append product to the table
+        $("#prescriptionTable tbody").append("<tr>" +
+          "<td>" + $("#firstName").val() + "</td>" +
+          "<td>" + $("#lastName").val() + "</td>" +
+          "<td>" + $("#inputMedication").val() + "</td>" +
+          "<td>" + $("#inputStrength").val() + "</td>" +
+          "<td>" + $("#inputAmount").val() + "</td>" +
+          "<td>" + $("#inputStarttime").val() + "</td>" +
+          "<td>" + $("#inputEndtime").val() + "</td>" +
+          "</tr>");
+      }
+            </script>
+
+            <script>
+              function formClear() {
+                $("#productname").val("");
+                $("#introdate").val("");
+                al("");
+              }
+            </script>
   </head>
+  
 
   <body>
     <div class="fixed-top">
@@ -73,4 +140,40 @@
         </ul>
       </div>
     </div>
+    <h1 class="form-signup-title">Schedule an Appointment</h1>
+    <form name="patient_register_form" onsubmit="return false" class="form-signup">
+      <div class="column">
+        <label for="firstName" class="sr-only">Patient First Name</label>
+        <input type="firstName" id="firstName" class="form-control" placeholder="F. Name" name="fname" required autofocus>
+      </div>
+      <div class="column">
+        <label for="lastName" class="sr-only" style="margin-left: 2%;">Patient Last Name</label>
+        <input type="lastName" id="lastName" class="form-control" name="lname" placeholder="L. Name" required autofocus>
+      </div>
+
+      <div class="column" style="width:25%;">
+        <label for="doctor" class="sr-only">Doctor</label>
+        <select type="doctor" id="doctor" class="form-control" placeholder="Doctor" name="doc_name" required autofocus>
+          <option value=" "></option>
+          <option value="Dr. Brad">Dr.Brad</option>
+          <option value="Dr. Andy">Dr. Drew</option>
+          <option value="other">Dr. Stuffins</option>
+        </select>  
+      </div>
+
+      <div class = "column" style="Width:75%">
+        <label for="appttime" class="sr-only" style="margin-left: 3%;":>Appointment date</label>
+        <input type="datetime-local" name="appt_apptdate" id="inputapptdate" class="form-control" required autofocus>
+      </div>
+      
+     
+      
+      
+
+      <div class="centered-button">
+        <button class="btn btn-lg btn-primary btn-block" onclick="prescriptionAddToTable();">Schedule Appointment</button>
+      </div>
+    </form>
+
     </div>
+  </body>>
