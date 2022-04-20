@@ -61,23 +61,49 @@
                   <strong>&emsp;Username</strong>
               </a>
               <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                <li><a class="dropdown-item" href="/doctor/viewprofile">View Profile</a></li>
-                <li><a class="dropdown-item" href="/doctor/editprofile">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="../doctor/doctorviewprofile.html">View Profile</a></li>
+                <li><a class="dropdown-item" href="../doctor/doctoreditprofile.html">Edit Profile</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#" id="signout">Sign out</a></li>
               </ul>
             </div>
           </div>
       </div>
-    <div class="container">
-      <!-- <h1 class="form-signup-title">Find Patient</h1> -->
-        <div class="centered-button">
-            <button class="btn btn-lg btn-primary btn-block" id="viewschedule_button" type="submit">Create Treatment</button>
+
+      <form>
+        <h1 class="form-signup-title">Treatment Info</h1>
+        <div class="column" style="width:75%;">
+          <label for="pat_id" class="sr-only" style="margin-left: 20%;">Patient ID</label>
+          <input style="margin-left: 10%;" type="pat_id" name="pat_id" id="inputEndpat_idtime" class="form-control" placeholder="Patient ID" required autofocus>
         </div>
-        <table id="viewschedule_results">
-        </table>
-    </div> <!-- /container -->
+      
+          <div class="mb-3" style="Width:75%">
+              <label for="treatmentdescription" class="form-label" style="margin-left: 20%;">Visit Description/Treatment</label>
+              <textarea style="margin-left: 10%;" class="form-control" id="treatmentdescription" placeholder="Description of treatment or reason for visit" rows="3"></textarea>
+            </div> 
+      
+        <div class = "column" style="Width:75%">
+          <label for="startime" class="sr-only" style="margin-left: 20%;":>Start Time</label>
+          <input style="margin-left: 10%;" type="datetime-local" name="startime" id="startime" class="form-control" placeholder="Start time" required autofocus>
+        </div>
+        <div class = "column" style="Width:75%">
+          <label for="endtime" class="sr-only" style="margin-left: 20%;":>End Time</label>
+          <input style="margin-left: 10%;" type="datetime-local" name="endtime" id="endtime" class="form-control" placeholder="End time" required autofocus>
+        </div>
+      </form>
+
+      
+  <div class="container">
+    <!-- <h1 class="form-signup-title">Find Patient</h1> -->
+      <div class="centered-button">
+          <button style="margin-right: 50%;" class="btn btn-lg btn-primary btn-block" id="viewschedule_button" type="submit">Create Treatment</button>
+      </div>
+      <table id="viewschedule_results">
+      </table>
+  </div> <!-- /container -->
+
   </main>
+
   <div class="fixed-bottom"></div>
 
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
