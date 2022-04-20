@@ -19,7 +19,11 @@ function createTable(table_data) {
         } else {    
             td = document.createElement('td');
             tr.appendChild(td);
-            td.innerHTML = alias[key];
+            if(alias[key]){
+                td.innerHTML = alias[key];
+            } else {
+                td.innerHTML = key;
+            }
         }
 
     }

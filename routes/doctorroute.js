@@ -80,7 +80,7 @@ router.get('/viewschedule', async (req, res) => {
 router.get('/createprescription', async (req, res) => {
     try{
         if(req.cookies['doc_id']){
-            res.sendFile(path.join(__dirname + "/../html/doctor/doctorcreateprescription.html")); //ourclinic.com/doctor/createprescription
+            res.sendFile(path.join(__dirname + "/../html/doctor/doctorcreateaprescriptionpage.html")); //ourclinic.com/doctor/createprescription
         } else if(req.cookies['admin']){
             res.redirect('/admin');
         } else {
@@ -90,20 +90,6 @@ router.get('/createprescription', async (req, res) => {
         console.log(err);
     }
 })
-
-// router.get('/createprescription', async (req, res) => {
-//     try{
-//         if(req.cookies['doc_id']){
-//             res.sendFile(path.join(__dirname + "/../html/doctor/doctorcreateprescription.html"));
-//         } else if(req.cookies['admin']){
-//             res.redirect('/admin');
-//         } else {
-//             res.redirect('/');
-//         }
-//     } catch (err) {
-//         console.log(err);
-//     }
-// })
 
 router.get('/viewprofile', async (req, res) => {
     try{
@@ -194,12 +180,56 @@ router.get('/db/patientRecord', async (req, res) => {
 // Create prescription
 router.put('/db/prescription', async (req, res) => {
     try {
-        const result = await db.pool.query("INSERT INTO PrescriptionTable(med_name,rx_start,rx_end,rx_desc,pat_id,doc_id) VALUES(?,?,?,?,?,?);",[
+        let payload = [
             req.body.med_name,
             req.body.rx_start,
             req.body.rx_end,
             req.body.rx_desc,
-            req.body.pat_id,
+            req.body.rx_amount,
+            req.body.rx_strength,
+            req.body.pat_name,
+            req.cookies['doc_id']
+        ];
+        if(req.body.rx_id){
+            payload = [req.body.rx_id].concat(payload);
+        }
+        console.log(payload);
+        const result = await db.pool.query(`
+        REPLACE INTO PrescriptionTable(${req.body.rx_id ? 'rx_id,' : ''}med_name,rx_start,rx_end,rx_desc,rx_amount,rx_strength,pat_id,doc_id)
+        VALUES(
+            ${req.body.rx_id ? '?,' : ''}
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            (SELECT pat_id FROM PatientTable WHERE pat_name=?),
+            ?
+           )
+        `,payload);
+        
+        // console.log(result);
+        res.send(result);
+    } catch (err) {
+        /* 
+        if err_msg.contains("allergy") {
+            //Have error handling for this. Most likely just a warning and no data entered.
+        }
+        */ 
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// Get prescription
+router.get('/db/prescription', async (req, res) => {
+    try {
+        const result = await db.pool.query(`
+        Select rx_id,med_name,rx_strength,rx_amount,rx_start,rx_end,rx_desc,PatientTable.pat_name,doc_id FROM PrescriptionTable
+        INNER JOIN PatientTable ON PrescriptionTable.pat_id = PatientTable.pat_id
+        WHERE doc_id=?
+        `,[
             req.cookies['doc_id']
         ]);
         
@@ -212,6 +242,33 @@ router.put('/db/prescription', async (req, res) => {
         }
         */ 
         console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// Delete prescription
+router.delete('/db/prescription', async (req, res) => {
+    try {
+        let payload = [
+
+        ];
+        if(req.body.rx_id){
+            payload = [req.body.rx_id].concat(payload);
+        }
+        console.log(payload);
+        const result = await db.pool.query(`DELETE FROM PrescriptionTable where rx_id=?`,
+        payload);
+        
+        // console.log(result);
+        res.send(result);
+    } catch (err) {
+        /* 
+        if err_msg.contains("allergy") {
+            //Have error handling for this. Most likely just a warning and no data entered.
+        }
+        */ 
+        console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -246,7 +303,14 @@ router.get('/db/payroll', async (req, res) => {
 // View schedule
 router.get('/db/schedule', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT StaffTable.staff_name,schedule_workday,LocationTable.loc_name FROM ((ScheduleTable INNER JOIN LocationTable ON ScheduleTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON ScheduleTable.staff_id=StaffTable.staff_id) WHERE ScheduleTable.staff_id=?;",[
+        const result = await db.pool.query(`SELECT StaffTable.staff_name, loc_name,
+        GROUP_CONCAT(schedule_workday ORDER BY FIELD(schedule_workday, "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN") ASC) AS Weekdays
+        FROM ScheduleTable 
+        INNER JOIN LocationTable ON ScheduleTable.loc_id = LocationTable.loc_id
+        INNER JOIN StaffTable ON ScheduleTable.staff_id = StaffTable.staff_id
+        WHERE StaffTable.staff_id=?
+        GROUP BY ScheduleTable.staff_id, loc_name
+        ;`,[
             req.cookies['doc_id']
         ]);
         
