@@ -8,7 +8,7 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/js/doctor/doctoractions.js"></script>
-    <script src="/js/doctor/doctorprescription.js"></script>
+    <script src="/js/doctor/doctorappointment.js"></script>
     <!-- <script type="module" src="/js/createTable.js"></script> -->
     <script src="/js/signout.js"></script>
       <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -74,9 +74,9 @@
         </div>
       </div>
       <div class="container">
-        <h1 class="form-signup-title">Create an Appointment</h1>
+        <h1 class="form-signup-title">Schedule an Appointment</h1>
         <!-- <form name="create_prescription_form" onsubmit="return false" class="form-signup"> -->
-        <form name="create_prescription_form" class="form-signup">
+        <form name="create_appointment_form" class="form-signup">
           
           <div class="column">
             <label for="firstName" class="sr-only">Patient First Name</label>
@@ -89,7 +89,21 @@
           <label for="medication" class="sr-only">Appointment Time</label>
           <input type="datetime-local" id="app_time" class="form-control" name="app_time" required autofocus>
           <label for="loc_name" class="sr-only">Location</label>
-          <input type="text" id="loc_name" class="form-control" placeholder="Strength (mg)" name="rx_strength" required autofocus>
+          <!-- <input type="text" id="loc_name" class="form-control" placeholder="Clinic name" name="loc_name" required autofocus> -->
+          <select class="form-control" id="loc_name" name="loc_name" style="-webkit-appearance: menulist;" required autofocus>
+          </select>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="app_source" id="app_source_web">
+            <label class="form-check-label" for="app_source_web">
+              Web
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="app_source" id="app_source_phone" checked>
+            <label class="form-check-label" for="app_source_phone">
+              Phone
+            </label>
+          </div>
           <div class>
             <button id="CreateUpdateAppointmentButton" class="btn btn-lg btn-primary btn-block" style="width:100%">Schedule Appointment</button>
           </div>
@@ -105,11 +119,11 @@
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <table id="prescriptionTable" class="table table-bordered table-condensed table-striped">
+                <table id="appointmentTable" class="table table-bordered table-condensed table-striped">
                     <thead>
                         <tr>
                             <th>Appointment Time</th>
-                            <th>Doctor Name</th>
+                            <th>Patient Name</th>
                             <th>Location Name</th>
                             <th>Appontment Source</th>
                         </tr>

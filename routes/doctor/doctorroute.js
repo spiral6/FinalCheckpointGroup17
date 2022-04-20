@@ -20,7 +20,8 @@ router.get('/', async (req, res) => {
             res.sendFile(path.join(__dirname + "/../../html/staff/stafflogin.html"));
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -34,7 +35,8 @@ router.get('/findpatient', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -48,7 +50,8 @@ router.get('/viewpayroll', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -62,7 +65,8 @@ router.get('/assigntreatment', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -76,7 +80,8 @@ router.get('/patientrecord', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -90,7 +95,8 @@ router.get('/viewschedule', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -104,7 +110,8 @@ router.get('/createprescription', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -118,7 +125,8 @@ router.get('/scheduleappointment', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -132,7 +140,8 @@ router.get('/viewprofile', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 
@@ -146,7 +155,8 @@ router.get('/editprofile', async (req, res) => {
             res.redirect('/');
         }
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 

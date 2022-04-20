@@ -9,7 +9,8 @@ router.get('/', async (req, res) => {
     try {
         res.sendFile(path.join(__dirname + "/../html/admin/doctoradmin.html"));
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -20,7 +21,8 @@ router.get('/select', async (req, res) => {
         console.log(result);
         res.send(result);
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 })
 

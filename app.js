@@ -55,7 +55,8 @@ app.get('/', async (req, res) => {
         }
     
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -65,7 +66,8 @@ app.get('/resetpass', async (req, res) => {
         res.sendFile(path.join(__dirname + "/html/resetpass.html"));
     
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -92,7 +94,8 @@ app.post('/logout', async (req, res) => {
             res.sendStatus(200);
         })
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
         res.sendStatus(403);
     }
 
