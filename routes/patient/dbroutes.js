@@ -66,9 +66,29 @@ router.post('/signup', async (req, res) => {
 // Find doctor
 router.get('/findDoctor', async (req, res) => {
     try {
-        console.log(req.query.doctor);
-        let searchName = "%" + req.query.doctor + "%";
-        const result = await db.pool.query("SELECT staff_name, staff_email, staff_phone FROM StaffTable WHERE staff_occupation=\"DOCTOR\" AND staff_name LIKE ? ORDER BY staff_name ASC;",[searchName]);
+        // console.log(req.query.doctor);
+        // let searchName = "%" + req.query.doctor + "%";
+        const result = await db.pool.query(`SELECT staff_name, staff_email, staff_phone 
+        FROM StaffTable 
+        WHERE staff_occupation=\"DOCTOR\" AND 
+        staff_name=?;`,[req.query.staff_name]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+                console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// Get doctor
+router.get('/getDoctor', async (req, res) => {
+    try {
+        // console.log(req.query.doctor);
+        // let searchName = "%" + req.query.doctor + "%";
+        const result = await db.pool.query(`SELECT staff_name
+        FROM StaffTable 
+        WHERE staff_occupation=\"DOCTOR\";`,[]);
         
         console.log(result);
         res.send(result);
@@ -81,7 +101,7 @@ router.get('/findDoctor', async (req, res) => {
 // List clinics
 router.get('/clinic', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT loc_city, loc_name, loc_dep FROM LocationTable;");
+        const result = await db.pool.query("SELECT loc_city, loc_name, loc_dep, loc_address FROM LocationTable;");
         
         console.log(result);
         res.send(result);
@@ -91,12 +111,25 @@ router.get('/clinic', async (req, res) => {
     }
 })
 
+// Get profile info
+router.get('/profile', async (req, res) => {
+    try {
+        const result = await db.pool.query("SELECT * FROM PatientTable WHERE pat_id=?;",[
+            req.cookies['pat_id']
+        ]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+                console.error(err);
+        res.status(500).send(err);
+    }
+})
+
 // Edit profile info
 router.put('/profile', async (req, res) => {
     try {
-        const result = await db.pool.query("UPDATE PatientTable SET pat_name=?, pat_sex=?, pat_phone=?, pat_insurance=?, pat_address=? WHERE pat_id=?;",[
-            req.body.pat_name,
-            req.body.pat_sex,
+        const result = await db.pool.query("UPDATE PatientTable SET pat_phone=?, pat_insurance=?, pat_address=? WHERE pat_id=?;",[
             req.body.pat_phone,
             req.body.pat_insurance,
             req.body.pat_address,

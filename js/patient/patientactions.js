@@ -86,6 +86,7 @@ const alias = {
     loc_city: "Clinic Location",
     loc_name: "Clinic Name",
     loc_dep: "Clinic Department",
+    loc_address: "Clinic Address",
     schedule_workday: "Schedule Workday",
     app_time: "Appointment Time",
     app_id: ""
@@ -123,10 +124,10 @@ async function viewClinics(id) {
 
 async function findDoctor() {
 
-    const searchInput = document.getElementById('doctor_search')
-    const inputValue = searchInput.value;
-    const searchQuery = inputValue;
-    const response = await fetch(window.location.origin + '/patient/db/findDoctor?doctor=' + searchQuery,  {
+    const searchInput = $('#doctor_select option:selected').text();
+    // const inputValue = searchInput.value;
+    // const searchQuery = inputValue;
+    const response = await fetch(window.location.origin + '/patient/db/findDoctor?staff_name=' + searchInput,  {
         method: 'get',
         headers: {
             'Content-Type': 'application/json'
@@ -134,13 +135,14 @@ async function findDoctor() {
     }).then(response => response.text()
     ).then(body => {
         console.log(JSON.parse(body));
-        document.getElementById("finddoctor_results").innerHTML = createTable(JSON.parse(body)).innerHTML;
+        // body = JSON.parse(body);
+        document.getElementById("doctor_info_results").innerHTML = createTable(JSON.parse(body)).innerHTML;
         // document.getElementById("finddoctor_results").innerHTML = createTable(JSON.parse(body));
-        document.getElementById("finddoctor_results").className = "table";
+        document.getElementById("doctor_info_results").className = "table";
     })
 }
 
-window.onload = function() { 
+window.onload = async function() { 
 
     const searchButton = document.getElementById('doctor_search_button')
     if(searchButton){
@@ -160,4 +162,33 @@ window.onload = function() {
             viewClinics(1111);
         });
     }
+
+    const viewDoctorInfoButton = document.getElementById('doctor_select')
+    if(viewDoctorInfoButton){
+        await getDoctorNames();    
+    }
 };
+
+async function getDoctorNames(){
+    const request = await fetch(window.location.origin + '/patient/db/getDoctor',  {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(JSONObject)
+      }).then(response => {
+        if (!response.ok) {
+          response.text().then(err => {
+            alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+          })  
+        }
+        return response.text();
+      }).then(body => {
+        // alert("Successfully retrieved Doctors!")
+        console.log(JSON.parse(body));
+        body = JSON.parse(body);
+        for(const row in body){
+            $("#doctor_select").append("<option>" + body[row].staff_name + "</option>");
+        }
+      });
+}
