@@ -16,7 +16,9 @@
     <!-- Custom styles for this template -->
     <link href="/css/sidebars.css" rel="stylesheet">
     <link href="/css/settings.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   </head>
+
   <body>
     <div class="fixed-top"></div>
 
@@ -65,9 +67,58 @@
           </div>
         </div>
     </div>
-    <div class="container">
-      <h1 class="form-signup-title">Portal</h1>
-    </div> <!-- /container -->
+    
+  <form>
+    <h1 class="form-signup-title">Profile Info</h1>
+    <form name="patient_register_form" onsubmit="return false" class="form-signup">
+      <div class="column" style="width:38%;">
+        <label for="firstName" class="sr-only">First Name</label>
+        <input type="firstName" id="firstName" class="form-control" placeholder="F. Name" name="fname" required autofocus>
+      </div>
+      <div class="column" style="width:38%;">
+        <label for="lastName" class="sr-only" style="margin-left: 2%;">Last Name</label>
+        <input type="lastName" id="lastName" class="form-control" name="lname" placeholder="L. Name" required autofocus>
+      </div>
+
+      <div class="column" style="width:25%;">
+        <label for="doctor" class="sr-only" style="margin-left: 3%;":>Gender</label>
+        <select type="doctor" id="doctor" class="form-control" placeholder="Gender" name="doc_gender" required autofocus>
+          <option value=" "></option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="other">Other</option>
+        </select>  
+      </div>
+
+      <div class = "column" style="Width:25%">
+        <label for="appttime" class="sr-only" style="margin-left: 3%;":>Date of Birth</label>
+        <input type="datetime" name="appt_apptdate" id="inputapptdate" class="form-control" placeholder="mm/dd/yyyy" required autofocus readonly>
+      </div>
+
+      <div class = "column" style="Width:25%">
+        <label for="phone_num" class="sr-only" style="margin-left: 3%;":>Phone Number</label>
+        <input type="phone_num" name="phone_num" id="phone_num" class="form-control" placeholder="Phone Number" required autofocus>
+      </div>
+
+      <div class = "column" style="Width:75%">
+        <label for="email" class="sr-only" style="margin-left: 3%;":>Email</label>
+        <input type="email" name="email" id="email" class="form-control" placeholder="Email" required autofocus>
+      </div>
+
+      <div class = "column" style="Width:75%">
+        <label for="deptartment" class="sr-only" style="margin-left: 3%;":>Department</label>
+        <input type="deptartment" name="deptartment" id="deptartment" class="form-control" placeholder="Department Name" required autofocus>
+      </div>
+
+      <div class="column" style="Width:75%">
+        <label for="home_address" class="sr-only" style="margin-left: 3%;">Home Address</label>
+        <input type="home_address" id="home_address" class="form-control" name="home_address" placeholder="Address" required autofocus>
+      </div>
+
+      <div class="centered-button">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="doctor_save_changes_button">Save Changes</button>
+      </div>
+    </form>
   </main>
   <div class="fixed-bottom"></div>
 
