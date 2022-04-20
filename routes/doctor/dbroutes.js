@@ -1,126 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../db')
+const db = require('../../db')
 const app = express()
 const fs = require('fs')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 router.use(cookieParser())
 
-router.get('/', async (req, res) => {
-    try{
-        if(req.cookies['pat_id'] || req.cookies['doc_id'] || req.cookies['staff_id']){
-            res.redirect('/portal');
-        } else if(req.cookies['admin']){
-            res.redirect('/admin');
-        } else {
-            res.sendFile(path.join(__dirname + "/../html/staff/stafflogin.html"));
-        }
-    } catch (err) {
-        console.log(err);
-    }
-})
-
-router.get('/findpatient', async (req, res) => {
-    try{
-        if(req.cookies['doc_id']){
-            res.sendFile(path.join(__dirname + "/../html/doctor/doctorfindpatient.html"));
-        } else if(req.cookies['admin']){
-            res.redirect('/admin');
-        } else {
-            res.redirect('/');
-        }
-    } catch (err) {
-        console.log(err);
-    }
-})
-
-router.get('/viewpayroll', async (req, res) => {
-    try{
-        if(req.cookies['doc_id']){
-            res.sendFile(path.join(__dirname + "/../html/doctor/doctorviewpayroll.html"));
-        } else if(req.cookies['admin']){
-            res.redirect('/admin');
-        } else {
-            res.redirect('/');
-        }
-    } catch (err) {
-        console.log(err);
-    }
-})
-
-router.get('/patientrecord', async (req, res) => {
-    try{
-        if(req.cookies['doc_id']){
-            res.sendFile(path.join(__dirname + "/../html/doctor/doctorpatientrecord.html"));
-        } else if(req.cookies['admin']){
-            res.redirect('/admin');
-        } else {
-            res.redirect('/');
-        }
-    } catch (err) {
-        console.log(err);
-    }
-})
-
-router.get('/viewschedule', async (req, res) => {
-    try{
-        if(req.cookies['doc_id']){
-            res.sendFile(path.join(__dirname + "/../html/doctor/doctorviewschedule.html"));
-        } else if(req.cookies['admin']){
-            res.redirect('/admin');
-        } else {
-            res.redirect('/');
-        }
-    } catch (err) {
-        console.log(err);
-    }
-})
-
-router.get('/createprescription', async (req, res) => {
-    try{
-        if(req.cookies['doc_id']){
-            res.sendFile(path.join(__dirname + "/../html/doctor/doctorcreateaprescriptionpage.html")); //ourclinic.com/doctor/createprescription
-        } else if(req.cookies['admin']){
-            res.redirect('/admin');
-        } else {
-            res.redirect('/');
-        }
-    } catch (err) {
-        console.log(err);
-    }
-})
-
-router.get('/viewprofile', async (req, res) => {
-    try{
-        if(req.cookies['doc_id']){
-            res.sendFile(path.join(__dirname + "/../html/doctor/doctorviewprofile.html"));
-        } else if(req.cookies['admin']){
-            res.redirect('/admin');
-        } else {
-            res.redirect('/');
-        }
-    } catch (err) {
-        console.log(err);
-    }
-})
-
-router.get('/editprofile', async (req, res) => {
-    try{
-        if(req.cookies['doc_id']){
-            res.sendFile(path.join(__dirname + "/../html/doctor/doctoreditprofile.html"));
-        } else if(req.cookies['admin']){
-            res.redirect('/admin');
-        } else {
-            res.redirect('/');
-        }
-    } catch (err) {
-        console.log(err);
-    }
-})
-
 // Search for patient
-router.get('/db/findPatient', async (req, res) => {
+router.get('/findPatient', async (req, res) => {
     try {
         // console.log(req.query.q);
         let searchName = "%" + req.query.q + "%";
@@ -134,7 +22,7 @@ router.get('/db/findPatient', async (req, res) => {
 })
 
 // Get patient information
-router.get('/db/patientInfo', async (req, res) => {
+router.get('/patientInfo', async (req, res) => {
     try {
         // console.log(req.query)
         const result = await db.pool.query("SELECT * FROM PatientTable WHERE pat_id=?;",[req.query.pat_id]);
@@ -147,7 +35,7 @@ router.get('/db/patientInfo', async (req, res) => {
 })
 
 // Add patient record
-router.put('/db/patientRecord', async (req, res) => {
+router.put('/patientRecord', async (req, res) => {
     try {
         const result = await db.pool.query("INSERT INTO RecordsTable(rec_treatment,rec_admit,rec_leave,pat_id) VALUES(?,?,?,?);",[
             req.body.rec_treatment,
@@ -164,7 +52,7 @@ router.put('/db/patientRecord', async (req, res) => {
 })
 
 // View patient records
-router.get('/db/patientRecord', async (req, res) => {
+router.get('/patientRecord', async (req, res) => {
     try {
         const result = await db.pool.query("SELECT rec_treatment,rec_admit,rec_leave FROM RecordTable WHERE pat_id=?;",[
             req.query.pat_id
@@ -178,7 +66,7 @@ router.get('/db/patientRecord', async (req, res) => {
 })
 
 // Create prescription
-router.put('/db/prescription', async (req, res) => {
+router.put('/prescription', async (req, res) => {
     try {
         let payload = [
             req.body.med_name,
@@ -223,7 +111,7 @@ router.put('/db/prescription', async (req, res) => {
 })
 
 // Get prescription
-router.get('/db/prescription', async (req, res) => {
+router.get('/prescription', async (req, res) => {
     try {
         const result = await db.pool.query(`
         Select rx_id,med_name,rx_strength,rx_amount,rx_start,rx_end,rx_desc,PatientTable.pat_name,doc_id FROM PrescriptionTable
@@ -247,7 +135,7 @@ router.get('/db/prescription', async (req, res) => {
 })
 
 // Delete prescription
-router.delete('/db/prescription', async (req, res) => {
+router.delete('/prescription', async (req, res) => {
     try {
         let payload = [
 
@@ -273,7 +161,7 @@ router.delete('/db/prescription', async (req, res) => {
 })
 
 // View appointments
-router.get('/db/appointment', async (req, res) => {
+router.get('/appointment', async (req, res) => {
     try {
         const result = await db.pool.query("SELECT app_id,app_time,LocationTable.loc_name,PatientTable.pat_name FROM (((AppointmentTable INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) WHERE doc_id=?;",[
             req.cookies['doc_id']
@@ -287,7 +175,7 @@ router.get('/db/appointment', async (req, res) => {
 })
 
 // View payroll
-router.get('/db/payroll', async (req, res) => {
+router.get('/payroll', async (req, res) => {
     try {
         const result = await db.pool.query("SELECT staff_name, staff_salary FROM StaffTable WHERE staff_id=?",[
             req.cookies['doc_id']
@@ -301,7 +189,7 @@ router.get('/db/payroll', async (req, res) => {
 })
 
 // View schedule
-router.get('/db/schedule', async (req, res) => {
+router.get('/schedule', async (req, res) => {
     try {
         const result = await db.pool.query(`SELECT StaffTable.staff_name, loc_name,
         GROUP_CONCAT(schedule_workday ORDER BY FIELD(schedule_workday, "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN") ASC) AS Weekdays
@@ -322,7 +210,7 @@ router.get('/db/schedule', async (req, res) => {
 })
 
 // Cancel appointment
-router.put('/db/appointment', async (req, res) => {
+router.put('/appointment', async (req, res) => {
     try {
         const result = await db.pool.query("UPDATE AppointmentTable SET app_cancelled=1 WHERE doc_id=? AND app_id=?;",[
             req.cookies['doc_id'],
