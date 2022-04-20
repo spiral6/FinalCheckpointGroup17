@@ -23,8 +23,8 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-const doctorroute = require('./routes/doctorroute')
-const patientroute = require('./routes/patientroute')
+const doctorroute = require('./routes/doctor/doctorroute')
+const patientroute = require('./routes/patient/patientroute')
 const staffroute = require('./routes/staffroute')
 const adminroute = require('./routes/admin.js')
 const portal = require('./routes/portal')
