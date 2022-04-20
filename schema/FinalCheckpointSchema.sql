@@ -84,9 +84,9 @@ CREATE TABLE IF NOT EXISTS PrescriptionTable(
 rx_id INT AUTO_INCREMENT,
 rx_name VARCHAR(30) NOT NULL,
 rx_strength VARCHAR(10) NOT NULL, --units
-rx_starttime DATETIME NOT NULL, -- startdate of meds
+rx_startime DATETIME NOT NULL, -- startdate of meds
 rx_endtime DATETIME, -- timestamp for when it was left?
-rx_desc VARCHAR(1000),
+rx_dir VARCHAR(1000),
 pat_id INT NOT NULL,
 doc_id INT NOT NULL,
 PRIMARY KEY (rx_id)
