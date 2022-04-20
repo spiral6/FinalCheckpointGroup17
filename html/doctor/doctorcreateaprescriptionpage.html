@@ -18,10 +18,9 @@
     <link href="/css/sidebars.css" rel="stylesheet">
     <link href="/css/settings.css" rel="stylesheet">
 
-    <script 
-    src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-    </script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   
   </head>
   <body>
     <div class="fixed-top"></div>
@@ -34,7 +33,7 @@
 
             <div class="container">
               <h1 class="form-signup-title">Create a Prescription</h1>
-              <form name="patient_register_form" class="form-signup">
+              <form name="patient_register_form" onsubmit="return false" class="form-signup">
                 <div class="column">
                   <label for="firstName" class="sr-only">Patient First Name</label>
                   <input type="firstName" id="firstName" class="form-control" placeholder="F. Name" name="fname" required autofocus>
@@ -69,9 +68,11 @@
                 <input type="str" id="inputStarttime" class="form-control" placeholder="Enter Startime" name="rx_startime" required autofocus>
                 <label for="endtime" class="sr-only">End time</label>
                 <input type="end" id="inputEndtime" class="form-control" placeholder="Enter Endtime" name="rx_endtime" required autofocus>
+                
+                
 
                 <div class="centered-button">
-                  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit Prescription</button>
+                  <button class="btn btn-lg btn-primary btn-block" onclick="prescriptionAddToTable();">Submit Prescription</button>
                 </div>
               </form>
         
@@ -91,7 +92,7 @@
               </div>
               <div class="row">
                   <div class="col-sm-6">
-                      <table id="productTable" class="table table-bordered table-condensed table-striped">
+                      <table id="prescriptionTable" class="table table-bordered table-condensed table-striped">
                           <thead>
                               <tr>
                                   <th>Patient First Name</th>
@@ -111,29 +112,71 @@
 
           <script>
             // Add products to <table>
-            function productsAdd() {
-                // First check if a <tbody> tag exists, add one if not
-                if ($("#productTable tbody").length == 0) {
-                    $("#productTable").append("<tbody></tbody>");
-                }
-                
-                // Append product to the table
-                $("#productTable tbody").append("<tr>" +
-                    "<td>inputMedication, JavaScript and jQuery</td>" +
-                    "<td>6/11/2015</td>" +
-                    "<td>http://bit.ly/1SNzc0i</td>" +
-                    "</tr>");
+            function prescriptionAdd() {
+              // First check if a <tbody> tag exists, add one if not
+              if ($("#prescriptinTable tbody").length == 0) {
+                $("#prescriptionTable").append("<tbody></tbody>");
+              }
+
+              // Append product to the table
+
+              $("#prescriptionTable tbody").append("<tr>" +
+                "<td>Build your own Bootstrap Business Application Template in MVC</td>" +
+                "<td>1/29/2015</td>" +
+                "<td>http://bit.ly/1I8ZqZg</td>" +
+                "</tr>");
+            }
+            $(document).ready(function () {
+              prescriptionAdd();
+            });
+                </script>
+          
+          <script> function prescriptionUpdate() {
+              if ($("#prescriptionname").val() != null && $("#prescriptionname").val() != '') {
+                // Add product to Table
+                prescriptionAddToTable();
+
+                // Clear form fields
+                formClear();
+
+                // Focus to product name field
+                $("#productname").focus();
+              }
+            }
+          </script>
+          
+          <script>
+            function prescriptionAddToTable() {
+              // // First check if a <tbody> tag exists, add one if not
+              // if ($("#productTable tbody").length == 0) {
+              //   $("#productTable").append("<tbody></tbody>");
+              // }
+              $("#patient_register_form").submit(function (e) {
+              e.preventDefault();
+            });
+              // Append product to the table
+              $("#prescriptionTable tbody").append("<tr>" +
+                "<td>" + $("#firstName").val() + "</td>" +
+                "<td>" + $("#lastName").val() + "</td>" +
+                "<td>" + $("#inputMedication").val() + "</td>" +
+                "<td>" + $("#inputStrength").val() + "</td>" +
+                "<td>" + $("#inputAmount").val() + "</td>" +
+                "<td>" + $("#inputStarttime").val() + "</td>" +
+                "<td>" + $("#inputEndtime").val() + "</td>" +
+                "</tr>");
+            }
+                  </script>
+
+                  <script>
+                    function formClear() {
+                      $("#productname").val("");
+                      $("#introdate").val("");
+                      al("");
+                    }
+                  </script>
                     
-                $("#productTable tbody").append("<tr>" +
-                    "<td>Build your own Bootstrap Business Application Template in MVC</td>" +
-                    "<td>1/29/2015</td>" +
-                    "<td>http://bit.ly/1I8ZqZg</td>" +
-                    "</tr>");
-        }
-        </script>
 
         </body>
-       
         
 
         
