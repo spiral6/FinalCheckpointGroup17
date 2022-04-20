@@ -17,6 +17,11 @@
     <!-- Custom styles for this template -->
     <link href="/css/sidebars.css" rel="stylesheet">
     <link href="/css/settings.css" rel="stylesheet">
+
+    <script 
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js">
+    </script>
+
   </head>
   <body>
     <div class="fixed-top"></div>
@@ -55,15 +60,15 @@
                 <label for="medication" class="sr-only">Medication</label>
                 <input type="med" id="inputMedication" class="form-control" placeholder="Medication" name="rx_med" required autofocus>
                 <label for="strength" class="sr-only">Strength</label>
-                <input type="tel" id="inputMedication" class="form-control" placeholder="Strength (mg)" name="rx_strength" required autofocus>
+                <input type="tel" id="inputStrength" class="form-control" placeholder="Strength (mg)" name="rx_strength" required autofocus>
                 <label for="amount" class="sr-only">Amount</label>
-                <input type="tel" id="inputMedication" class="form-control" placeholder="Number of tablets" name="rx_amount" required autofocus>
+                <input type="tel" id="inputAmount" class="form-control" placeholder="Number of tablets" name="rx_amount" required autofocus>
                 <label for="directions" class="sr-only">Directions</label>
                 <input type="dir" id="inputDirections" class="form-control" placeholder="Directions" name="rx_directions" required autofocus>
                 <label for="starttime" class="sr-only">Start time</label>
-                <input type="str" id="inputEndtime" class="form-control" placeholder="Enter Startime" name="rx_startime" required autofocus>
+                <input type="str" id="inputStarttime" class="form-control" placeholder="Enter Startime" name="rx_startime" required autofocus>
                 <label for="endtime" class="sr-only">End time</label>
-                <input type="end" id="inputMedication" class="form-control" placeholder="Enter Endtime" name="rx_endtime" required autofocus>
+                <input type="end" id="inputEndtime" class="form-control" placeholder="Enter Endtime" name="rx_endtime" required autofocus>
 
                 <div class="centered-button">
                   <button class="btn btn-lg btn-primary btn-block" type="submit">Submit Prescription</button>
@@ -96,14 +101,13 @@
                                   <th>Amount</th>
                                   <th>Start time</th>
                                   <th>End time</th>
-                                  <th></th>
                               </tr>
                           </thead>
                       </table>
                   </div>
               </div>
           </div>
-          </body>
+          
 
           <script>
             // Add products to <table>
@@ -115,7 +119,7 @@
                 
                 // Append product to the table
                 $("#productTable tbody").append("<tr>" +
-                    "<td>Extending Bootstrap with CSS, JavaScript and jQuery</td>" +
+                    "<td>inputMedication, JavaScript and jQuery</td>" +
                     "<td>6/11/2015</td>" +
                     "<td>http://bit.ly/1SNzc0i</td>" +
                     "</tr>");
@@ -128,6 +132,7 @@
         }
         </script>
 
+        </body>
        
         
 
