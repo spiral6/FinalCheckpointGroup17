@@ -147,24 +147,33 @@ INSERT INTO AppointmentTable(app_source,app_time,loc_id,staff_id,pat_id)
 VALUES(?,?,(SELECT loc_id FROM LocationTable WHERE loc_name=?),?,?); 
 
 -- View specific person schedule (only for hospital admin)
-SELECT StaffTable.staff_name,schedule_workday,LocationTable.loc_name
-FROM ((ScheduleTable
-INNER JOIN LocationTable ON ScheduleTable.loc_id=LocationTable.loc_id)
-INNER JOIN StaffTable ON ScheduleTable.staff_id=StaffTable.staff_id)
-WHERE ScheduleTable.staff_id=?;
+SELECT StaffTable.staff_name, loc_name,
+GROUP_CONCAT(schedule_workday ORDER BY FIELD(schedule_workday, "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN") ASC) AS weekdays
+FROM ScheduleTable 
+INNER JOIN LocationTable ON ScheduleTable.loc_id = LocationTable.loc_id
+INNER JOIN StaffTable ON ScheduleTable.staff_id = StaffTable.staff_id
+WHERE StaffTable.staff_id=?
+GROUP BY ScheduleTable.staff_id, loc_name
+;
 
 -- View all doctor schedules (only for nurse/secretary/hospital admin)
-SELECT StaffTable.staff_name,schedule_workday,LocationTable.loc_name
-FROM ((ScheduleTable
-INNER JOIN LocationTable ON ScheduleTable.loc_id=LocationTable.loc_id)
-INNER JOIN StaffTable ON ScheduleTable.staff_id=StaffTable.staff_id)
-WHERE ScheduleTable.staff_occupation='DOCTOR';
+SELECT StaffTable.staff_name, loc_name,
+GROUP_CONCAT(schedule_workday ORDER BY FIELD(schedule_workday, "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN") ASC) AS weekdays
+FROM ScheduleTable 
+INNER JOIN LocationTable ON ScheduleTable.loc_id = LocationTable.loc_id
+INNER JOIN StaffTable ON ScheduleTable.staff_id = StaffTable.staff_id
+WHERE StaffTable.staff_occupation='DOCTOR'
+GROUP BY ScheduleTable.staff_id, loc_name
+;
 
 -- View all schedules (only for hospital admin)
-SELECT StaffTable.staff_name,schedule_workday,LocationTable.loc_name
-FROM ((ScheduleTable
-INNER JOIN LocationTable ON ScheduleTable.loc_id=LocationTable.loc_id)
-INNER JOIN StaffTable ON ScheduleTable.staff_id=StaffTable.staff_id);
+SELECT StaffTable.staff_name, loc_name,
+GROUP_CONCAT(schedule_workday ORDER BY FIELD(schedule_workday, "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN") ASC) AS weekdays
+FROM ScheduleTable 
+INNER JOIN LocationTable ON ScheduleTable.loc_id = LocationTable.loc_id
+INNER JOIN StaffTable ON ScheduleTable.staff_id = StaffTable.staff_id
+GROUP BY ScheduleTable.staff_id, loc_name
+;
 
 -------------------------------------------------------------------------------------------------------------
 
