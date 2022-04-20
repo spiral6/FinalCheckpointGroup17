@@ -108,6 +108,20 @@ router.get('/createprescription', async (req, res) => {
     }
 })
 
+router.get('/scheduleappointment', async (req, res) => {
+    try{
+        if(req.cookies['doc_id']){
+            res.sendFile(path.join(__dirname + "/../../html/doctor/doctorscheduleappointment.html")); //ourclinic.com/doctor/createprescription
+        } else if(req.cookies['admin']){
+            res.redirect('/admin');
+        } else {
+            res.redirect('/');
+        }
+    } catch (err) {
+        console.log(err);
+    }
+})
+
 router.get('/viewprofile', async (req, res) => {
     try{
         if(req.cookies['doc_id']){
