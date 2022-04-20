@@ -8,8 +8,9 @@
     <title>View Patient Record</title>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- <script src="/js/doctor/doctoractions.js"></script>
-    <script src="/js/doctor/doctorprescription.js"></script> -->
+    <script src="/js/doctor/doctoractions.js"></script>
+    <script src="/js/doctor/doctorviewpatientrecord.js"></script>
+    <!-- <script src="/js/doctor/doctorprescription.js"></script> -->
     <!-- <script type="module" src="/js/createTable.js"></script> -->
     <script src="/js/signout.js"></script>
       <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -26,7 +27,8 @@
     <div class="fixed-top"></div>
 
     <main>
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info" style="width: 280px;">
+      <div class="container" style="width: 25%;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
               <span class="fs-4"><strong>&ensp;Doctors Menu</strong></span>
             </a>
@@ -36,10 +38,10 @@
                   <strong> DOCTORS ONLY: </strong>
               </li> -->
               <li class="nav-item">
-                <a href="/doctor/doctorfindpatient" class="nav-link link-dark"> Find Patient </a>
+                <a href="/doctor/findpatient" class="nav-link link-dark"> Find Patient </a>
               </li>
               <li class="nav-item">
-                <a href="/doctor/doctorpatientrecord" class="nav-link link-dark"> Patient Record </a>
+                <a href="/doctor/patientrecord" class="nav-link link-dark"> Patient Record </a>
               </li>
               <li>
                 <a href="/doctor/doctorcreateaprescriptionpage" class="nav-link link-dark"> Create Prescription </a>
@@ -48,13 +50,13 @@
                 <a href="/doctor/scheduleappointment" class="nav-link link-dark"> Schedule Appointment </a>
               </li>
               <li>
-                <a href="/doctor/doctorassigntreatment" class="nav-link link-dark"> Assign Treatment </a>
+                <a href="/doctor/assigntreatment" class="nav-link link-dark"> Assign Treatment </a>
               </li>
               <li>
-                <a href="/doctor/doctorviewschedule" class="nav-link link-dark"> View Schedule </a>
+                <a href="/doctor/viewschedule" class="nav-link link-dark"> View Schedule </a>
               </li>
               <li>
-                <a href="/doctor/doctorviewpayroll" class="nav-link link-dark"> View Payroll </a>
+                <a href="/doctor/viewpayroll" class="nav-link link-dark"> View Payroll </a>
               </li>
             </ul>
             <hr>
@@ -74,16 +76,55 @@
                 <li><a class="dropdown-item" href="#" id="signout">Sign out</a></li>
               </ul>
             </div>
-          </div>
+        </div>
       </div>
     <div class="container">
-      <h1 class="form-signup-title"></h1>
+      <h1 class="form-signup-title">Create a Patient Record</h1>
+        <!-- <form name="create_prescription_form" onsubmit="return false" class="form-signup"> -->
+
+        <form name="create_patient_record" class="form-signup">
         <div class="centered-button">
-            <button class="btn btn-lg btn-primary btn-block" id="viewpatientrecord_button" type="submit">View Patient Record</button>
+          <select placeholder="Select Patient" id="patient_select" name="pat_name" class="form-control">
+          </select>
         </div>
-        <table id="viewpatientrecord_results">
-        </table>
+          
+          <label for="rec_admit" class="sr-only">Patient Entered</label>
+          <input type="datetime-local" id="rec_admit" class="form-control" name="rec_admit" required autofocus>
+          <label for="rec_leave" class="sr-only">Patient Left</label>
+          <input type="datetime-local" id="rec_leave" class="form-control" name="rec_leave" required autofocus>
+          <textarea id="rec_treatment" class="form-control" name="rec_treatment" placeholder="Enter patient visit details here..." required autofocus></textarea>
+          <div class>
+            <button id="submit_patient_record_button" class="btn btn-lg btn-primary btn-block" type="submit" style="width:100%">Submit a Patient Record</button>
+          </div>
+        </form>
+
+        <button class="btn btn-lg btn-primary btn-block" id="viewpatientrecord_button" type="submit">View Patient Record</button>
+        
     </div> <!-- /container -->
+    <div class="container">
+      <div class="row">
+          <div class="col-sm-6">
+              <h2>Patient Records</h2>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-6">
+              <table id="recordTable" class="table table-bordered table-condensed table-striped">
+                  <thead>
+                      <tr>
+                          <th>Doctor Name</th>
+                          <th>Visit Details/Treatment</th>
+                          <th>Time Entered</th>
+                          <th>Time Exited</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
   </main>
   <div class="fixed-bottom"></div>
 

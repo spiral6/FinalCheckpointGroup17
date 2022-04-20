@@ -207,12 +207,7 @@ window.onload = function() {
         });
     }
 
-    const patientRecordButton = document.getElementById('viewpatientrecord_button');
-    if(patientRecordButton){
-        patientRecordButton.addEventListener('click', () => {
-            viewPatientRecord(1111);
-        });
-    }
+
 
     // tr.appendChild(button);
 

@@ -12,7 +12,7 @@ router.get('/findPatient', async (req, res) => {
     try {
         // console.log(req.query.q);
         let searchName = "%" + req.query.q + "%";
-        const result = await db.pool.query("SELECT pat_id, pat_name, pat_email, pat_phone FROM PatientTable WHERE pat_name LIKE ? ORDER BY pat_name ASC;",[searchName]);
+        const result = await db.pool.query("SELECT pat_id, pat_name, pat_email, pat_phone FROM PatientTable ORDER BY pat_name ASC;",['']);
         
         // console.log(result);
         res.send(result);
@@ -39,11 +39,16 @@ router.get('/patientInfo', async (req, res) => {
 // Add patient record
 router.put('/patientRecord', async (req, res) => {
     try {
-        const result = await db.pool.query("INSERT INTO RecordsTable(rec_treatment,rec_admit,rec_leave,pat_id) VALUES(?,?,?,?);",[
+        console.log(req.body);
+        const result = await db.pool.query(`INSERT INTO RecordTable(rec_treatment,rec_admit,rec_leave,pat_id,doc_id) 
+        VALUES(?,?,?,
+            (SELECT pat_id FROM PatientTable WHERE pat_name=?),
+            ?);`,[
             req.body.rec_treatment,
             req.body.rec_admit,
             req.body.rec_leave,
-            req.body.pat_id
+            req.body.pat_name,
+            req.cookies['doc_id']
         ]);
         
         console.log(result);
@@ -56,9 +61,28 @@ router.put('/patientRecord', async (req, res) => {
 
 // View patient records
 router.get('/patientRecord', async (req, res) => {
+    console.log(req.query);
     try {
-        const result = await db.pool.query("SELECT rec_treatment,rec_admit,rec_leave FROM RecordTable WHERE pat_id=?;",[
-            req.query.pat_id
+        const result = await db.pool.query(`SELECT rec_id,staff_name,rec_treatment,rec_admit,rec_leave 
+        FROM RecordTable
+        INNER JOIN StaffTable ON StaffTable.staff_id=RecordTable.doc_id
+                WHERE pat_id=(SELECT pat_id FROM PatientTable WHERE pat_name=?);`,[
+            req.query.pat_name
+        ]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// Delete patient record
+router.delete('/patientRecord', async (req, res) => {
+    try {
+        const result = await db.pool.query("DELETE FROM RecordTable WHERE rec_id=?;",[
+            req.body.rec_id,
         ]);
         
         console.log(result);
