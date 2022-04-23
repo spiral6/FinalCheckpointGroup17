@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
         } else if(req.cookies['admin']){
             res.redirect('/admin');
         } else {
-            res.sendFile(path.join(__dirname + "/../../html/patient/patientlogin.html"));
+            res.sendFile(path.join(__dirname + "/../../html/login.html"));
         }
     } catch (err) {
                 console.error(err);

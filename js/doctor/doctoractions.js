@@ -60,6 +60,10 @@ function createTable(table_data) {
                 tr.appendChild(td);
                 const datetime = new Date(row_data[key]);
                 td.innerHTML = datetime.toLocaleDateString();
+            } else if (key == "staff_salary"){
+                td = document.createElement('td');
+                tr.appendChild(td);
+                td.innerHTML = '$' + row_data[key];
             } else {
                 td = document.createElement('td');
                 tr.appendChild(td);
@@ -88,7 +92,7 @@ const alias = {
     staff_sex: "Staff Gender",
     staff_email: "Staff Email",
     staff_phone: "Staff Phone",
-    staff_salary: "Staff Salary",
+    staff_salary: "Staff Salary (in $USD)",
     staff_occupation: "Staff Occupation",
     doc_specialty: "Doctor Specialty",
     doc_permissions: "Doctor Permissions",
