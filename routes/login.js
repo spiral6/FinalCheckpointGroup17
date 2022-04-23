@@ -5,6 +5,7 @@ const fs = require('fs')
 // const port = 80
 const bodyParser = require("body-parser");
 const cors = require("cors")
+const path = require('path')
 const cookieParser = require('cookie-parser')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
@@ -14,6 +15,23 @@ router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use('/js', express.static('js'))
 router.use(cookieParser())
+
+router.get('/portal', async (req, res) => {
+    try {
+   
+        if(req.cookies['pat_id'] || req.cookies['doc_id'] || req.cookies['staff_id']){
+            res.redirect('../portal');
+        } else if(req.cookies['admin']){
+            res.redirect('../admin');
+        } else {
+            res.sendFile(path.join(__dirname + "/../html/login.html"));
+        }
+    
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+});
 
 router.get('/', async (req, res) => {
     try {
@@ -28,7 +46,8 @@ router.get('/', async (req, res) => {
         }
     
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -79,30 +98,34 @@ router.post('/', async (req, res) => {
         }
     
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 
-router.get('/patient', async (req, res) => {
-    try {
-        res.sendFile(path.join(__dirname + "/../html/patientlogin.html"));
-    } catch (err) {
-        console.log(err);
-    }
-});
-router.get('/staff', async (req, res) => {
-    try {
-        res.sendFile(path.join(__dirname + "/../html/stafflogin.html"));
-    } catch (err) {
-        console.log(err);
-    }
-});
-router.get('/doctor', async (req, res) => {
-    try {
-        res.sendFile(path.join(__dirname + "/../html/doctorlogin.html"));
-    } catch (err) {
-        console.log(err);
-    }
-});
+// router.get('/patient', async (req, res) => {
+//     try {
+//         res.sendFile(path.join(__dirname + "/../html/patientlogin.html"));
+//     } catch (err) {
+//                 console.error(err);
+//         res.status(500).send(err);
+//     }
+// });
+// router.get('/staff', async (req, res) => {
+//     try {
+//         res.sendFile(path.join(__dirname + "/../html/stafflogin.html"));
+//     } catch (err) {
+//                 console.error(err);
+//         res.status(500).send(err);
+//     }
+// });
+// router.get('/doctor', async (req, res) => {
+//     try {
+//         res.sendFile(path.join(__dirname + "/../html/doctorlogin.html"));
+//     } catch (err) {
+//                 console.error(err);
+//         res.status(500).send(err);
+//     }
+// });
 
 module.exports = router

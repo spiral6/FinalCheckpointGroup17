@@ -24,7 +24,7 @@
     height: 7%; 
   }
   .form-signup {
-    max-width: 660px;
+    /* max-width: 660px; */
     padding: 15px;
     margin: 0 auto;
   }
@@ -119,7 +119,7 @@
     padding-top:10%;
   }
   .form-signup button{
-    width: 75%;
+    /* width: 75%; */
     background-color:rgb(56,182,255);
     border-color:rgb(56,182,255);
   }

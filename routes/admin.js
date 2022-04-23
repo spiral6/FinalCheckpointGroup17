@@ -25,7 +25,8 @@ router.get('/', async (req, res) => {
     try {
         res.sendFile(path.join(__dirname + "/../html/admin/index.html"));
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 

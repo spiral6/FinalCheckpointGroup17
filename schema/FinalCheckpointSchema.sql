@@ -13,6 +13,8 @@ staff_name VARCHAR(200) NOT NULL,
 staff_sex SET("MALE", "FEMALE", "OTHER") NOT NULL,
 staff_email VARCHAR(100) NOT NULL,
 staff_phone VARCHAR(15) NOT NULL, -- Not recommended to use phone number as int.
+staff_DoB DATE NOT NULL,
+staff_address VARCHAR(200),
 -- loc_id INT NOT NULL, -- Foreign Key with loc_id in LocationTable 
 staff_salary FLOAT,
 staff_occupation VARCHAR(100) NOT NULL,
@@ -47,7 +49,7 @@ PRIMARY KEY (pat_id)
 CREATE TABLE IF NOT EXISTS AppointmentTable(
 app_id INT AUTO_INCREMENT,
 app_source VARCHAR(100) NOT NULL, -- How did they book the appointment? Might be a set type later. "web", or "phone"
-app_cancelled BOOLEAN NOT NULL, -- Cancelled or not cancelled
+app_status TINYINT(1) NOT NULL DEFAULT 0, -- 0 for accepted, 1 for cancelled, 2 for pending approval status, 3 for preapproved (not used unless debugging trigger)
 app_time DATETIME NOT NULL, -- Timestamp for appointment
 loc_id INT NOT NULL, -- Foreign Key with loc_id in LocationTable
 doc_id INT NOT NULL, -- Foreign Key with doc_id in DoctorTable
@@ -82,18 +84,19 @@ PRIMARY KEY (med_id)
 
 CREATE TABLE IF NOT EXISTS PrescriptionTable(
 rx_id INT AUTO_INCREMENT,
-rx_name VARCHAR(30) NOT NULL,
+med_name VARCHAR(30) NOT NULL,
 rx_strength VARCHAR(10) NOT NULL, --units
-rx_startime DATETIME NOT NULL, -- startdate of meds
-rx_endtime DATETIME, -- timestamp for when it was left?
-rx_dir VARCHAR(1000),
+rx_amount INT NOT NULL,
+rx_start DATE NOT NULL, -- startdate of meds
+rx_end DATE, -- timestamp for when it was left?
+rx_desc VARCHAR(1000),
 pat_id INT NOT NULL,
 doc_id INT NOT NULL,
 PRIMARY KEY (rx_id)
 );
 
-ALTER TABLE StaffTable
-ADD FOREIGN KEY(loc_id) REFERENCES LocationTable(loc_id);
+-- ALTER TABLE StaffTable
+-- ADD FOREIGN KEY(loc_id) REFERENCES LocationTable(loc_id);
 
 ALTER TABLE AppointmentTable
 ADD FOREIGN KEY (loc_id) REFERENCES LocationTable(loc_id),
