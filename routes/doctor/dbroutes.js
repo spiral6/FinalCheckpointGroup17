@@ -277,9 +277,10 @@ router.delete('/appointment', async (req, res) => {
 router.put('/appointment', async (req, res) => {
     try {
         console.log(req.body);
-        const result = await db.pool.query(`INSERT INTO AppointmentTable(pat_id,app_source,app_time,loc_id,doc_id)
+        let result = await db.pool.query(`INSERT INTO AppointmentTable(pat_id,app_status,app_source,app_time,loc_id,doc_id)
         VALUES(
             (SELECT pat_id FROM PatientTable WHERE pat_name=?),
+            3,
             ?,
             ?,
             (SELECT loc_id FROM LocationTable WHERE loc_name=?),
@@ -291,7 +292,7 @@ router.put('/appointment', async (req, res) => {
             req.body.loc_name,
             req.cookies['doc_id']
         ]);
-        
+
         console.log(result);
         res.send(result);
     } catch (err) {
