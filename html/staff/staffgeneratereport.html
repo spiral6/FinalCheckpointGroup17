@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    
+
     <title>Staff Portal</title>
 
     <script src="/js/staff/staffactions.js"></script>
@@ -76,6 +76,34 @@
     </div>
 </div>
     <div class="container">
+
+        <h1 class="form-signup-title">Generate Report</h1>
+        <!-- <form name="create_prescription_form" onsubmit="return false" class="form-signup"> -->
+        <form name="create_appointment_form" class="form-signup">
+          
+          <div class="column">
+            <label for="firstName" class="sr-only">Patient First Name</label>
+            <input type="firstName" id="firstName" class="form-control" placeholder="F. Name" name="fname" required autofocus>
+          </div>
+          <div class="column">
+            <label for="lastName" class="sr-only" style="margin-left: 2%;">Patient Last Name</label>
+            <input type="lastName" id="lastName" class="form-control" name="lname" placeholder="L. Name" required autofocus>
+          </div>
+          <label for="medication" class="sr-only">Appointment Time</label>
+          <input type="datetime-local" id="app_time" class="form-control" name="app_time" required autofocus>
+          <label for="loc_name" class="sr-only">Location</label>
+          <!-- <input type="text" id="loc_name" class="form-control" placeholder="Clinic name" name="loc_name" required autofocus> -->
+          <select class="form-control" id="loc_name" name="loc_name" style="-webkit-appearance: menulist;" required autofocus>
+          </select>
+
+          </div>
+          <div class>
+            <button id="CreateUpdateAppointmentButton" class="btn btn-lg btn-primary btn-block" style="width:100%">Generate Report</button>
+          </div>
+
+        </form>
+  
+      </div>  
 
     </div> <!-- /container -->
     <div class="fixed-bottom">
