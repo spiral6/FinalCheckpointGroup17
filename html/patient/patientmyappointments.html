@@ -86,15 +86,15 @@
       <!-- <form name="create_prescription_form" onsubmit="return false" class="form-signup"> -->
       <form name="create_appointment_form" class="form-signup">
         
-        <div class="column">
+        <!-- <div class="column">
           <label for="firstName" class="sr-only">Patient First Name</label>
           <input type="firstName" id="firstName" class="form-control" placeholder="F. Name" name="fname" required autofocus>
         </div>
         <div class="column">
           <label for="lastName" class="sr-only" style="margin-left: 2%;">Patient Last Name</label>
           <input type="lastName" id="lastName" class="form-control" name="lname" placeholder="L. Name" required autofocus>
-        </div>
-        <label for="medication" class="sr-only">Appointment Time</label>
+        </div> -->
+        <label for="app_time" class="sr-only">Appointment Time</label>
         <input type="datetime-local" id="app_time" class="form-control" name="app_time" required autofocus>
         <label for="staff_name" class="sr-only">Doctor</label>
         <select placeholder="Select Doctor" id="doctor_select" name="staff_name" class="form-control" style="width:100%;-webkit-appearance: menulist;">
@@ -150,7 +150,7 @@
             <tr>
                 <th>Location Name</th>
                 <th>Location Address</th>
-                <th>Weekdays</th>
+                <th>Days</th>
             </tr>
         </thead>
         <tbody>
