@@ -129,12 +129,30 @@ router.get('/profile', async (req, res) => {
 // Edit profile info
 router.put('/profile', async (req, res) => {
     try {
-        const result = await db.pool.query("UPDATE PatientTable SET pat_phone=?, pat_insurance=?, pat_address=? WHERE pat_id=?;",[
+        let user_passwordArr = [];
+        let addPasswordToQueryString = '';
+        if(req.body.user_password){
+            addPasswordToQueryString = ', UserTable.user_password=?';
+            user_passwordArr = [req.body.user_password];
+        }
+        let payload = [
             req.body.pat_phone,
             req.body.pat_insurance,
             req.body.pat_address,
-            req.cookies['pat_id']
-        ]);
+            req.body.pat_email,
+            req.body.pat_email].concat(user_passwordArr,[req.cookies['pat_id']]);
+
+        console.log(payload);
+        
+        const result = await db.pool.query(`
+        UPDATE PatientTable, UserTable
+        SET PatientTable.pat_phone=?, 
+        PatientTable.pat_insurance=?, 
+        PatientTable.pat_address=?, 
+        PatientTable.pat_email=?, 
+        UserTable.user_email=?` + addPasswordToQueryString + 
+        `WHERE PatientTable.pat_id = UserTable.pat_id 
+        AND PatientTable.pat_id=?;`,payload);
         
         console.log(result);
         res.send(result);
