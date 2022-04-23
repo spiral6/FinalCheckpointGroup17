@@ -178,8 +178,9 @@ window.onload = async function() {
     if(locationbuttonselect) {
         await getClinicNames();
     }
-    const create_appointment_form = document.querySelector("form[name=create_appointment_form]")
-    create_appointment_form.addEventListener('submit', function(e) {
+    const create_appointment_form = document.querySelector("form[name=create_appointment_form]");
+    if (create_appointment_form){
+      create_appointment_form.addEventListener('submit', function(e) {
         e.preventDefault();
         console.log("Submitting patient appointment form...");
         CreateAppointmentFormData = new FormData(document.querySelector("form[name=create_appointment_form]"));
@@ -191,7 +192,9 @@ window.onload = async function() {
         console.log(CreateAppointmentFormDataObject);
 
         createAppointment(CreateAppointmentFormDataObject);
-    })
+      });
+    }
+    
 
     const viewDoctorInfoButton = document.getElementById('find_doctorselect')
     if(viewDoctorInfoButton){
