@@ -102,20 +102,25 @@ WHERE pat_id=?;
 INSERT INTO AppointmentTable(app_source,app_time,loc_id,doc_id,pat_id)
 VALUES("Web",?,(SELECT loc_id FROM LocationTable WHERE loc_name=?),(SELECT staff_id FROM StaffTable WHERE staff_name=? AND staff_occupation="DOCTOR"),?);
 
-CREATE Trigger CheckSpecialistAppointment
-ON Table AppointmentTable
-BEFORE INSERT
+DELIMITER //
+CREATE Trigger CheckSpecialistAppointment BEFORE INSERT ON AppointmentTable FOR EACH ROW
+
 BEGIN
-    IF(SELECT pat_pcp FROM PatientTable WHERE pat_pcp=NEW.doc_id) THEN
-        INSERT INTO AppointmentTable(app_source,app_time,loc_id,doc_id,pat_id)
-        VALUES("Web",?,(SELECT loc_id FROM LocationTable WHERE loc_name=?),?,?)
-    ELSE
-        INSERT INTO AppointmentTable(app_source,app_status,app_time,loc_id,doc_id,pat_id)
-        VALUES("Web",2,?,(SELECT loc_id FROM LocationTable WHERE loc_name=?),?,?)
-        SET err_msg = concat('Cannot sign up for appointment because doctor is not Primary Care Physician. Requires approval from your Primary Care Physician.', cast(dtype as char))
-        SIGNAL SQLSTATE '45000' set message_text = err_msg
-    END IF
-END;
+
+  SELECT pat_pcp INTO @pat_pcp_check FROM PatientTable WHERE pat_id=NEW.pat_id LIMIT 1;
+  IF(@pat_pcp_check=NEW.doc_id,1,0) THEN
+      INSERT INTO AppointmentTable(app_source,app_time,loc_id,doc_id,pat_id)
+      VALUES(NEW.app_source,NEW.app_time,NEW.loc_id,NEW.doc_id,NEW.pat_id);
+  ELSE
+      INSERT INTO AppointmentTable(app_source,app_status,app_time,loc_id,doc_id,pat_id)
+      VALUES(NEW.app_source,2,NEW.app_time,NEW.loc_id,NEW.doc_id,NEW.pat_id);
+      SET @err_msg = concat('Cannot sign up for appointment because doctor is not Primary Care Physician. Requires approval from your Primary Care Physician.', cast(dtype as char));
+      SIGNAL SQLSTATE '45000' set message_text = @err_msg;
+  END IF;
+
+END //
+
+DELIMITER ;
 
 -- Cancel appointment (get pat_id from cookies, get app_id from selection), if 1 row changed, send an email.
 UPDATE AppointmentTable 
