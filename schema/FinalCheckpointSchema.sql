@@ -49,7 +49,7 @@ PRIMARY KEY (pat_id)
 CREATE TABLE IF NOT EXISTS AppointmentTable(
 app_id INT AUTO_INCREMENT,
 app_source VARCHAR(100) NOT NULL, -- How did they book the appointment? Might be a set type later. "web", or "phone"
-app_cancelled BOOLEAN NOT NULL DEFAULT 0, -- Cancelled or not cancelled
+app_status TINYINT(1) NOT NULL DEFAULT 0, -- 0 for accepted, 1 for cancelled, 2 for pending approval status
 app_time DATETIME NOT NULL, -- Timestamp for appointment
 loc_id INT NOT NULL, -- Foreign Key with loc_id in LocationTable
 doc_id INT NOT NULL, -- Foreign Key with doc_id in DoctorTable

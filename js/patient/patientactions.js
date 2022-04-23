@@ -124,7 +124,7 @@ async function viewClinics(id) {
 
 async function findDoctor() {
 
-    const searchInput = $('#doctor_select option:selected').text();
+    const searchInput = $('#find_doctorselect option:selected').text();
     // const inputValue = searchInput.value;
     // const searchQuery = inputValue;
     const response = await fetch(window.location.origin + '/patient/db/findDoctor?staff_name=' + searchInput,  {
@@ -163,8 +163,8 @@ window.onload = async function() {
         });
     }
 
-    const viewDoctorInfoButton = document.getElementById('doctor_select')
-    if(viewDoctorInfoButton){
+    const doctorbuttonselect = document.getElementById('doctor_select')
+    if(doctorbuttonselect){
         await getDoctorNames();
         $('#doctor_select').on('change', async function() {
             
@@ -173,6 +173,29 @@ window.onload = async function() {
                 await getDoctorSchedule(selectedDoctorName);
             }
         });  
+    }
+    const locationbuttonselect = document.getElementById('loc_name')
+    if(locationbuttonselect) {
+        await getClinicNames();
+    }
+    const create_appointment_form = document.querySelector("form[name=create_appointment_form]")
+    create_appointment_form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        console.log("Submitting patient appointment form...");
+        CreateAppointmentFormData = new FormData(document.querySelector("form[name=create_appointment_form]"));
+
+        var CreateAppointmentFormDataObject = {}
+        for (var pair of CreateAppointmentFormData.entries()) {
+            CreateAppointmentFormDataObject[pair[0]] = pair[1];
+        }
+        console.log(CreateAppointmentFormDataObject);
+
+        createAppointment(CreateAppointmentFormDataObject);
+    })
+
+    const viewDoctorInfoButton = document.getElementById('find_doctorselect')
+    if(viewDoctorInfoButton){
+        await getDoctorNames();
     }
 };
 
@@ -196,6 +219,32 @@ async function getDoctorNames(){
         body = JSON.parse(body);
         for(const row in body){
             $("#doctor_select").append("<option>" + body[row].staff_name + "</option>");
+            $("#find_doctorselect").append("<option>" + body[row].staff_name + "</option>");
+        }
+      });
+}
+
+async function getClinicNames(){
+    const request = await fetch(window.location.origin + '/patient/db/clinic',  {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(JSONObject)
+      }).then(response => {
+        if (!response.ok) {
+          response.text().then(err => {
+            alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+          })  
+        }
+        return response.text();
+      }).then(body => {
+        // alert("Successfully retrieved Doctors!")
+        console.log(JSON.parse(body));
+        body = JSON.parse(body);
+        for(const row in body){
+            $("#loc_name").append("<option>" + body[row].loc_name + "</option>");
+            // $("#find_doctorselect").append("<option>" + body[row].staff_name + "</option>");
         }
       });
 }
@@ -228,5 +277,27 @@ async function getDoctorSchedule(doctorName){
             "<td>" + body[row].weekdays + "</td>" +
             "</tr>");
         }
+      });
+}
+
+async function createAppointment(JSONObject){
+    const request = await fetch(window.location.origin + '/patient/db/appointment',  {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(JSONObject)
+      }).then(response => {
+        if (!response.ok) {
+          response.text().then(err => {
+            // TODO: Handle specialist reservation! - Shamee
+            alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+          })  
+        }
+        return response.text();
+      }).then(body => {
+        // alert("Successfully retrieved Doctors!")
+        console.log(JSON.parse(body));
+        body = JSON.parse(body);
       });
 }

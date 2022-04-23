@@ -110,7 +110,9 @@ BEGIN
         INSERT INTO AppointmentTable(app_source,app_time,loc_id,doc_id,pat_id)
         VALUES("Web",?,(SELECT loc_id FROM LocationTable WHERE loc_name=?),?,?)
     ELSE
-        SET err_msg = concat('Cannot sign up for appointment because doctor is not Primary Care Physician.', cast(dtype as char))
+        INSERT INTO AppointmentTable(app_source,app_status,app_time,loc_id,doc_id,pat_id)
+        VALUES("Web",2,?,(SELECT loc_id FROM LocationTable WHERE loc_name=?),?,?)
+        SET err_msg = concat('Cannot sign up for appointment because doctor is not Primary Care Physician. Requires approval from your Primary Care Physician.', cast(dtype as char))
         SIGNAL SQLSTATE '45000' set message_text = err_msg
     END IF
 END;
