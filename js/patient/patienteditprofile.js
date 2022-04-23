@@ -93,6 +93,7 @@ function updateProfileUI(body){
     $("#pat_email").val(row.pat_email);
     $("#doc_specialty").val(row.doc_specialty);
     $("#pat_insurance").val(row.pat_insurance);
+    $("#pat_pcp").val(row.staff_name);
     $("#pat_address").val(address_arr[0]);
     $("#pat_city").val(address_arr[1]);
     $("#pat_state").val(address_arr[2].substring(0,2));
