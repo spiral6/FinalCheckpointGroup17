@@ -57,7 +57,13 @@ async function AddAppointment(JSONObject){
   }).then(response => {
     if (!response.ok) {
       response.text().then(err => {
-        alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+        const err_msg = JSON.parse(err).text;
+        // Catch error message where we cannot find the patient in database! - Shamee
+        if(err_msg.includes('Column \'pat_id\' cannot be null')){
+          alert(`HTTP error: ${response.status} \nCannot find patient in database!`);
+        } else {
+          alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+        }
       })  
     }
     return response.text();
