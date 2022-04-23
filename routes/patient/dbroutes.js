@@ -114,7 +114,7 @@ router.get('/clinic', async (req, res) => {
 // Get profile info
 router.get('/profile', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT * FROM PatientTable WHERE pat_id=?;",[
+        const result = await db.pool.query("SELECT * FROM PatientTable INNER JOIN StaffTable ON PatientTable.pat_pcp=StaffTable.staff_id WHERE pat_id=?;",[
             req.cookies['pat_id']
         ]);
         
