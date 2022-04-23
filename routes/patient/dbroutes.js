@@ -199,4 +199,24 @@ router.put('/appointment', async (req, res) => {
     }
 })
 
+// Get Doctor Schedule
+router.get('/doctorschedule', async (req, res) => {
+    try {
+        const result = await db.pool.query(`SELECT LocationTable.loc_name, LocationTable.loc_address,
+        GROUP_CONCAT(schedule_workday ORDER BY FIELD(schedule_workday, "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN") ASC) 
+        AS weekdays FROM ScheduleTable
+        INNER JOIN LocationTable ON ScheduleTable.loc_id = LocationTable.loc_id
+        WHERE staff_id=(SELECT staff_id FROM StaffTable WHERE staff_name=?) 
+        GROUP BY ScheduleTable.loc_id;`,[
+            req.query.staff_name
+        ]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
 module.exports = router

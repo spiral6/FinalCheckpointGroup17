@@ -165,7 +165,14 @@ window.onload = async function() {
 
     const viewDoctorInfoButton = document.getElementById('doctor_select')
     if(viewDoctorInfoButton){
-        await getDoctorNames();    
+        await getDoctorNames();
+        $('#doctor_select').on('change', async function() {
+            
+            selectedDoctorName = $('#doctor_select option:selected').val();
+            if (selectedDoctorName && selectedDoctorName != ''){
+                await getDoctorSchedule(selectedDoctorName);
+            }
+        });  
     }
 };
 
@@ -189,6 +196,37 @@ async function getDoctorNames(){
         body = JSON.parse(body);
         for(const row in body){
             $("#doctor_select").append("<option>" + body[row].staff_name + "</option>");
+        }
+      });
+}
+
+async function getDoctorSchedule(doctorName){
+    const request = await fetch(window.location.origin + '/patient/db/doctorschedule?staff_name=' + doctorName,  {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(JSONObject)
+      }).then(response => {
+        if (!response.ok) {
+          response.text().then(err => {
+            alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+          })  
+        }
+        return response.text();
+      }).then(body => {
+        // alert("Successfully retrieved Doctors!")
+        console.log(JSON.parse(body));
+        body = JSON.parse(body);
+
+        $("#doctorScheduleTablelabel").html("Doctor Schedule for " + doctorName);
+        $("#doctorScheduleTable tbody").empty();
+        for(const row in body){
+            $("#doctorScheduleTable tbody").append("<tr>" + 
+            "<td>" + body[row].loc_name + "</td>" + 
+            "<td>" + body[row].loc_address + "</td>" + 
+            "<td>" + body[row].weekdays + "</td>" +
+            "</tr>");
         }
       });
 }
