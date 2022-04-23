@@ -5,6 +5,7 @@ const app = express()
 const fs = require('fs')
 const path = require('path')
 const cookieParser = require('cookie-parser')
+const { response } = require('express')
 router.use(cookieParser())
 
 router.post('/signup', async (req, res) => {
@@ -165,9 +166,29 @@ router.put('/profile', async (req, res) => {
 // View appointments
 router.get('/appointment', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT app_id,app_time,LocationTable.loc_name,StaffTable.staff_name FROM (((AppointmentTable INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) WHERE PatientTable.pat_id=?;",[
+        const result = await db.pool.query(`SELECT 
+        app_id,app_status,app_time,LocationTable.loc_name,StaffTable.staff_name 
+        FROM 
+        (((AppointmentTable 
+            INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) 
+            INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) 
+            INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) 
+        WHERE PatientTable.pat_id=?;`,[
             req.cookies['pat_id']
         ]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// View appointments
+router.get('/lastappointment', async (req, res) => {
+    try {
+        const result = await db.pool.query("SELECT * FROM AppointmentTable WHERE app_id=LAST_INSERT_ID();");
         
         console.log(result);
         res.send(result);
@@ -180,7 +201,15 @@ router.get('/appointment', async (req, res) => {
 // Create appointment
 router.put('/appointment', async (req, res) => {
     try {
-        const result = await db.pool.query("INSERT INTO AppointmentTable(app_source,app_time,loc_id,doc_id,pat_id) VALUES('Web',?,(SELECT loc_id FROM LocationTable WHERE loc_name=?),(SELECT staff_id FROM StaffTable WHERE staff_name=? AND staff_occupation='DOCTOR'),?);",[
+        const result = await db.pool.query(`
+        INSERT INTO AppointmentTable(app_source,app_time,loc_id,doc_id,pat_id) 
+        VALUES(
+            'Web',
+            ?,
+            (SELECT loc_id FROM LocationTable WHERE loc_name=?),
+            (SELECT staff_id FROM StaffTable WHERE staff_name=? AND staff_occupation='DOCTOR'),
+            ?
+            );`,[
             req.body.app_time,
             req.body.loc_name,
             req.body.staff_name,
@@ -196,15 +225,10 @@ router.put('/appointment', async (req, res) => {
 })
 
 // Cancel appointment
-router.put('/appointment', async (req, res) => {
+router.delete('/appointment', async (req, res) => {
     try {
-        const result = await db.pool.query("UPDATE PatientTable SET pat_name=?, pat_sex=?, pat_phone=?, pat_insurance=?, pat_address=? WHERE pat_id=?;",[
-            req.body.pat_name,
-            req.body.pat_sex,
-            req.body.pat_phone,
-            req.body.pat_insurance,
-            req.body.pat_address,
-            req.cookies['pat_id']
+        const result = await db.pool.query("DELETE FROM AppointmentTable WHERE app_id=?;",[
+            req.body.app_id
         ]);
         
         // Send email to doctor after success.

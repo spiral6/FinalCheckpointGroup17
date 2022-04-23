@@ -108,14 +108,11 @@ CREATE Trigger CheckSpecialistAppointment BEFORE INSERT ON AppointmentTable FOR 
 BEGIN
 
   SELECT pat_pcp INTO @pat_pcp_check FROM PatientTable WHERE pat_id=NEW.pat_id LIMIT 1;
-  IF(@pat_pcp_check=NEW.doc_id,1,0) THEN
-      INSERT INTO AppointmentTable(app_source,app_time,loc_id,doc_id,pat_id)
-      VALUES(NEW.app_source,NEW.app_time,NEW.loc_id,NEW.doc_id,NEW.pat_id);
-  ELSE
-      INSERT INTO AppointmentTable(app_source,app_status,app_time,loc_id,doc_id,pat_id)
-      VALUES(NEW.app_source,2,NEW.app_time,NEW.loc_id,NEW.doc_id,NEW.pat_id);
-      SET @err_msg = concat('Cannot sign up for appointment because doctor is not Primary Care Physician. Requires approval from your Primary Care Physician.', cast(dtype as char));
-      SIGNAL SQLSTATE '45000' set message_text = @err_msg;
+  IF(@pat_pcp_check!=NEW.doc_id) THEN
+      SET NEW.app_status=2;
+  END IF;
+  IF(NEW.app_status=3) THEN
+  	SET NEW.app_status=0;
   END IF;
 
 END //
