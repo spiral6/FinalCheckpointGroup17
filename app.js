@@ -1,3 +1,4 @@
+BigInt.prototype.toJSON = function() { return this.toString() }
 const express = require('express')
 const db = require('./db')
 const app = express()
@@ -22,8 +23,8 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-const doctorroute = require('./routes/doctorroute')
-const patientroute = require('./routes/patientroute')
+const doctorroute = require('./routes/doctor/doctorroute')
+const patientroute = require('./routes/patient/patientroute')
 const staffroute = require('./routes/staffroute')
 const adminroute = require('./routes/admin.js')
 const portal = require('./routes/portal')
@@ -54,7 +55,8 @@ app.get('/', async (req, res) => {
         }
     
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -64,7 +66,8 @@ app.get('/resetpass', async (req, res) => {
         res.sendFile(path.join(__dirname + "/html/resetpass.html"));
     
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
     }
 });
 
@@ -91,7 +94,8 @@ app.post('/logout', async (req, res) => {
             res.sendStatus(200);
         })
     } catch (err) {
-        console.log(err);
+                console.error(err);
+        res.status(500).send(err);
         res.sendStatus(403);
     }
 
