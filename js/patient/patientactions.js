@@ -335,8 +335,8 @@ function fillAppointmentTableUI(body) {
       $("#pendingAppointments").hide();
       $("#pendingAppointmentslabel").hide();
     } else {
-      $("pendingAppointments").show();
-      $("pendingAppointmentslabel").show();
+      $("#pendingAppointments").show();
+      $("#pendingAppointmentslabel").show();
     }
   }
 }
