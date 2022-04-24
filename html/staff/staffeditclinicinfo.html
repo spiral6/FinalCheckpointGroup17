@@ -10,6 +10,7 @@
 
     <title>Edit Clinic Info</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/js/staff/staffactions.js"></script>
     <script src="/js/signout.js"></script>
     <script src="/js/sidebars.js"></script>
@@ -25,58 +26,111 @@
     <link href="/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/signin.css" rel="stylesheet">
+    <link href="/css/sidebars.css" rel="stylesheet">
+    <link href="/css/settings.css" rel="stylesheet">
 
   </head>
 
   <body>
     <div class="fixed-top"></div>
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info" style="width: 280px;">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <span class="fs-4"><strong>Menu</strong></span>
-      </a>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <!-- <li>
-            <strong> DOCTORS ONLY: </strong>
-        </li> -->
-        <li class="nav-item">
-          <a href="/staff/generatereport" class="nav-link link-dark"> Reports </a>
-        </li>
-        <li>
-          <a href="/staff/editpatientinfo" class="nav-link link-dark"> Edit Patient Info </a>
-        </li>
-        <li>
-          <a href="/staff/editclinicinfo" class="nav-link link-dark"> Edit Clinic Info </a>
-        </li>
-        <li>
-          <a href="/staff/editstaff" class="nav-link link-dark"> Edit Staff Info </a>
-        </li>
-      </ul>
-      <hr>
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-            
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-            </svg>
-            <strong>&emsp;Username</strong>
-        </a>
-        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-          <!-- <li><a class="dropdown-item" href="/staff/viewprofile">View Profile</a></li> -->
-          <li><a class="dropdown-item" href="/staff/editprofile">Edit Profile</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#" id="signout">Sign out</a></li>
-        </ul>
+    <main>
+      <div class="container" style="width: 25%;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <span class="fs-4"><strong>Menu</strong></span>
+          </a>
+          <hr>
+          <ul class="nav nav-pills flex-column mb-auto">
+            <!-- <li>
+                <strong> DOCTORS ONLY: </strong>
+            </li> -->
+            <li class="nav-item">
+              <a href="/staff/generatereport" class="nav-link link-dark"> Reports </a>
+            </li>
+            <li>
+              <a href="/staff/editpatientinfo" class="nav-link link-dark"> Edit Patient Info </a>
+            </li>
+            <li>
+              <a href="/staff/editclinicinfo" class="nav-link link-dark"> Edit Clinic Info </a>
+            </li>
+            <li>
+              <a href="/staff/editstaff" class="nav-link link-dark"> Edit Staff Info </a>
+            </li>
+          </ul>
+          <hr>
+          <div class="dropdown">
+            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                <strong>&emsp;Username</strong>
+            </a>
+            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+              <!-- <li><a class="dropdown-item" href="/staff/viewprofile">View Profile</a></li> -->
+              <li><a class="dropdown-item" href="/staff/editprofile">Edit Profile</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" id="signout">Sign out</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="container">
-        <p>Your auth works, and you got to the staff portal. Wow!</p>
-        <!-- <div class="centered-button" style="padding-top:10%">
-          <button class="btn btn-lg btn-primary btn-block" type="submit" id="signout">Sign out</button>
-        </div> -->
-    </div> <!-- /container -->
+      <div class="container">
+        <h1 class="form-signup-title">Edit a Clinic's Information</h1>
+        <!-- <form name="create_prescription_form" onsubmit="return false" class="form-signup"> -->
+        <form name="edit_location_form" class="form-signup">
+          
+          <div class="row">
+            <div class="column" style="width: 15%;">
+              <label for="loc_id" class="sr-only">ID</label>
+              <input id="loc_id" class="form-control" name="loc_id" placeholder="" readonly autofocus>
+            </div>
+            <div class="column" style="width: 75%;">
+              <label for="loc_name" class="sr-only">Name</label>
+              <input id="loc_name" class="form-control" placeholder="Name" name="loc_name" autofocus>
+            </div>                  
+          </div>
+          
+          <label for="loc_dep" class="sr-only">Department</label>
+          <input type="text" id="loc_dep" class="form-control" placeholder="" name="loc_dep" autofocus>
+          <label for="loc_address" class="sr-only">Address</label>
+          <input type="text" id="loc_address" class="form-control" placeholder="" name="loc_address" autofocus>
+          
+          
+          <div style="padding-top:5%;">
+            <button id="CreateUpdateClinicInformation" class="btn btn-lg btn-primary btn-block" style="width:100%">Create Clinic</button>
+          </div>
+          <div style="padding-top:5%;">
+            <button id="CancelClinicInformation" type="button" class="btn btn-lg btn-primary btn-block" style="display:none;width:100%;" onclick="locationFormClear();">Cancel</button>
+          </div>
+        </form>
+      </div>
+      <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Location Table</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <table id="editpatient_table" class="table table-bordered table-condensed table-striped">
+                    <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Address</th>
+                          <th>Department</th>
+                          <th>Edit</th>
+                          <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+    </main>
     <div class="fixed-bottom"></div>
   </body>
 </html>

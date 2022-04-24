@@ -84,18 +84,18 @@
           <div class="row">
             <div class="column" style="width: 15%;">
               <label for="pat_id" class="sr-only">ID</label>
-              <input id="pat_id" class="form-control" name="pat_id" placeholder="" readonly autofocus>
+              <input id="pat_id" class="form-control" name="pat_id" placeholder=""  readonly autofocus>
             </div>
             <div class="column" style="width: 75%;">
               <label for="pat_name" class="sr-only">Patient Name</label>
-              <input id="pat_name" class="form-control" placeholder="Patient Name" name="pat_name" readonly autofocus>
+              <input id="pat_name" class="form-control" placeholder="Patient Name" name="pat_name"  autofocus>
             </div>                  
           </div>
 
           <div class="row">
             <div class="column" style="width: 25%;">
               <label for="pat_sex" class="sr-only">Gender</label>
-              <select id="pat_sex" class="form-control" placeholder="Gender" name="pat_sex" disabled autofocus>
+              <select id="pat_sex" class="form-control" placeholder="Gender" name="pat_sex"  autofocus>
                 <option value="MALE">Male</option>
                 <option value="FEMALE">Female</option>
                 <option value="OTHER">Other</option>
@@ -103,39 +103,39 @@
             </div>
             <div class="column" style="width: 50%;">
               <label for="pat_email" class="sr-only">Email</label>
-              <input type="email" id="pat_email" class="form-control" placeholder="Email" name="pat_email" readonly autofocus>
+              <input type="email" id="pat_email" class="form-control" placeholder="Email" name="pat_email"  autofocus>
             </div>
             <div class="column" style="width: 25%;">
               <label for="pat_phone" class="sr-only">Phone</label>
-              <input type="tel" id="pat_phone" class="form-control" placeholder="" name="pat_phone" readonly autofocus>
+              <input type="tel" id="pat_phone" class="form-control" placeholder="" name="pat_phone"  autofocus>
             </div>
           </div>
 
           <div class="row">
             <div class="column" style="width: 50%;">
               <label for="pat_pcp" class="sr-only">Primary Care Physician ID</label>
-              <input type="number" id="pat_pcp" class="form-control" placeholder="" name="pat_pcp" readonly autofocus>
+              <input type="number" id="pat_pcp" class="form-control" placeholder="" name="pat_pcp"  autofocus>
             </div>
 
             <div class="column" style="width: 25%;">
               <label for="pat_DoB" class="sr-only">Date of Birth</label>
-              <input type="text" id="pat_DoB" class="form-control" placeholder="" name="pat_DoB" readonly autofocus>
+              <input type="text" id="pat_DoB" class="form-control" placeholder="" name="pat_DoB"  autofocus>
             </div>
           </div>
           
           <label for="pat_allergy" class="sr-only">Patient Allergy</label>
-          <input type="text" id="pat_allergy" class="form-control" placeholder="" name="pat_allergy" readonly autofocus>
+          <input type="text" id="pat_allergy" class="form-control" placeholder="" name="pat_allergy"  autofocus>
           <label for="pat_insurance" class="sr-only">Insurance</label>
-          <input type="text" id="pat_insurance" class="form-control" placeholder="" name="pat_insurance" readonly autofocus>
+          <input type="text" id="pat_insurance" class="form-control" placeholder="" name="pat_insurance"  autofocus>
           <label for="pat_address" class="sr-only">Address</label>
-          <input type="text" id="pat_address" class="form-control" placeholder="" name="pat_address" readonly autofocus>
+          <input type="text" id="pat_address" class="form-control" placeholder="" name="pat_address"  autofocus>
           
           
           <div style="padding-top:5%;">
-            <button id="UpdatePatientInformation" class="btn btn-lg btn-primary btn-block" style="width:100%">Save Changes</button>
+            <button id="CreateUpdatePatientInformation" class="btn btn-lg btn-primary btn-block" style="width:100%">Create Patient</button>
           </div>
           <div style="padding-top:5%;">
-            <button id="CancelPatientInformation" class="btn btn-lg btn-primary btn-block" style="display:none;width:100%;" onclick="patientFormClear();">Cancel</button>
+            <button id="CancelPatientInformation" type="button" class="btn btn-lg btn-primary btn-block" style="display:none;width:100%;" onclick="patientFormClear();">Cancel</button>
           </div>
         </form>
       </div>
