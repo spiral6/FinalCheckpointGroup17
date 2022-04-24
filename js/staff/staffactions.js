@@ -44,6 +44,27 @@ window.onload = function() {
       refreshLocationForm();
     }
 
+    const staffInfoTable = document.querySelector("form[name=edit_staff_form]");
+    if(staffInfoTable){
+      staffInfoTable.addEventListener('submit', function(e) {
+            e.preventDefault();  
+            
+            UpdateStaffFormData = new FormData(document.querySelector("form[name=edit_staff_form]"));
+            var UpdateStaffDataObject = {}
+            for (var pair of UpdateStaffFormData.entries()) {
+                UpdateStaffDataObject[pair[0]] = pair[1];
+            }
+            console.log(UpdateStaffDataObject);
+
+            if($("#CreateUpdateStaffInformation").text() == "Create Staff") {
+              createStaff(UpdateStaffDataObject);
+            } else if ($("#CreateUpdateStaffInformation").text() == "Update Staff"){
+              updateStaff(UpdateStaffDataObject);
+            }
+      });
+      refreshStaffForm();
+    }
+
 }
 
   function patientFormClear() {
@@ -361,6 +382,180 @@ window.onload = function() {
         "<td>" + row.loc_dep + "</td>" +
         "<td>" + "<button class='btn btn-lg btn-primary btn-block' onclick='editLocation(this);''><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'><path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.7                 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/></svg></button>" + "</td>" +
         "<td>" + "<button class='btn btn-lg btn-primary btn-block' onclick='removeLocation(this);''><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'><path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/><path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/></svg></button>" + "</td>" +
+        "</tr>");
+    }
+  }
+
+  function staffFormClear() {
+    $("#staff_id").val("");
+    $("#staff_name").val("");
+    $("#staff_sex").val("");
+    $("#staff_email").val("");
+    $("#staff_phone").val("");
+    $("#staff_pcp").val("");
+    $("#staff_DoB").val("");
+    $("#staff_address").val("");
+    $("#staff_occupation").val("");
+    $("#doc_specialty").val("");
+    $("#doc_perms").val("");
+
+    // $("#staff_id").attr('readonly', true);
+    // $("#staff_name").attr('readonly', true);
+    // $("#staff_sex").attr('disabled', true);
+    // $("#staff_email").attr('readonly', true);
+    // $("#staff_phone").attr('readonly', true);
+    // $("#staff_DoB").attr('readonly', true);
+    // $("#staff_allergy").attr('readonly', true);
+    // $("#staff_address").attr('readonly', true);
+    // $("#staff_insurance").attr('readonly', true);
+    // $("#staff_pcp").attr('readonly', true);
+
+    $("#CancelStaffInformation").hide();
+    $("#CreateUpdateStaffInformation").text("Create Staff");
+  }
+
+  function removeStaff(ctl) {
+    if (confirm('Do you want to delete staff?')){
+      selectedRow = $(ctl).parent().parent().attr("staff_id");
+      deleteStaff({staff_id: selectedRow});
+    }
+  }
+
+  function editStaff(ctl) {
+    _row = $(ctl).parents("tr");
+    var cols = _row.children("td");
+    $("#staff_id").val($(ctl).parent().parent().attr("staff_id"));
+    $("#staff_name").val($(cols[0]).text());
+    $("#staff_sex").val($(cols[1]).text()).trigger('change');
+    $("#staff_email").val($(cols[2]).text());
+    $("#staff_phone").val($(cols[3]).text());
+    $("#staff_DoB").val(new Date($(cols[4]).text()).toLocaleDateString('en-CA'));
+    $("#staff_occupation").val($(cols[5]).text());
+    $("#doc_specialty").val($(cols[6]).text());
+    $("#doc_perms").val($(cols[7]).text());
+    $("#staff_address").val($(cols[8]).text());
+
+    // $("#staff_id").attr('readonly', false);
+    // $("#staff_name").attr('readonly', false);
+    // $("#staff_sex").attr('disabled', false);
+    // $("#staff_email").attr('readonly', false);
+    // $("#staff_phone").attr('readonly', false);
+    // $("#staff_DoB").attr('readonly', false);
+    // $("#staff_allergy").attr('readonly', false);
+    // $("#staff_address").attr('readonly', false);
+    // $("#staff_insurance").attr('readonly', false);
+
+    // Change Update Button Text\
+    $("#CancelStaffInformation").show();
+    $("#CreateUpdateStaffInformation").text("Update Staff");
+
+    console.log($(ctl));
+    console.log($(ctl).parent().parent().attr("staff_id"));
+    selectedRow = $(ctl).parent().parent().attr("staff_id");
+  }
+
+  async function createStaff(JSONObject){
+    console.log(JSONObject);
+    const request = await fetch(window.location.origin + '/staff/db/staff',  {
+        method: 'put',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(JSONObject)
+      }).then(response => {
+        if (!response.ok) {
+          response.text().then(err => {
+            alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+          })  
+        }
+        return response.text();
+      }).then(body => {
+        alert("Successfully created staff!")
+        console.log(body);
+        refreshStaffForm();
+      });
+  }
+
+  async function updateStaff(JSONObject){
+    const request = await fetch(window.location.origin + '/staff/db/staff',  {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(JSONObject)
+      }).then(response => {
+        if (!response.ok) {
+          response.text().then(err => {
+            alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+          })  
+        }
+        return response.text();
+      }).then(body => {
+        alert("Successfully updated staff!")
+        console.log(body);
+        refreshStaffForm();
+      });
+  }
+
+  async function deleteStaff(JSONObject){
+    const request = await fetch(window.location.origin + '/staff/db/staff',  {
+        method: 'delete',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(JSONObject)
+      }).then(response => {
+        if (!response.ok) {
+          response.text().then(err => {
+            alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+          })  
+        }
+        return response.text();
+      }).then(body => {
+        alert("Successfully updated staff!")
+        console.log(body);
+        refreshStaffForm();
+      });
+  }
+
+  async function refreshStaffForm(){
+    const request = await fetch(window.location.origin + '/staff/db/staff',  {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(JSONObject)
+      }).then(response => {
+        if (!response.ok) {
+          response.text().then(err => {
+            alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+          })  
+        }
+        return response.text();
+      }).then(body => {
+        body = JSON.parse(body);
+        refreshStaffTableUI(body);
+      });
+  }
+
+  function refreshStaffTableUI(body){
+
+    $("#editstaff_table tbody").empty();
+  
+    for (const row of body){
+
+      $("#editstaff_table tbody").append(`<tr staff_id=${row.staff_id}>` +
+        "<td>" + row.staff_name + "</td>" +
+        "<td>" + row.staff_sex + "</td>" +
+        "<td>" + row.staff_email + "</td>" +
+        "<td>" + row.staff_phone + "</td>" +
+        "<td>" + new Date(row.staff_DoB).toLocaleDateString() + "</td>" +
+        "<td>" + row.staff_occupation + "</td>" +
+        "<td>" + row.doc_specialty + "</td>" +
+        "<td>" + row.doc_perms + "</td>" +
+        "<td>" + row.staff_address + "</td>" +
+        "<td>" + "<button class='btn btn-lg btn-primary btn-block' onclick='editStaff(this);''><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil' viewBox='0 0 16 16'><path d='M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.7                 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z'/></svg></button>" + "</td>" +
+        "<td>" + "<button class='btn btn-lg btn-primary btn-block' onclick='removeStaff(this);''><svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash' viewBox='0 0 16 16'><path d='M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z'/><path fill-rule='evenodd' d='M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z'/></svg></button>" + "</td>" +
         "</tr>");
     }
   }
