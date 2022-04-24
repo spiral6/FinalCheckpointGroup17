@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/js/signout.js"></script>
     <script src="/js/sidebars.js"></script>
+    <script src="/js/doctor/doctorprescription.js"></script>
       <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/js/ie10-viewport-bug-workaround.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
@@ -83,8 +84,9 @@
             <label for="lastName" class="sr-only" style="margin-left: 2%;">Patient Last Name</label>
             <input type="lastName" id="lastName" class="form-control" name="lname" placeholder="L. Name" required autofocus>
           </div>
-          <label for="medication" class="sr-only">Medication</label>
-          <input type="med" id="inputMedication" class="form-control" placeholder="Medication" name="med_name" required autofocus>
+          <label for="med_name" class="sr-only">Medication</label>
+          <select id="med_name" class="form-control" placeholder="Medication" name="med_name" required autofocus>
+          </select>
           <label for="strength" class="sr-only">Strength</label>
           <input type="text" id="inputStrength" class="form-control" placeholder="Strength (mg)" name="rx_strength" required autofocus>
           <label for="amount" class="sr-only">Amount</label>
