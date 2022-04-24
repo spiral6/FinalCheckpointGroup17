@@ -20,7 +20,7 @@ staff_occupation VARCHAR(100) NOT NULL,
 doc_specialty VARCHAR(100), -- Their specialty field
 doc_perms VARCHAR(100), -- Chief surgeon or similar
 PRIMARY KEY (staff_id)
-);
+)AUTO_INCREMENT = 2001;
 
 CREATE TABLE IF NOT EXISTS ScheduleTable(
 staff_id INT,
@@ -43,7 +43,7 @@ pat_insurance VARCHAR(200),
 pat_address VARCHAR(200),
 pat_pcp INT, -- Primary Care Physician (aka staff_id for docs)
 PRIMARY KEY (pat_id)
-);
+)AUTO_INCREMENT = 1001;
 
 CREATE TABLE IF NOT EXISTS AppointmentTable(
 app_id INT AUTO_INCREMENT,
@@ -68,7 +68,7 @@ PRIMARY KEY (rec_id)
 
 CREATE TABLE IF NOT EXISTS LocationTable(
 loc_id INT AUTO_INCREMENT,
-loc_city VARCHAR(100), -- City where clinic resides
+loc_address VARCHAR(100), -- Address where clinic resides
 loc_name VARCHAR(200), -- Name of clinic?
 loc_dep VARCHAR(200), -- location of department?
 PRIMARY KEY (loc_id)
