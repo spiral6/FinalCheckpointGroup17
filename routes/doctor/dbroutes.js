@@ -243,7 +243,27 @@ router.get('/appointment', async (req, res) => {
                 INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) 
                INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) 
               INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) 
-        WHERE doc_id=?`,[
+        WHERE doc_id=? AND app_status=0;`,[
+            req.cookies['doc_id']
+        ]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// View pending appointments
+router.get('/pendingappointments', async (req, res) => {
+    try {
+        const result = await db.pool.query(`SELECT app_id,app_time,LocationTable.loc_name,PatientTable.pat_name,StaffTable.staff_name,app_source
+        FROM (((AppointmentTable 
+                INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) 
+               INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) 
+              INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) 
+        WHERE app_status=2 AND pat_pcp=?;`,[
             req.cookies['doc_id']
         ]);
         
