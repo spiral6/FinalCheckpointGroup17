@@ -35,6 +35,7 @@ selectedRow = null;
   });
 
   refreshAppointmentTable();
+  getPendingAppointments();
   getLocation();
 }
 
@@ -188,4 +189,73 @@ function updateLocationTable(body){
     $("#loc_name").append("<option>" + row.loc_name + "</option>");
   }
 
+}
+
+async function getPendingAppointments(){
+  const response = await fetch(window.location.origin + '/doctor/db/pendingappointments',  {
+    method: 'get',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+    // body: JSON.stringify(id)
+  }).then(response => {
+    if (!response.ok) {
+      response.text().then(err => {
+        alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+      })  
+    }
+    return response.text();
+  }).then(body => {
+    // alert("Successfully retrieved Appointment!")
+    console.log("successfully retrieved pending appointments");
+    console.log(body);
+    body = JSON.parse(body);
+    updatePendingAppointmentTableUI(body);
+    // refreshAppointmentTable();
+  });
+}
+
+function updatePendingAppointmentTableUI(body){
+
+  $("#pendingAppointmentTable tbody").empty();
+
+  for (const row of body){
+    
+    $("#pendingAppointmentTable tbody").append(`<tr app_id=${row.app_id}>` +
+      "<td>" + new Date(row.app_time).toLocaleString() + "</td>" +
+      "<td>" + row.staff_name + "</td>" +
+      "<td>" + row.pat_name + "</td>" +
+      "<td>" + row.loc_name + "</td>" +
+      "<td>" + row.app_source + "</td>" +
+      "<td>" + "<button class='btn btn-primary btn-block' onclick='approveAppointment(this);'>" + "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-check-square-fill' viewBox='0 0 16 16'><path d='M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z'/></svg>" + "</button>" + "</td>" +
+      "</tr>");
+  }
+}
+
+async function approveAppointment(ctl){
+
+  if (confirm('Do you want to approve appointment?')){
+    selectedRow = $(ctl).parent().parent().attr("app_id");
+    console.log(selectedRow);
+    const JSONObject = {app_id: selectedRow};
+  
+    const request = await fetch(window.location.origin + '/doctor/db/pendingappointments',  {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(JSONObject)
+    }).then(response => {
+      if (!response.ok) {
+        response.text().then(err => {
+          alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+        })  
+      }
+      return response.text();
+    }).then(body => {
+      alert("Successfully approved Appointment!")
+      console.log(body);
+      getPendingAppointments();
+    });
+  }
 }
