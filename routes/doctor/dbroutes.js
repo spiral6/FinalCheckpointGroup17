@@ -7,6 +7,19 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 router.use(cookieParser())
 
+// Get medicine names
+router.get('/medicine', async (req, res) => {
+    try {
+        const result = await db.pool.query("SELECT med_name FROM MedicineTable;");
+        
+        // console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
 // Get Profile Information
 router.get('/profile', async (req, res) => {
     try {
@@ -20,7 +33,7 @@ router.get('/profile', async (req, res) => {
     }
 })
 
-// Get Profile Information
+// Update Profile Information
 router.put('/profile', async (req, res) => {
     try {
         const result = await db.pool.query(`UPDATE StaffTable
