@@ -83,20 +83,27 @@ function updateProfileUI(body){
 
   for (const row of body){
     console.log()
-    const address_arr = row.pat_address.split(', ');
-    const zipcode = row.pat_address.substring(row.pat_address.length-5)
+    if(row.pat_address){
+      const address_arr = row.pat_address.split(', ');
+      const zipcode = row.pat_address.substring(row.pat_address.length-5)
+      $("#pat_state").val(address_arr[2].substring(0,2));
+      $("#pat_city").val(address_arr[1]);
+      $("#pat_address").val(address_arr[0]);    
+      $("#pat_zipcode").val(zipcode);
+    }
+
+
     $("#firstName").val(row.pat_name.split(' ')[0]);
     $("#lastName").val(row.pat_name.split(' ')[1]);
     $("#pat_sex").val(row.pat_sex);
     $("#pat_DoB").val(new Date(row.pat_DoB).toLocaleDateString("en-CA"));
     $("#pat_phone").val(row.pat_phone);
     $("#pat_email").val(row.pat_email);
-    $("#doc_specialty").val(row.doc_specialty);
+    // $("#doc_specialty").val(row.doc_specialty);
     $("#pat_insurance").val(row.pat_insurance);
     $("#pat_pcp").val(row.staff_name);
-    $("#pat_address").val(address_arr[0]);
-    $("#pat_city").val(address_arr[1]);
-    $("#pat_state").val(address_arr[2].substring(0,2));
-    $("#pat_zipcode").val(zipcode);
+
+
+
   }
 }
