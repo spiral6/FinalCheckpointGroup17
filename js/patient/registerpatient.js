@@ -2,7 +2,7 @@ async function SignUp(JSONObject){
     // DEBUG patient signup
     console.log(JSON.stringify(JSONObject))
 
-    const response = await fetch('/patient/signup', {
+    const response = await fetch('/patient/db/signup', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json'
