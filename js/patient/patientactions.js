@@ -332,11 +332,11 @@ function fillAppointmentTableUI(body) {
       "</tr>");
     }
     if(hidePendingAppointments){
-      $("#pendingAppointments").show();
-      $("#pendingAppointmentslabel").show();
+      $("#pendingAppointments").hide();
+      $("#pendingAppointmentslabel").hide();
     } else {
-      $("pendingAppointments").hide();
-      $("pendingAppointmentslabel").hide();
+      $("pendingAppointments").show();
+      $("pendingAppointmentslabel").show();
     }
   }
 }
