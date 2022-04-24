@@ -4,7 +4,6 @@
 
   main{
     padding-top:3%;
-    padding-bottom:3%;
   }
 
   .container{
@@ -22,6 +21,7 @@
   .fixed-bottom{
     background-color: rgb(56,182,255); 
     height: 7%; 
+    position: relative;
   }
   .form-signup {
     /* max-width: 660px; */

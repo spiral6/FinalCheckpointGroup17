@@ -14,7 +14,7 @@ main {
   height: -webkit-fill-available;
   max-height: 100vh;
   overflow-x: auto;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 
 .b-example-divider {
@@ -81,9 +81,9 @@ main {
   background-color: #d2f4ea;
 }
 
-.scrollarea {
+/* .scrollarea {
   overflow-y: auto;
-}
+} */
 
 .fw-semibold { font-weight: 600; }
 .lh-tight { line-height: 1.25; }
