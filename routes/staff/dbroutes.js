@@ -40,6 +40,30 @@ router.get('/patient', async (req, res) => {
     }
 })
 
+// Create patient
+router.put('/patient', async (req, res) => {
+    try {
+        const result = await db.pool.query(`INSERT INTO PatientTable(pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat_allergy,pat_insurance,pat_address,pat_pcp)
+        VALUES(?,?,?,?,?,?,?,?,?)`,[
+            req.body.pat_name,
+            req.body.pat_sex,
+            req.body.pat_email,
+            req.body.pat_phone,
+            req.body.pat_DoB,
+            req.body.pat_allergy,
+            req.body.pat_insurance,
+            req.body.pat_address,
+            req.body.pat_pcp,
+        ]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
 // Update patient
 router.post('/patient', async (req, res) => {
     try {
@@ -101,6 +125,66 @@ router.get('/clinic', async (req, res) => {
         * 
         FROM 
         LocationTable`);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// Update clinic
+router.post('/clinic', async (req, res) => {
+    try {
+        const result = await db.pool.query(`UPDATE LocationTable
+        SET loc_name=?,
+        loc_dep=?,
+        loc_address=?
+        WHERE
+        loc_id=?`,[
+            req.body.loc_name,
+            req.body.loc_dep,
+            req.body.loc_address,
+            req.body.loc_id
+        ]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// Create clinic
+router.put('/clinic', async (req, res) => {
+    try {
+        const result = await db.pool.query(`INSERT INTO LocationTable(loc_name,loc_dep,loc_address)
+        VALUES(?,?,?)`,[
+            req.body.loc_name,
+            req.body.loc_dep,
+            req.body.loc_address,
+        ]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
+// Delete clinic
+router.delete('/clinic', async (req, res) => {
+    try {
+        const result = await db.pool.query(`DELETE 
+        FROM 
+        LocationTable 
+        WHERE 
+        loc_id=?`,[
+            req.body.loc_id
+        ]);
         
         console.log(result);
         res.send(result);
