@@ -65,6 +65,31 @@ window.onload = function() {
       refreshStaffForm();
     }
 
+    const reportDates = $("#report_dates");
+    if(reportDates){
+      const report2button = document.getElementById("report2button");
+      const report3button = document.getElementById("report3button");
+      report2button.addEventListener('click', function(e) {
+        e.preventDefault();  
+        const dates = {date_start: $("#date_start").val(), date_end: $("#date_end").val()};
+        // console.log(dates);
+        if (Date.parse(dates["date_start"]) > Date.parse(dates["date_end"])) {
+          alert("Beginning date is greater than end date!");
+        } else {
+          getReport2(dates);
+        }
+      });
+      report3button.addEventListener('click', function(e) {
+        e.preventDefault();  
+        const dates = {date_start: $("#date_start").val(), date_end: $("#date_end").val()};
+        if (Date.parse(dates["date_start"]) > Date.parse(dates["date_end"])) {
+          alert("Beginning date is greater than end date!");
+        } else {
+          getReport3(dates);
+        }
+      });
+    }
+
 }
 
   function patientFormClear() {
@@ -559,3 +584,79 @@ window.onload = function() {
         "</tr>");
     }
   }
+
+  async function getReport2(JSONObject){    
+      const request = await fetch(window.location.origin + '/staff/db/report2?date_start=' + JSONObject["date_start"] + '&date_end=' + JSONObject["date_end"],  {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(JSONObject)
+      }).then(response => {
+        if (!response.ok) {
+          response.text().then(err => {
+            alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+          })  
+        }
+        return response.text();
+      }).then(body => {
+        console.log(body);
+        // body = JSON.parse(body);
+        document.getElementById("report2_results").innerHTML = createTable(JSON.parse(body)).innerHTML;
+        document.getElementById("report2_results").className = "table";
+      });
+  }
+
+  async function getReport3(JSONObject){
+    const request = await fetch(window.location.origin + '/staff/db/report3?date_start=' + JSONObject["date_start"] + '&date_end=' + JSONObject["date_end"],  {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      // body: JSON.stringify(JSONObject)
+    }).then(response => {
+      if (!response.ok) {
+        response.text().then(err => {
+          alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+        })  
+      }
+      return response.text();
+    }).then(body => {
+      // body = JSON.parse(body);
+      document.getElementById("report3_results").innerHTML = createTable(JSON.parse(body)).innerHTML;
+      document.getElementById("report3_results").className = "table";
+    });
+  }
+
+  function createTable(table_data) {
+    var table = document.createElement('table'), tr, td, row, cell;
+    table.className = "table";
+
+    //Create inital header row for table - Shamee
+    row_header = table_data[0]
+    thead = document.createElement('thead');
+    tr = document.createElement('tr');
+
+    for (key in row_header){
+            td = document.createElement('td');
+            tr.appendChild(td);
+            td.innerHTML = key;
+    }
+    thead.appendChild(tr);
+    table.appendChild(thead);
+
+    //Now fill in the rest of the data - Shamee
+    tbody = document.createElement('tbody');
+    for (row = 0; row < table_data.length; row++) {
+        tr = document.createElement('tr');
+        row_data = table_data[row];
+        for (key in row_data){
+          td = document.createElement('td');
+          tr.appendChild(td);
+          td.innerHTML = row_data[key];
+        }
+        tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+    return table;
+}

@@ -9,7 +9,7 @@
     <meta name="author" content="">
 
     <title>Generate Reports</title>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="/js/staff/staffactions.js"></script>
     <script src="/js/signout.js"></script>
     <script src="/js/sidebars.js"></script>
@@ -24,59 +24,84 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
+
     <!-- Custom styles for this template -->
-    <link href="/css/signin.css" rel="stylesheet">
+    <link href="/css/sidebars.css" rel="stylesheet">
+    <link href="/css/settings.css" rel="stylesheet">
 
   </head>
 
   <body>
     <div class="fixed-top"></div>
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info" style="width: 280px;">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-        <span class="fs-4"><strong>Menu</strong></span>
-      </a>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <!-- <li>
-            <strong> DOCTORS ONLY: </strong>
-        </li> -->
-        <li class="nav-item">
-          <a href="/staff/generatereport" class="nav-link link-dark"> Reports </a>
-        </li>
-        <li>
-          <a href="/staff/editpatientinfo" class="nav-link link-dark"> Edit Patient Info </a>
-        </li>
-        <li>
-          <a href="/staff/editclinicinfo" class="nav-link link-dark"> Edit Clinic Info </a>
-        </li>
-        <li>
-          <a href="/staff/editstaffinfo" class="nav-link link-dark"> Edit Staff Info </a>
-        </li>
-      </ul>
-      <hr>
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-            
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-            </svg>
-            <strong>&emsp;Username</strong>
-        </a>
-        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-          <!-- <li><a class="dropdown-item" href="/staff/viewprofile">View Profile</a></li> -->
-          <!-- <li><a class="dropdown-item" href="/staff/editprofile">Edit Profile</a></li>
-          <li><hr class="dropdown-divider"></li> -->
-          <li><a class="dropdown-item" href="#" id="signout">Sign out</a></li>
-        </ul>
+    <main>
+      <div class="container" style="width: 25%;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <span class="fs-4"><strong>Menu</strong></span>
+          </a>
+          <hr>
+          <ul class="nav nav-pills flex-column mb-auto">
+            <!-- <li>
+                <strong> DOCTORS ONLY: </strong>
+            </li> -->
+            <li class="nav-item">
+              <a href="/staff/generatereport" class="nav-link link-dark"> Reports </a>
+            </li>
+            <li>
+              <a href="/staff/editpatientinfo" class="nav-link link-dark"> Edit Patient Info </a>
+            </li>
+            <li>
+              <a href="/staff/editclinicinfo" class="nav-link link-dark"> Edit Clinic Info </a>
+            </li>
+            <li>
+              <a href="/staff/editstaffinfo" class="nav-link link-dark"> Edit Staff Info </a>
+            </li>
+          </ul>
+          <hr>
+          <div class="dropdown">
+            <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                </svg>
+                <strong>&emsp;Username</strong>
+            </a>
+            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+              <!-- <li><a class="dropdown-item" href="/staff/viewprofile">View Profile</a></li> -->
+              <!-- <li><a class="dropdown-item" href="/staff/editprofile">Edit Profile</a></li>
+              <li><hr class="dropdown-divider"></li> -->
+              <li><a class="dropdown-item" href="#" id="signout">Sign out</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="container">
-        <p>Your auth works, and you got to the staff portal. Wow!</p>
-        <!-- <div class="centered-button" style="padding-top:10%">
-          <button class="btn btn-lg btn-primary btn-block" type="submit" id="signout">Sign out</button>
-        </div> -->
-    </div> <!-- /container -->
+      <div class="container">
+        <div id="report_dates">
+          <div class="column">
+            <label for="date_start">Start Date</label>
+            <input type="date" name="date_start" id="date_start" class="form-control" required autofocus>
+          </div>
+          <div class="column">
+            <label for="date_end">End Date</label>
+            <input type="date" name="date_end" id="date_end" class="form-control" required autofocus>
+          </div>
+        </div>
+        <div class="row">
+          <label for="report2button" class="sr-only">Generate report of medicines prescribed from Start and End Date.</label>
+          <button id="report2button" class="btn btn-lg btn-primary btn-block">Generate Report 2</button>      
+          <table id="report2_results"></table>
+        </div>
+        <div class="row">
+          <label for="report3button" class="sr-only">Generate report of appointments scheduled per clinic from Start and End Date.</label>
+          <button id="report3button" class="btn btn-lg btn-primary btn-block">Generate Report 3</button>
+    
+          <table id="report3_results"></table>
+        </div>
+      </div>
+
+
+    </main>
     <div class="fixed-bottom"></div>
   </body>
 </html>

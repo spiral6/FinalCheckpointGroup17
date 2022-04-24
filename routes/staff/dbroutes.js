@@ -275,10 +275,15 @@ router.delete('/clinic', async (req, res) => {
 // Report 2
 router.get('/report2', async (req, res) => {
     try {
-        const result = await db.pool.query(``,
+        const result = await db.pool.query(`SELECT 
+        med_name as 'Medicine Name', 
+        COUNT(*) as 'Number of Prescriptions' 
+        FROM PrescriptionTable 
+        WHERE rx_start >= ? AND rx_start <= ? 
+        GROUP BY med_name;`,
         [
-            req.body.date_start,
-            req.body.date_end
+            req.query.date_start,
+            req.query.date_end
         ]);
         
         console.log(result);
@@ -292,10 +297,14 @@ router.get('/report2', async (req, res) => {
 // Report 3
 router.get('/report3', async (req, res) => {
     try {
-        const result = await db.pool.query(``,
+        const result = await db.pool.query(`SELECT loc_name as 'Location Name', COUNT(*) as 'Number of Appointments' 
+        FROM AppointmentTable 
+        INNER JOIN LocationTable ON AppointmentTable.loc_id = LocationTable.loc_id
+        WHERE app_time >= ? AND app_time <= ?
+        GROUP BY loc_name;`,
         [
-            req.body.date_start,
-            req.body.date_end
+            req.query.date_start,
+            req.query.date_end
         ]);
         
         console.log(result);
