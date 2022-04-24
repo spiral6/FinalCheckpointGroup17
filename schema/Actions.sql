@@ -182,3 +182,13 @@ GROUP BY ScheduleTable.staff_id, loc_name
 -------------------------------------------------------------------------------------------------------------
 
 -- Administrator custom view:
+
+-- Report 2: View monthly report of a medicine being prescribed X times (WIP) (add date filter)
+SELECT med_name as 'Medicine Name', COUNT(*) as 'Number of Prescriptions' FROM PrescriptionTable WHERE rx_start >= '1979-01-01' AND rx_start <= '2023-01-01' GROUP BY med_name;
+
+-- Report 3: View report of appointments per clinic
+SELECT loc_name as 'Location Name', COUNT(*) as 'Number of Appointments' 
+FROM AppointmentTable 
+INNER JOIN LocationTable ON AppointmentTable.loc_id = LocationTable.loc_id
+WHERE app_time >= '1979-01-01' AND app_time <= '2023-01-01' 
+GROUP BY loc_name;
