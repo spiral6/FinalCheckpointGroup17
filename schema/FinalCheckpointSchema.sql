@@ -15,7 +15,6 @@ staff_email VARCHAR(100) NOT NULL,
 staff_phone VARCHAR(15) NOT NULL, -- Not recommended to use phone number as int.
 staff_DoB DATE NOT NULL,
 staff_address VARCHAR(200),
--- loc_id INT NOT NULL, -- Foreign Key with loc_id in LocationTable 
 staff_salary FLOAT,
 staff_occupation VARCHAR(100) NOT NULL,
 doc_specialty VARCHAR(100), -- Their specialty field

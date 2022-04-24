@@ -275,6 +275,21 @@ router.get('/pendingappointments', async (req, res) => {
     }
 })
 
+// Approve pending appointments
+router.post('/pendingappointments', async (req, res) => {
+    try {
+        const result = await db.pool.query(`UPDATE AppointmentTable SET app_status=0 WHERE app_id=?`,[
+            req.body.app_id
+        ]);
+        
+        console.log(result);
+        res.send(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err);
+    }
+})
+
 // Cancel appointment
 router.delete('/appointment', async (req, res) => {
     try {
