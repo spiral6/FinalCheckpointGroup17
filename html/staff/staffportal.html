@@ -14,6 +14,8 @@
     <script src="/js/signout.js"></script>
     <script src="/js/sidebars.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="/js/ie10-viewport-bug-workaround.js"></script>
 
 
     <!-- Bootstrap core CSS -->
@@ -28,9 +30,7 @@
   </head>
 
   <body>
-    <div class="fixed-top">
-      <br>
-    </div>
+    <div class="fixed-top"></div>
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-light border border-info" style="width: 280px;">
       <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
         <span class="fs-4"><strong>Menu</strong></span>
@@ -41,19 +41,16 @@
             <strong> DOCTORS ONLY: </strong>
         </li> -->
         <li class="nav-item">
+          <a href="/staff/generatereport" class="nav-link link-dark"> Reports </a>
+        </li>
+        <li>
           <a href="/staff/editpatientinfo" class="nav-link link-dark"> Edit Patient Info </a>
         </li>
         <li>
-          <a href="/staff/editdoctorinfo" class="nav-link link-dark"> Edit Doctor Info </a>
+          <a href="/staff/editclinicinfo" class="nav-link link-dark"> Edit Clinic Info </a>
         </li>
         <li>
-          <a href="/staff/viewschedule" class="nav-link link-dark"> View Schedule </a>
-        </li>
-        <li>
-          <a href="/staff/generatereport" class="nav-link link-dark"> Generate Report </a>
-        </li>
-        <li>
-          <a href="/staff/viewpayroll" class="nav-link link-dark"> View Payroll </a>
+          <a href="/staff/editstaff" class="nav-link link-dark"> Edit Staff Info </a>
         </li>
       </ul>
       <hr>
@@ -74,18 +71,12 @@
         </ul>
       </div>
     </div>
-</div>
     <div class="container">
         <p>Your auth works, and you got to the staff portal. Wow!</p>
-        <div class="centered-button" style="padding-top:10%">
+        <!-- <div class="centered-button" style="padding-top:10%">
           <button class="btn btn-lg btn-primary btn-block" type="submit" id="signout">Sign out</button>
-        </div>
+        </div> -->
     </div> <!-- /container -->
-    <div class="fixed-bottom">
-          <br>
-    </div>
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    <div class="fixed-bottom"></div>
   </body>
 </html>
