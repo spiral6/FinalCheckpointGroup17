@@ -1,4 +1,4 @@
-# Checkpoint-4-Group-17
+# Final Checkpoint Group 17
 This is a Node.JS front-end.
 
 ## Installation
