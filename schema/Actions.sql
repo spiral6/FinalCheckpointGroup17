@@ -56,24 +56,7 @@ INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id)
 WHERE doc_id=?;
 
 -- Cancel appointment (get doc_id from cookies, get app_id from selection), if 1 row changed, send an email.
-UPDATE AppointmentTable 
-SET app_cancelled=1 WHERE pat_id=? AND app_id=?;
-
-CREATE Trigger SendEmailPatient
-ON Table AppointmentTable
-AFTER UPDATE
-BEGIN 
-    IF(SELECT app_cancelled FROM AppointmentTable WHERE app_id=NEW.app_id AND app_cancelled=1) THEN
-        SELECT app_id,app_time,PatientTable.pat_name,PatientTable.pat_email
-        FROM ((AppointmentTable
-        INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id)
-        INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id)
-        WHERE staff_id=NEW.staff_id
-    ELSE
-        SET email_msg = concat('Unable to cancel appointment (Doctor route).', cast(dtype as char))
-        SIGNAL SQLSTATE '45000' set message_text = email_msg
-    END IF
-END;
+UPDATE AppointmentTable WHERE pat_id=? AND app_id=?;
 
 -------------------------------------------------------------------------------------------------------------
 
@@ -88,6 +71,21 @@ SELECT loc_city, loc_name, loc_dep FROM LocationTable;
 -- Edit profile info (get pat_id from cookies)
 UPDATE PatientTable 
 SET pat_name=?, pat_sex=?, pat_phone=?, pat_insurance=?, pat_address=? WHERE pat_id=?;
+
+DELIMITER //
+CREATE Trigger UpdateEmail BEFORE UPDATE 
+ON PatientTable FOR EACH ROW
+
+BEGIN
+
+  UPDATE UserTable
+  SET user_email = NEW.pat_email
+  WHERE
+  user_email = OLD.pat_email;
+  
+END //
+
+DELIMITER ;
 
 -- List appointments (get pat_id from cookies)
 SELECT app_id,app_time,LocationTable.loc_name,StaffTable.staff_name 
@@ -120,24 +118,7 @@ END //
 DELIMITER ;
 
 -- Cancel appointment (get pat_id from cookies, get app_id from selection), if 1 row changed, send an email.
-UPDATE AppointmentTable 
-SET app_cancelled=1 WHERE pat_id=? AND app_id=?;
-
-CREATE Trigger SendEmailDoctor
-ON Table AppointmentTable
-AFTER UPDATE
-BEGIN 
-    IF(SELECT app_cancelled FROM AppointmentTable WHERE app_id=NEW.app_id AND app_cancelled=1) THEN
-        SELECT app_id,app_time,StaffTable.staff_name,StaffTable.staff_email 
-        FROM ((AppointmentTable
-        INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id)
-        INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id)
-        WHERE pat_id=NEW.pat_id
-    ELSE
-        SET email_msg = concat('Unable to cancel appointment (Patient route).', cast(dtype as char))
-        SIGNAL SQLSTATE '45000' set message_text = email_msg
-    END IF
-END;
+DELETE FROM AppointmentTable WHERE pat_id=? AND app_id=?;
 
 -------------------------------------------------------------------------------------------------------------
 

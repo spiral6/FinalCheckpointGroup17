@@ -243,7 +243,7 @@ router.get('/appointment', async (req, res) => {
                 INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) 
                INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) 
               INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) 
-        WHERE doc_id=? AND app_status=0;`,[
+        WHERE doc_id=? AND app_status=0 ORDER BY app_time DESC;`,[
             req.cookies['doc_id']
         ]);
         
@@ -263,7 +263,7 @@ router.get('/pendingappointments', async (req, res) => {
                 INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) 
                INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) 
               INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) 
-        WHERE app_status=2 AND pat_pcp=?;`,[
+        WHERE app_status=2 AND pat_pcp=? ORDER BY app_time DESC;`,[
             req.cookies['doc_id']
         ]);
         

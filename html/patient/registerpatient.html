@@ -12,6 +12,7 @@
 
     <script src="/js/patient/registerpatient.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -61,6 +62,10 @@
         </div>
         <label for="inputPhone" class="sr-only">Phone</label>
         <input type="tel" id="inputPhone" class="form-control" placeholder="Phone number" name="pat_phone" required autofocus>
+        <label for="staff_name" class="sr-only">Doctor</label>
+          <select placeholder="Select Doctor" id="doctor_select" name="staff_name" class="form-control" style="width:100%;-webkit-appearance: menulist;">
+          <option></option>
+        </select>
         <label for="inputEmail" class="sr-only">Email</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email" name="user_email" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>

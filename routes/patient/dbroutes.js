@@ -20,14 +20,19 @@ router.post('/signup', async (req, res) => {
                     req.body.user_email,
                     req.body.user_password
                 ]);
-                await connection.batch("INSERT INTO PatientTable(pat_name,pat_email,pat_sex,pat_phone,pat_DoB) VALUES(?,?,?,?,?)",[
+                await connection.batch(`
+                INSERT INTO PatientTable(pat_name,pat_email,pat_sex,pat_phone,pat_DoB,pat_pcp) 
+                VALUES(?,?,?,?,?,(SELECT staff_id FROM StaffTable WHERE staff_name=?))`,[
                     req.body.pat_name,
                     req.body.user_email,
                     req.body.pat_sex,
                     req.body.pat_phone,
-                    req.body.pat_DoB
+                    req.body.pat_DoB,
+                    req.body.staff_name
                 ]);
                 const pat_id_check = await connection.query("SELECT pat_id FROM PatientTable WHERE pat_email=?",[req.body.user_email]);
+
+                console.log(pat_id_check);
 
                 if(pat_id_check) {
                     console.log(pat_id_check[0]);
@@ -135,28 +140,44 @@ router.put('/profile', async (req, res) => {
         if(req.body.user_password){
             addPasswordToQueryString = ', UserTable.user_password=?';
             user_passwordArr = [req.body.user_password];
-        }
-        let payload = [
-            req.body.pat_phone,
-            req.body.pat_insurance,
-            req.body.pat_address,
-            req.body.pat_email,
-            req.body.pat_email].concat(user_passwordArr,[req.cookies['pat_id']]);
+            let payload = [
+                req.body.pat_phone,
+                req.body.pat_insurance,
+                req.body.pat_address,
+                req.body.pat_email,
+                req.body.pat_email].concat(user_passwordArr,[req.cookies['pat_id']]);  
+                
+            const result = await db.pool.query(`
+            UPDATE PatientTable, UserTable
+            SET PatientTable.pat_phone=?, 
+            PatientTable.pat_insurance=?, 
+            PatientTable.pat_address=?, 
+            PatientTable.pat_email=?, 
+            UserTable.user_email=?` + addPasswordToQueryString + 
+            `WHERE PatientTable.pat_id = UserTable.pat_id 
+            AND PatientTable.pat_id=?;`,payload);
 
-        console.log(payload);
+            console.log(result);
+            res.send(result);
+        }
+        else {
+            let payload = [
+                req.body.pat_phone,
+                req.body.pat_insurance,
+                req.body.pat_address,
+                req.body.pat_email].concat([req.cookies['pat_id']]);    
+            const result = await db.pool.query(`
+            UPDATE PatientTable
+            SET PatientTable.pat_phone=?, 
+            PatientTable.pat_insurance=?, 
+            PatientTable.pat_address=?, 
+            PatientTable.pat_email=? 
+            WHERE PatientTable.pat_id=?;`,payload);
         
-        const result = await db.pool.query(`
-        UPDATE PatientTable, UserTable
-        SET PatientTable.pat_phone=?, 
-        PatientTable.pat_insurance=?, 
-        PatientTable.pat_address=?, 
-        PatientTable.pat_email=?, 
-        UserTable.user_email=?` + addPasswordToQueryString + 
-        `WHERE PatientTable.pat_id = UserTable.pat_id 
-        AND PatientTable.pat_id=?;`,payload);
-        
-        console.log(result);
-        res.send(result);
+            console.log(result);
+            res.send(result);
+        }
+
     } catch (err) {
                 console.error(err);
         res.status(500).send(err);
@@ -173,7 +194,7 @@ router.get('/appointment', async (req, res) => {
             INNER JOIN LocationTable ON AppointmentTable.loc_id=LocationTable.loc_id) 
             INNER JOIN StaffTable ON AppointmentTable.doc_id=StaffTable.staff_id) 
             INNER JOIN PatientTable ON AppointmentTable.pat_id=PatientTable.pat_id) 
-        WHERE PatientTable.pat_id=?;`,[
+        WHERE PatientTable.pat_id=? ORDER BY app_time DESC;`,[
             req.cookies['pat_id']
         ]);
         

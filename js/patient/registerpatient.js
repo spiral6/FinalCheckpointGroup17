@@ -27,7 +27,38 @@ async function SignUp(JSONObject){
     )
 }
 
+async function getDoctorNames(){
+    const request = await fetch(window.location.origin + '/patient/db/getDoctor',  {
+        method: 'get',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify(JSONObject)
+      }).then(response => {
+        if (!response.ok) {
+          response.text().then(err => {
+            alert(`HTTP error: ${response.status} \n${JSON.parse(err).text}`);
+          })  
+        }
+        return response.text();
+      }).then(body => {
+        // alert("Successfully retrieved Doctors!")
+        console.log(JSON.parse(body));
+        body = JSON.parse(body);
+        for(const row in body){
+            $("#doctor_select").append("<option>" + body[row].staff_name + "</option>");
+            $("#find_doctorselect").append("<option>" + body[row].staff_name + "</option>");
+        }
+      });
+}
+
 window.onload = function() { 
+    
+    const viewDoctorInfoButton = document.getElementById('doctor_select');
+    if(viewDoctorInfoButton){
+        getDoctorNames();
+    }
+
     PatientSignupForm = document.querySelector("form[name=patient_register_form]")
     PatientSignupForm.addEventListener('submit', function(e) {
         e.preventDefault()
@@ -49,5 +80,6 @@ window.onload = function() {
         }
 
         SignUp(PatientSignupFormDataObject);
-    })
+    });
+    
 };
