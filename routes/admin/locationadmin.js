@@ -46,7 +46,7 @@ router.put('/db/insert', async (req, res) => {
     console.log(req.body);
     console.log("end req obj");
     try {
-        const result = await db.pool.query("REPLACE INTO LocationTable(loc_id, loc_city, loc_name, loc_dep) VALUES(?, ?, ?, ?)", [req.body.loc_id, req.body.loc_city, req.body.loc_name, req.body.loc_dep]);
+        const result = await db.pool.query("REPLACE INTO LocationTable(loc_id,  loc_name, loc_dep) VALUES(?, ?, ?, ?)", [req.body.loc_id, req.body.loc_name, req.body.loc_dep]);
 
 
         console.log(result);
