@@ -107,7 +107,7 @@ router.get('/getDoctor', async (req, res) => {
 // List clinics
 router.get('/clinic', async (req, res) => {
     try {
-        const result = await db.pool.query("SELECT loc_city, loc_name, loc_dep, loc_address FROM LocationTable;");
+        const result = await db.pool.query("SELECT loc_name, loc_dep, loc_address FROM LocationTable;");
         
         console.log(result);
         res.send(result);

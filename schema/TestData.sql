@@ -9,9 +9,9 @@ INSERT INTO StaffTable(staff_id,staff_name,staff_sex,staff_email,staff_phone,loc
 INSERT INTO StaffTable(staff_id,staff_name,staff_sex,staff_email,staff_phone,loc_id,staff_salary,staff_occupation,doc_specialty,doc_perms) VALUES (8989,'James Taylor','male','jtaylor@email.com','713-888-9999',2,55000,'DATABASE ADMINISTRATOR',NULL,NULL);
 
 -- LocationTable
-INSERT INTO LocationTable(loc_id,loc_city,loc_name,loc_dep) VALUES (1,'Houston','Clinic A',NULL);
-INSERT INTO LocationTable(loc_id,loc_city,loc_name,loc_dep) VALUES (2,'Cypress','Clinic B',NULL);
-INSERT INTO LocationTable(loc_id,loc_city,loc_name,loc_dep) VALUES (3,'Spring','Clinic C','Surgery');
+INSERT INTO LocationTable(loc_id,loc_name,loc_dep) VALUES (1,'Houston','Clinic A',NULL);
+INSERT INTO LocationTable(loc_id,loc_name,loc_dep) VALUES (2,'Cypress','Clinic B',NULL);
+INSERT INTO LocationTable(loc_id,loc_name,loc_dep) VALUES (3,'Spring','Clinic C','Surgery');
 
 -- PatientTable
 INSERT INTO PatientTable(pat_id,pat_name,pat_sex,pat_email,pat_phone,pat_DoB,pat_height,pat_weight,pat_insurance,pat_address,pat_allergy,pat_pcp) VALUES (1111,'Dummy Patient','male','dummypatient@email.com','713-111-1111','1965-01-09',175.3,220,'United Healthcare Insurance Company','731 Fondren, Houston, TX','ibuprofen',1212);
